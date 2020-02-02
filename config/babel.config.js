@@ -6,7 +6,7 @@ const defaultImport = {
   antd: {
     style: true
   },
-  'react-admin/components': {
+  'react-admin-core/components': {
     libraryDirectory: '',
     camel2DashComponentName: false
   },

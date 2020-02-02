@@ -8,7 +8,7 @@ module.exports = {
    react-admin
    */
   // react-admin工程发布的npm包名称
-  reactAdminNpmName: 'react-admin',
+  reactAdminNpmName: 'react-admin-core',
   // react-admin包安装后可在package.json中执行的命令的名字
   reactAdminScriptName: 'react-admin'
 }
