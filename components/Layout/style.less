@@ -1,0 +1,37 @@
+.admin_layout {
+  min-height: 100vh;
+  .layout_sidebar {
+    position: fixed;
+    height: 100vh;
+    left: 0;
+    top: 0;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    &:hover {
+      overflow-y: auto;
+    }
+    .layout_logo {
+      height: 60px;
+      color: #fff;
+    }
+    .layout_menu {
+    }
+  }
+  .layout_wrap {
+    .layout_header {
+      padding: 0;
+      background: #fff;
+      line-height: normal;
+      height: 60px;
+      box-shadow: 0 0 10px rgba(51, 51, 51, 0.25);
+    }
+    .layout_content {
+      overflow: initial;
+    }
+    .layout_footer {
+      padding: 0;
+      background: #fff;
+      height: 60px;
+    }
+  }
+}

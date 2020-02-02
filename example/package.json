@@ -1,0 +1,15 @@
+{
+  "name": "hlj-core",
+  "private": true,
+  "scripts": {
+    "start": "node ../bin/index start",
+    "build": "node ../bin/index build"
+  },
+  "prettier": {
+    "semi": false,
+    "singleQuote": true,
+    "tabWidth": 2,
+    "printWidth": 100
+  },
+  "dependencies": {}
+}
