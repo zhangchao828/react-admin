@@ -51,7 +51,13 @@ async function checkServerVer(serverNpmName) {
   const currentVer = getServerVerInNodeModules(serverNpmName)
   // 检查工程的package.json里的版本
   const pkgJson = require(__packageJson)
-  const pkgServerVer = pkgJson.devDependencies[serverNpmName]
+  const { dependencies = {}, devDependencies = {} } = pkgJson
+  let pkgServerVer = null
+  if (serverNpmName in dependencies) {
+    pkgServerVer = dependencies[serverNpmName]
+  } else if (serverNpmName in devDependencies) {
+    pkgServerVer = devDependencies[serverNpmName]
+  }
   try {
     const lastStableVer = getLastStableVer(serverNpmName)
     if (!lastStableVer) {
