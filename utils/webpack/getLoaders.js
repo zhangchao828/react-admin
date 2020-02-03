@@ -1,4 +1,4 @@
-const { publicPath } = require('../hlj/getHljConfig')()
+const { publicPath, eslint } = require('../hlj/getHljConfig')()
 const babelOptions = require('../../config/babel.config')
 const styleLoaders = require('./styleLoaders')()
 const { join } = require('path')
@@ -9,7 +9,7 @@ const adminNMPath = join(reactAdminNpmName + '/node_modules')
 const isBuild = isBuildMode()
 module.exports = function() {
   return [
-    ...(isBuild
+    ...(isBuild || !eslint
       ? []
       : [
           {

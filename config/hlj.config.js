@@ -21,6 +21,7 @@ module.exports = {
   externals: null,
   sourceMap: false,
   entry: null,
+  eslint: true,
   alias: {},
   babel: null,
   webpack: null
