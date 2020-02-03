@@ -1,6 +1,6 @@
 {
   "name": "react-admin-core",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "react-admin",
   "main": "index.ts",
   "module": "index.ts",

@@ -24,7 +24,7 @@ module.exports = function(app, proxy) {
         return pathname.indexOf('/HLJ-API') === 0
       },
       {
-        target: 'http://dev.hunliji.com',
+        target: 'http://www.example.com',
         changeOrigin: true,
         pathRewrite(path) {
           const [s, t, ...rest] = path.split('_/_')
