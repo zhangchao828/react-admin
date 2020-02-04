@@ -179,6 +179,21 @@ module.exports = {
   // webpack的output.publicPath
   publicPath: './',
   // webpack的resolve.alias设置别名
-  alias: {}
+  alias: {},
+  // webpack的externals配置
+  externals: {
+    react: {
+      name: 'React',
+      cdn: '//unpkg.com/react@16.12.0/umd/react.production.min.js'
+    },
+    'react-dom': {
+      name: 'ReactDOM',
+      cdn: '//unpkg.com/react-dom@16.12.0/umd/react-dom.production.min.js'
+    },
+    'react-router-dom': {
+      name: 'ReactRouterDOM',
+      cdn: '//unpkg.com/react-router-dom@5.1.2/umd/react-router-dom.min.js'
+    }
+  }
 }
 ```

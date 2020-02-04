@@ -14,11 +14,11 @@ module.exports = function() {
       'react-router-dom': {
         name: 'ReactRouterDOM',
         cdn: '//unpkg.com/react-router-dom@5.1.2/umd/react-router-dom.min.js'
-      },
-      axios: {
-        name: 'axios',
-        cdn: '//unpkg.com/axios@0.18.1/dist/axios.min.js'
       }
+      // axios: {
+      //   name: 'axios',
+      //   cdn: '//unpkg.com/axios@0.18.1/dist/axios.min.js'
+      // }
     },
     externals
   )
