@@ -117,3 +117,28 @@ export default function(props) {
   )
 }
 ```
+
+## 嵌套路由
+
+react-admin 只会根据 pages 目录下的第一级目录自动生成对应路由，即：
+
+- 访问/ 对应 /pages/index
+- 访问/demo 对应 /pages/demo
+- 访问/demo/test 还是对应 /pages/demo
+
+如果要设置嵌套路由，比如/demo/test，那么只需要修改/pages/demo/index.js 的代码如下
+
+```jsx harmony
+// pages/demo/index.js
+import React from 'react'
+import { Route, Switch } from 'react-router-dom'
+
+export default function() {
+  return (
+    <Switch>
+      <Route exact path="/demo" component={() => 'demo-home'} />
+      <Route path="/demo/test" component={() => 'demo-test'} />
+    </Switch>
+  )
+}
+```
