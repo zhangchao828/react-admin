@@ -19,20 +19,16 @@ export default function() {
   color: #0080ff;
   text-decoration: underline;
 }
-.container>img {
-  margin-top: 15px;
-}
           `}
       </style>
       <div className="container">
         <a
-          href="http://git.hljnbw.cn/WEB_GROUP/hlj-core/src/branch/master"
+          href="https://github.com/zhangchao828/react-admin"
           target="_blank"
           rel="noopener noreferrer"
         >
-          开发前请仔细阅读婚礼纪前端脚手架使用说明
+          react-admin
         </a>
-        <img src="//qnm.hunliji.com/o_1crog4tkt1pfs15bn3j51elh7839.png" alt="react-m" />
       </div>
     </>
   )
