@@ -160,3 +160,7 @@ export default function() {
   }
 }
 ```
+
+## typescript
+
+默认支持 tsx，直接创建/pages/demo/index.tsx 即可
