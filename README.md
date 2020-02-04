@@ -144,3 +144,19 @@ export default function() {
   )
 }
 ```
+
+## css 预处理器
+
+- css 预处理器目前只支持 less
+
+## cssModules
+
+整个工程中所有的 css 都被 cssModules 化了，如果不需要 cssModules，那么可以添加:global
+
+```less
+:global {
+  .wrap {
+    color: #f00;
+  }
+}
+```
