@@ -78,3 +78,6 @@ npm install react-admin-core react-hot-loader
     return <HashRouter>{children}</HashRouter>
   }
   ```
+
+## 布局layout
+
