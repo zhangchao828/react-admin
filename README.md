@@ -48,4 +48,4 @@ npm install react-admin-core react-hot-loader
 
 - 4.访问 demo 页面
 
-访问http://localhost:3000/demo就会显示pages/demo/index的内容
+访问http://localhost:3000/demo 就会显示 pages/demo/index 的内容
