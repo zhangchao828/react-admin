@@ -4,7 +4,7 @@ const { isBuildMode } = require('../tools/env')
 /**
  * 这里主要是自动注入和初始化一些重要的资源
  */
-const { injectExternals, injectResetStyle } = require('./inject')
+const { injectExternals } = require('./inject')
 function ReplaceHtmlPlugin() {}
 ReplaceHtmlPlugin.prototype.apply = function(compiler) {
   compiler.hooks.compilation.tap('ReplaceHtmlPlugin', compilation => {
@@ -13,7 +13,7 @@ ReplaceHtmlPlugin.prototype.apply = function(compiler) {
       (htmlPluginData, callback) => {
         const $ = cheerio.load(htmlPluginData.html)
         // 注入初始化的css样式
-        injectResetStyle($)
+        // injectResetStyle($)
         if (isBuildMode()) {
           injectExternals($)
         }
