@@ -29,7 +29,6 @@ npm install react-admin-core react-hot-loader
   export default () => '页面demo'
   ```
 
-````
 - 2.在 package.json 中添加命令
 
   ```json
@@ -39,9 +38,9 @@ npm install react-admin-core react-hot-loader
       "build": "react-admin build"
     }
   }
-````
+  ```
 
-- 3.启动工程
+* 3.启动工程
 
   ```shell script
   npm run start
