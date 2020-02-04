@@ -7,8 +7,6 @@ module.exports = {
    */
   publicPath: './',
   proxy: {},
-  // 可以设置哪些目录禁用cssModule
-  cssModuleExcludes: null,
   /*
    打包出来的js和css是否加chunkhash
    true:   index.js->index.2314cdes.js

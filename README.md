@@ -164,3 +164,21 @@ export default function() {
 ## typescript
 
 默认支持 tsx，直接创建/pages/demo/index.tsx 即可
+
+## 工程的全局配置
+
+为了更加灵活的配置工程，可以自定义配置文件 admin.config.js
+
+```javascript
+module.exports = {
+  port: 3000,
+  // 是否启用eslint
+  eslint: true,
+  // http代理，参考http-proxy-middleware
+  proxy: {},
+  // webpack的output.publicPath
+  publicPath: './',
+  // webpack的resolve.alias设置别名
+  alias: {}
+}
+```
