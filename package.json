@@ -1,6 +1,6 @@
 {
   "name": "react-admin-core",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "react-admin",
   "main": "index.ts",
   "module": "index.ts",
@@ -68,7 +68,7 @@
     "eslint-plugin-import": "^2.20.1",
     "eslint-plugin-react": "^7.18.2",
     "eslint-plugin-react-hooks": "^2.3.0",
-    "execa": "^4.0.0",
+    "execa": "1.0.0",
     "express": "^4.16.3",
     "file-loader": "^4.2.0",
     "fs-extra": "^8.1.0",
