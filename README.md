@@ -48,4 +48,33 @@ npm install react-admin-core react-hot-loader
 
 - 4.访问 demo 页面
 
-访问http://localhost:3000/demo 就会显示 pages/demo/index 的内容
+访问http://localhost:3000/#/demo 就会显示 pages/demo/index 的内容
+
+## 入口文件
+
+整个工程的入口文件没有被暴露出来，被内置在 react-admin 中，但是也可以自定义入口文件
+
+- 在 src 目录下新建 index.js 作为入口文件
+
+  ```
+  |-- project
+      |-- src
+          |-- index.js
+  ```
+
+  index.js 中的代码如下
+
+  ```jsx
+  import React from 'react'
+  import { HashRouter } from 'react-router-dom'
+
+  /**
+   * 整个应用的入口文件，在这里可以设置一些初始化的配置、样式等
+   * 比如配置BrowserRouter还是HashRouter(必须二选一)
+   * 比如配置第三方库的 Provider
+   * children必须在BrowserRouter或HashRouter内部
+   */
+  export default function({ children }) {
+    return <HashRouter>{children}</HashRouter>
+  }
+  ```
