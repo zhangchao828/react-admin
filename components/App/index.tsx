@@ -6,7 +6,7 @@ import AppContext from '../AppContext'
 interface AppProps extends LayoutProps {
   loginPage?: string
   isLogin?: () => boolean
-  // 自定义渲染页面
+  // 自定义渲染
   render?: (wrappedPage: ReactNode) => ReactNode
 }
 export default class extends PureComponent<AppProps> {
