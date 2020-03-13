@@ -38,7 +38,7 @@
     "antd": "^3.26.1",
     "mobx": "4.9.3",
     "mobx-react": "^6.1.4",
-    "react-hot-loader": "^4.12.18"
+    "react-hot-loader": "^4.12.19"
   },
   "dependencies": {
     "@babel/core": "^7.8.7",
