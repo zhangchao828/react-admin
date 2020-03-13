@@ -5,11 +5,11 @@ module.exports = function() {
     {
       react: {
         name: 'React',
-        cdn: '//unpkg.com/react@16.12.0/umd/react.production.min.js'
+        cdn: '//unpkg.com/react@16.13.0/umd/react.production.min.js'
       },
       'react-dom': {
         name: 'ReactDOM',
-        cdn: '//unpkg.com/react-dom@16.12.0/umd/react-dom.production.min.js'
+        cdn: '//unpkg.com/react-dom@16.13.0/umd/react-dom.production.min.js'
       },
       'react-router-dom': {
         name: 'ReactRouterDOM',

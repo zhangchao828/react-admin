@@ -12,7 +12,7 @@ module.exports = merge(baseWebpackConfig, {
   output: {
     publicPath: publicPath('output'),
     filename: outputHash ? '[name].[contenthash:8].js' : '[name].js',
-    chunkFilename: outputHash ? '[name].[contenthash:8].js' : '[name].js?[contenthash:8]'
+    chunkFilename: outputHash ? '[name].[contenthash:8].js' : '[name].js'
   },
   performance: {
     hints: false

@@ -7,7 +7,7 @@ module.exports = function() {
   return [
     new MiniCssExtractPlugin({
       filename: outputHash ? '[name].[contenthash:8].css' : '[name].css',
-      chunkFilename: outputHash ? '[name].[contenthash:8].css' : '[name].css?[contenthash:8]',
+      chunkFilename: outputHash ? '[name].[contenthash:8].css' : '[name].css',
       ignoreOrder: false
     }),
     new webpack.HashedModuleIdsPlugin(),

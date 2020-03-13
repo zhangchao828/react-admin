@@ -4,6 +4,7 @@ const { join } = require('path')
 const { outputHash } = require('../hlj/getHljConfig')()
 const ReplaceHtmlPlugin = require('./replaceHtmlPlugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const HardSourceWebpackPlugin = require('hard-source-webpack-plugin')
 
 module.exports = function() {
   const isBuild = isBuildMode()
@@ -29,6 +30,7 @@ module.exports = function() {
           }
         : {})
     }),
+    new HardSourceWebpackPlugin(),
     new ReplaceHtmlPlugin()
   ]
 }
