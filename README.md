@@ -4,6 +4,7 @@
 
 ```shell script
 npm install react-admin-core react-hot-loader
+
 # react-hot-loader 是为了热更新需要（在没有更好的方式前先用这个）
 ```
 
