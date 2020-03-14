@@ -190,7 +190,7 @@ module.exports = {
         object: 'System',
         property: 'import',
         message:
-            'Please use import() instead. More info: https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md#code-splitting'
+          'Please use import() instead. More info: https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md#code-splitting'
       }
     ],
     // 一个const，let 定义一个变量
@@ -207,6 +207,7 @@ module.exports = {
     'import/first': 'error',
     'import/no-amd': 'error',
     'import/no-webpack-loader-syntax': 'error',
+    'import/no-cycle': 0,
 
     // https://github.com/yannickcr/eslint-plugin-react/tree/master/docs/rules
     'react/jsx-no-comment-textnodes': 'warn',

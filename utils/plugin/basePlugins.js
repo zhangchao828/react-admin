@@ -30,7 +30,7 @@ module.exports = function() {
           }
         : {})
     }),
-    new HardSourceWebpackPlugin(),
+    // new HardSourceWebpackPlugin(),
     new ReplaceHtmlPlugin()
   ]
 }
