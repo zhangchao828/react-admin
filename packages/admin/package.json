@@ -1,0 +1,40 @@
+{
+  "name": "@zc/admin",
+  "version": "0.0.1",
+  "description": "react",
+  "main": "index.js",
+  "module": "index.js",
+  "typings": "index.d.ts",
+  "keywords": [
+    "react",
+    "cli",
+    "react-router"
+  ],
+  "author": "zhangchao",
+  "license": "ISC",
+  "bin": {
+    "admin": "bin/index.js"
+  },
+  "scripts": {
+    "build": "father-build build",
+    "prepare": "npm run build"
+  },
+  "files": [
+    "bin",
+    "define",
+    "initialize",
+    "scripts",
+    "builtIn"
+  ],
+  "dependencies": {
+    "@types/react": "^17.0.38",
+    "@types/react-dom": "^17.0.11",
+    "glob": "7.2.0",
+    "less": "4.1.2",
+    "@zc/dev-utils": "0.0.1",
+    "@zc/eslint-config": "0.0.1",
+    "@zc/vite": "0.0.1",
+    "@zc/webpack": "0.0.1",
+    "postcss": "8.4.5"
+  }
+}

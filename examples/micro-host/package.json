@@ -1,0 +1,10 @@
+{
+  "name": "micro-host",
+  "license": "MIT",
+  "scripts": {
+    "start": "admin start",
+    "build": "admin build"
+  },
+  "devDependencies": {},
+  "dependencies": {}
+}

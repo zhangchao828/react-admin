@@ -1,0 +1,11 @@
+.DS_Store
+node_modules
+.idea
+lerna-debug.log
+/**/dist
+/**/.admin
+/**/yarn-error.log
+/**/local.config.js
+.umi
+es
+lib

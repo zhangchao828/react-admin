@@ -1,0 +1,21 @@
+{
+  "name": "@zc/dev-utils",
+  "version": "0.0.1",
+  "description": "react-dev-utils",
+  "keywords": [
+    "react",
+    "cli",
+    "vue"
+  ],
+  "author": "zhangchao",
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "4.1.1",
+    "chokidar": "3.5.2",
+    "detect-port": "1.3.0",
+    "fs-extra": "10.0.0",
+    "mockjs": "1.1.0",
+    "semver": "7.3.5",
+    "shelljs": "0.8.4"
+  }
+}

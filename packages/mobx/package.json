@@ -1,0 +1,21 @@
+{
+  "name": "@zc/mobx",
+  "version": "0.0.1",
+  "description": "utils",
+  "main": "lib/index.js",
+  "module": "es/index.js",
+  "typings": "lib/index.d.ts",
+  "license": "MIT",
+  "scripts": {
+    "build": "father-build build",
+    "prepare": "npm run build"
+  },
+  "files": [
+    "es",
+    "lib"
+  ],
+  "dependencies": {
+    "mobx": "6.3.9",
+    "mobx-react-lite": "3.2.2"
+  }
+}
