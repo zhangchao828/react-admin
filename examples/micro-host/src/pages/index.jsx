@@ -1,4 +1,4 @@
-import { Remote } from 'm100'
+import { Remote } from '@zc/admin'
 
 export default function Index() {
   return (
