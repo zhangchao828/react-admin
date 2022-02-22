@@ -1,3 +1,5 @@
+import { FC } from 'react'
+
 interface AuthConfig {
   authorities?: Array<string | number> | object
 }
@@ -10,4 +12,4 @@ export interface AuthProps {
   children?: any
 }
 export declare function auth(value: AuthValue)
-export declare function Auth(props?: AuthProps)
+export declare const Auth: FC<AuthProps>
