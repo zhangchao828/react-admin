@@ -11,14 +11,14 @@ function longestSubstring(str) {
       if (obj.current.length > obj.old.length) {
         obj.old = obj.current
       }
-      obj.current = str.substring(index, index + 1)
-    } else {
-      obj.current += s
+      obj.current = obj.current.substring(index+1)
     }
+    obj.current += s
     str = str.substring(1)
   }
-  return obj
+  return Math.max(obj.old.length,obj.current.length)
 }
-export default function test() {
-  console.log(longestSubstring('asvvsyu'))
+function test() {
+  console.log(longestSubstring('aabaab!'))
 }
+test()
