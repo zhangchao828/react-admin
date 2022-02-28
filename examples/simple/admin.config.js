@@ -3,7 +3,8 @@ const common = require('../common.config')
 
 module.exports = defineConfig({
   vite: false,
-  https: true,
+  https: false,
   port: 3006,
+  eslint: false,
   ...common,
 })
