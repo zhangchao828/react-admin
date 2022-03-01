@@ -1,5 +1,5 @@
 import { Component } from 'react'
-import test from './longestSubstring'
+import test from './add'
 
 export default class Home extends Component {
   state = {

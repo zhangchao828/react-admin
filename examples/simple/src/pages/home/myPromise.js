@@ -92,33 +92,42 @@ class MyPromise {
     return this.then(null, onRejected)
   }
   resolvePromise(promise, value, resolve, reject) {
-    let called = false
+    // let called = false
+    if (promise === value) {
+      return reject(new TypeError('循环引用'))
+    }
     if (typeof value === 'function' && value.then && typeof value.then === 'function') {
       try {
         const then = value.then
         then.call(
           value,
           (y) => {
-            if (!called) {
-              called = true
-              then.resolvePromise(promise, y, resolve, reject)
-            }
+            // if (!called) {
+            //   called = true
+            //   then.resolvePromise(promise, y, resolve, reject)
+            // }
+            then.resolvePromise(promise, y, resolve, reject)
           },
           (err) => {
-            if (!called) {
-              called = true
-              reject(err)
-            }
+            // if (!called) {
+            //   called = true
+            //   reject(err)
+            // }
+            reject(err)
           }
         )
       } catch (e) {
-        if (!called) {
-          called = true
-          reject(e)
-        }
+        // if (!called) {
+        //   called = true
+        //   reject(e)
+        // }
+        reject(e)
       }
-    } else if (!called) {
-      called = true
+    } else {
+      // if (!called) {
+      //   called = true
+      //   resolve(value)
+      // }
       resolve(value)
     }
   }
@@ -126,8 +135,8 @@ class MyPromise {
 
 export default function test() {
   new MyPromise((resolve) => {
-    const a = {}
-    a.b()
+    // const a = {}
+    // a.b()
     resolve()
   })
     .then(
