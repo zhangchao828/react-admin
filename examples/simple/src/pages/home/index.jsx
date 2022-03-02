@@ -1,12 +1,17 @@
-import { Component } from 'react'
-import test from './myPromise'
+import { useState, useEffect } from 'react'
 
-export default class Home extends Component {
-  state = {
-    name: 'Home',
-  }
-  render() {
-    test()
-    return <div>{this.state.name}</div>
-  }
+export default function Home() {
+  const [num, setNum] = useState(0)
+  console.log('render', num)
+  useEffect(() => {
+    setInterval(() => {
+      setNum(1)
+    }, 1000)
+  }, [])
+  return <Child />
+}
+
+function Child() {
+  console.log('child')
+  return <div>child</div>
 }
