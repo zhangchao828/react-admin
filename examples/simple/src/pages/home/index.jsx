@@ -1,5 +1,5 @@
 import { Component } from 'react'
-import test from './add'
+import test from './myPromise'
 
 export default class Home extends Component {
   state = {

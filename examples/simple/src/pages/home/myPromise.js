@@ -139,21 +139,13 @@ export default function test() {
     // a.b()
     resolve()
   })
-    .then(
-      () => {
-        console.log('then1')
-      },
-      () => {
-        console.log('catch')
-      }
-    )
     .then(() => {
-      console.log('then2')
+      console.log('then1')
+      const a = {}
+      a.b()
     })
     .catch(() => {
-      const obj = {}
       console.log('catch1')
-      obj.test()
     })
     .then(
       () => {
