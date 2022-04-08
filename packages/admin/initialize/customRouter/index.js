@@ -1,25 +1,27 @@
-const { __pages, __localConfig, __projectConfig, __routes } = require('@zc/dev-utils/paths')
+const { __pages, __routes, __customRoutes } = require('@zc/dev-utils/paths')
 const { extname } = require('path')
 const getIndexPath = require('../getIndexPath')
 const fs = require('fs-extra')
 const { join } = require('path')
 const { isDev } = require('@zc/dev-utils/env')
-const project = require('@zc/dev-utils/project')
 const watchFiles = require('@zc/dev-utils/watchFiles')
 
 let lastContent = ``
 function createRoutes() {
   watchRoutes()
-  const { routes: routeConfig } = project.getConfig()
-  if (routeConfig && routeConfig.length) {
-    const { routes, layouts } = getRoutes(routeConfig)
-    const content = routes + layouts
-    const changed = lastContent !== content
-    if (changed || !content) {
-      lastContent = content
-      fs.outputFileSync(
-        __routes,
-        `
+  const customRoutesPath = join(__customRoutes, 'index.js')
+  if (fs.pathExistsSync(customRoutesPath)) {
+    delete require.cache[require.resolve(customRoutesPath)]
+    const routeConfig = require(customRoutesPath)
+    if (routeConfig && routeConfig.length) {
+      const { routes, layouts } = getRoutes(routeConfig)
+      const content = routes + layouts
+      const changed = lastContent !== content
+      if (changed || !content) {
+        lastContent = content
+        fs.outputFileSync(
+          __routes,
+          `
 import { lazy } from 'react'
 
 export const routesMap = {
@@ -29,16 +31,17 @@ export const layoutsMap = {
 ${layouts}
 }
   `.trim()
-      )
-    }
-  } else {
-    fs.outputFileSync(
-      __routes,
-      `
+        )
+      }
+    } else {
+      fs.outputFileSync(
+        __routes,
+        `
 export const routesMap = {}
 export const layoutsMap = {}
   `.trim()
-    )
+      )
+    }
   }
 }
 function getRoutes(routeConfig) {
@@ -129,19 +132,21 @@ function getComponentPath(component, ext) {
 }
 
 let watched = false
-function reCreate() {
-  project.initConfig()
-  createRoutes()
-}
 function watchRoutes() {
   if (!watched && isDev) {
     watched = true
     watchFiles(
-      [__projectConfig, __localConfig],
+      ['**/*.js'],
       {
-        event: ['all'],
+        cwd: __customRoutes,
+        event: 'all',
       },
-      reCreate
+      (m, p) => {
+        if (m === 'change') {
+          delete require.cache[require.resolve(join(__customRoutes, p))]
+        }
+        createRoutes()
+      }
     )
   }
 }

@@ -23,6 +23,7 @@ module.exports = {
   __entry: resolvePath(temporary, 'entry/index.jsx'),
   __entryRelative: `/${temporary}/entry/index.jsx`,
   __routes: resolvePath(`${temporary}/routes.jsx`),
+  __customRoutes: resolvePath('src/routes'),
   __remotes: resolvePath(`${temporary}/remotes.js`),
   __mock: resolvePath('mock'),
 }
