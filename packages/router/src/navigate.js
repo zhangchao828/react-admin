@@ -8,7 +8,7 @@ export default function navigate(to, props) {
         return h.goForward()
       }
       if (to === -1) {
-        return h.goBack
+        return h.goBack()
       }
       h.go(to)
     } else {
