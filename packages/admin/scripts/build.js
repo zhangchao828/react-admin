@@ -1,4 +1,4 @@
-const { getConfig } = require('@zc/dev-utils/project')
+const { getConfig } = require('@zc/shared/project')
 
 const { vite } = getConfig()
 

@@ -13,12 +13,7 @@ interface BuiltInExternals {
   mobx?: boolean
   axios?: boolean
   reactRouter?: boolean
-}
-interface FileRouter {
-  /**
-   *忽略的文件名，不会被当做路由
-   */
-  ignore?: Array<string>
+  react?: boolean
 }
 interface MF {
   /**
@@ -73,17 +68,9 @@ type LessOptions = {
 type ProjectConfig = {
   port?: number
   /**
-   * 是否使用文件系统路由
-   */
-  useFileRouter?: boolean | FileRouter
-  /**
    * 是否启用eslint检测
    */
   eslint?: boolean
-  /**
-   * 是否生成sourceMap文件
-   */
-  sourceMap?: boolean
   /**
    * publicPath路径
    */
@@ -93,10 +80,6 @@ type ProjectConfig = {
    * http代理
    */
   proxy?: object
-  /**
-   * 设置别名
-   */
-  alias?: object
   lessOptions?: LessOptions
   webpack?: WebpackOptions
   vite?: ViteOptions

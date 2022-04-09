@@ -3,7 +3,7 @@ const createSrcIndex = require('./srcIndex')
 const createIndexPage = require('./indexPage')
 const createLayout = require('./layout')
 const fs = require('fs-extra')
-const { __remotes, __routes } = require('@zc/dev-utils/paths')
+const { __remotes, __routes } = require('@zc/shared/paths')
 
 module.exports = function () {
   createIndexHtml()

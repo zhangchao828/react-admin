@@ -1,6 +1,6 @@
 const fs = require('fs-extra')
-const { getConfig } = require('@zc/dev-utils/project')
-const { __routes, __remotes } = require('@zc/dev-utils/paths')
+const { getConfig } = require('@zc/shared/project')
+const { __routes, __remotes } = require('@zc/shared/paths')
 const { ModuleFederationPlugin } = require('webpack').container
 const { mf } = getConfig().webpack
 

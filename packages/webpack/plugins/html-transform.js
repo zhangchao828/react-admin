@@ -1,6 +1,6 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const cheerio = require('cheerio')
-const { isDev } = require('@zc/dev-utils/env')
+const { isDev } = require('@zc/shared/env')
 const optimizeExternals = require('../optimizeExternals')
 const { RUN_TIME, REACT_REFRESH, APP } = require('../constant')
 

@@ -1,15 +1,15 @@
 const { merge } = require('webpack-merge')
 const baseWebpackConfig = require('./webpack.base.config')
-const { getConfig } = require('@zc/dev-utils/project')
-const { env } = require('@zc/dev-utils/env')
+const { getConfig } = require('@zc/shared/project')
+const { env } = require('@zc/shared/env')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
 
-const { sourceMap, publicPath } = getConfig()
+const { publicPath } = getConfig()
 const webpackProdConfig = merge(baseWebpackConfig, {
   mode: 'production',
-  devtool: sourceMap ? 'source-map' : false,
+  devtool: false,
   output: {
     publicPath,
     filename: 'js/[name].[contenthash].js',

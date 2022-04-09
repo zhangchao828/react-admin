@@ -1,7 +1,7 @@
 {
-  "name": "@zc/dev-utils",
+  "name": "@zc/shared",
   "version": "0.0.1",
-  "description": "react-dev-utils",
+  "description": "shared",
   "keywords": [
     "react",
     "cli",

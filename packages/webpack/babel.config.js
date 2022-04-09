@@ -1,4 +1,4 @@
-const { isDev } = require('@zc/dev-utils/env')
+const { isDev } = require('@zc/shared/env')
 const autoCssModules = require('./plugins/auto-css-modules')
 
 // 现在基本都支持基于 ES modules 的 tree shaking,会慢慢去掉了babel-plugin-import

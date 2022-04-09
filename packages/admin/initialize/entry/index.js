@@ -1,7 +1,7 @@
 const { join } = require('path')
-const { __entryDir } = require('@zc/dev-utils/paths')
+const { __entryDir } = require('@zc/shared/paths')
 const fs = require('fs-extra')
-const { getConfig } = require('@zc/dev-utils/project')
+const { getConfig } = require('@zc/shared/project')
 
 const { mf } = getConfig().webpack
 

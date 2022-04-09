@@ -1,8 +1,8 @@
 const babelOptions = require('./babel.config')
-const { __src, __temporary, __admin } = require('@zc/dev-utils/paths')
-const { isDev } = require('@zc/dev-utils/env')
+const { __src, __temporary, __admin } = require('@zc/shared/paths')
+const { isDev } = require('@zc/shared/env')
 const postcssOptions = require('./postcss.config')
-const project = require('@zc/dev-utils/project')
+const project = require('@zc/shared/project')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const path = require('path')
 

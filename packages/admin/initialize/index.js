@@ -1,21 +1,21 @@
 const createRoot = require('./root')
 const createEntry = require('./entry')
-const { isDev } = require('@zc/dev-utils/env')
-const { getConfig } = require('@zc/dev-utils/project')
-
-const { useFileRouter } = getConfig()
+const { isDev } = require('@zc/shared/env')
+const fs = require('fs-extra')
+const { join } = require('path')
+const { __customRoutes } = require('@zc/shared/paths')
 
 module.exports = function initialize() {
   createRoot()
   createEntry()
-  if (useFileRouter) {
+  if (fs.pathExistsSync(join(__customRoutes, 'index.js'))) {
+    // 存在routes文件就使用自定义配置路由
+    require('./customRouter')()
+  } else {
     // 文件式路由
     require('./fileRouter')()
-  } else {
-    // 自定义配置路由
-    require('./customRouter')()
   }
   if (isDev) {
-    require('@zc/dev-utils/mock').init()
+    require('@zc/shared/mock').init()
   }
 }

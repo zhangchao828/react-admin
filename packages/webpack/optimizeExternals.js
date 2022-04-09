@@ -1,14 +1,11 @@
 const isPlainObject = require('lodash/isPlainObject')
 const fs = require('fs-extra')
 const { join } = require('path')
-const { __root } = require('@zc/dev-utils/paths')
-const { isDev } = require('@zc/dev-utils/env')
-const { getConfig } = require('@zc/dev-utils/project')
+const { __root } = require('@zc/shared/paths')
+const { isDev } = require('@zc/shared/env')
+const { getConfig } = require('@zc/shared/project')
 
-const {
-  useFileRouter,
-  webpack: { externals, builtInExternals },
-} = getConfig()
+const { externals, builtInExternals } = getConfig().webpack
 const builtInLib = {
   react: [
     {
@@ -89,9 +86,6 @@ function getExternals() {
     return []
   }
   let extraExternals = []
-  if (useFileRouter && builtInExternals.reactRouter === undefined) {
-    builtInExternals.reactRouter = true
-  }
   Object.keys(builtInLib).forEach((name) => {
     if (builtInExternals[name]) {
       extraExternals = extraExternals.concat(builtInLib[name])

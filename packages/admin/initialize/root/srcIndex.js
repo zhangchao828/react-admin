@@ -1,4 +1,4 @@
-const { __src } = require('@zc/dev-utils/paths')
+const { __src } = require('@zc/shared/paths')
 const fs = require('fs-extra')
 const { join } = require('path')
 const getIndexPath = require('../getIndexPath')

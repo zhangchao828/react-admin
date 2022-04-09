@@ -1,6 +1,6 @@
 const cheerio = require('cheerio')
-const { __entryRelative, __indexHtml } = require('@zc/dev-utils/paths')
-const { isDev } = require('@zc/dev-utils/env')
+const { __entryRelative, __indexHtml } = require('@zc/shared/paths')
+const { isDev } = require('@zc/shared/env')
 const { join } = require('path')
 
 function transformHtml(html) {

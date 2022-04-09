@@ -26,7 +26,7 @@ if (['start', 'build'].includes(script)) {
   process.env.BABEL_ENV = mode
   initEnv()
   // 初始化项目配置文件
-  require('@zc/dev-utils/project').initConfig(defaultConfig)
+  require('@zc/shared/project').initConfig(defaultConfig)
   // 根据项目配置初始化整个项目
   require('../initialize')()
   require('../scripts/' + script)(process.argv)

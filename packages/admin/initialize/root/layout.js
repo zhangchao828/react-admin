@@ -1,7 +1,7 @@
 const fs = require('fs-extra')
 const { join } = require('path')
 const getIndexPath = require('../getIndexPath')
-const { __layout } = require('@zc/dev-utils/paths')
+const { __layout } = require('@zc/shared/paths')
 
 function createLayout() {
   const layoutPath = getIndexPath(__layout)

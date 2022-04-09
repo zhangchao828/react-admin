@@ -1,11 +1,9 @@
 const fs = require('fs-extra')
 const glob = require('glob')
 const { extname } = require('path')
-const { __pages, __routes } = require('@zc/dev-utils/paths')
-const { isDev } = require('@zc/dev-utils/env')
-const watchFiles = require('@zc/dev-utils/watchFiles')
-const { getConfig } = require('@zc/dev-utils/project')
-const { ignore: ignoreFileNames } = getConfig().useFileRouter
+const { __pages, __routes } = require('@zc/shared/paths')
+const { isDev } = require('@zc/shared/env')
+const watchFiles = require('@zc/shared/watchFiles')
 
 const layoutId = '/layout'
 const ignoreFileList = [
@@ -32,7 +30,7 @@ const ignoreFileList = [
   'commons',
   'column',
   'columns',
-].concat(ignoreFileNames || [])
+]
 const with$Reg = /\[[0-9a-zA-Z_.]+\$]/g
 const without$Reg = /\[[0-9a-zA-Z_.]+]/g
 

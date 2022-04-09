@@ -1,27 +1,26 @@
-const { __pages, __routes, __customRoutes } = require('@zc/dev-utils/paths')
+const { __pages, __routes, __customRoutes } = require('@zc/shared/paths')
 const { extname } = require('path')
 const getIndexPath = require('../getIndexPath')
 const fs = require('fs-extra')
 const { join } = require('path')
-const { isDev } = require('@zc/dev-utils/env')
-const watchFiles = require('@zc/dev-utils/watchFiles')
+const { isDev } = require('@zc/shared/env')
+const watchFiles = require('@zc/shared/watchFiles')
 
 let lastContent = ``
 function createRoutes() {
   watchRoutes()
   const customRoutesPath = join(__customRoutes, 'index.js')
-  if (fs.pathExistsSync(customRoutesPath)) {
-    delete require.cache[require.resolve(customRoutesPath)]
-    const routeConfig = require(customRoutesPath)
-    if (routeConfig && routeConfig.length) {
-      const { routes, layouts } = getRoutes(routeConfig)
-      const content = routes + layouts
-      const changed = lastContent !== content
-      if (changed || !content) {
-        lastContent = content
-        fs.outputFileSync(
-          __routes,
-          `
+  delete require.cache[require.resolve(customRoutesPath)]
+  const routeConfig = require(customRoutesPath)
+  if (routeConfig && routeConfig.length) {
+    const { routes, layouts } = getRoutes(routeConfig)
+    const content = routes + layouts
+    const changed = lastContent !== content
+    if (changed || !content) {
+      lastContent = content
+      fs.outputFileSync(
+        __routes,
+        `
 import { lazy } from 'react'
 
 export const routesMap = {
@@ -31,17 +30,16 @@ export const layoutsMap = {
 ${layouts}
 }
   `.trim()
-        )
-      }
-    } else {
-      fs.outputFileSync(
-        __routes,
-        `
+      )
+    }
+  } else {
+    fs.outputFileSync(
+      __routes,
+      `
 export const routesMap = {}
 export const layoutsMap = {}
   `.trim()
-      )
-    }
+    )
   }
 }
 function getRoutes(routeConfig) {
