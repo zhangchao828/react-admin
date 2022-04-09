@@ -4,7 +4,6 @@ const common = require('../common.config')
 module.exports = defineConfig({
   publicPath: 'http://localhost:3000',
   webpack: {
-    ...common.webpack,
     mf: {
       remotes: [
         {
@@ -12,6 +11,9 @@ module.exports = defineConfig({
           publicPath: 'http://localhost:3001',
         },
       ],
+    },
+    webpack: {
+      builtInExternals: false,
     },
   },
 })
