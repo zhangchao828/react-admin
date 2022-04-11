@@ -1,15 +1,22 @@
-import { createContext, useContext } from 'react'
+import { createContext, useContext, useEffect } from 'react'
 
-const APP_CONTEXT = 'APP_CONTEXT'
+const APP_GLOBAL = Symbol('APP_GLOBAL')
 
-export const AppContext = createContext(undefined)
-export function setAppContext(config) {
-  window[APP_CONTEXT] = config || {}
+const Context = createContext({})
+const Provider = ({ children, value }) => {
+  useEffect(() => {
+    window[APP_GLOBAL] = value
+  })
+  return <Context.Provider value={value}>{children}</Context.Provider>
 }
-export function getAppContext() {
-  return window[APP_CONTEXT] || {}
+export const AppContext = {
+  Provider,
+  Consumer: Context.Consumer,
 }
 export function useAppContext() {
-  const ctx = useContext(AppContext)
-  return ctx || getAppContext()
+  return useContext(Context)
+}
+
+export function getAppContext() {
+  return window[APP_GLOBAL] || {}
 }

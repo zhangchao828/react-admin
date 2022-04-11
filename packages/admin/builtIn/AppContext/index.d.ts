@@ -8,16 +8,15 @@ interface AppData {
   fallback?: ReactNode
   [propName: string]: any
 }
-interface ContextValueConf {
+interface ContextValue {
   data: AppData
-  setAppData(data: AppData)
+  setData(data: AppData)
   history?: History
   location?: Location
   params?: object
   [propName: string]: any
 }
 
-export declare function useAppContext(): ContextValueConf
-export declare function setAppContext(info: object)
-export declare function getAppContext(): ContextValueConf
-export declare const AppContext: Context<ContextValueConf>
+export declare function useAppContext(): ContextValue
+export declare function getAppContext(): ContextValue
+export declare const AppContext: Context<ContextValue>
