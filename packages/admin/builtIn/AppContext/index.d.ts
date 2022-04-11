@@ -1,7 +1,7 @@
 import { ReactNode, Context } from 'react'
 import { Location, History } from 'history'
 
-interface AppData {
+interface AppMeta {
   // 所有的权限集合列表
   authorities?: any
   // 全局控制没有权限的时候显示的组件
@@ -9,8 +9,9 @@ interface AppData {
   [propName: string]: any
 }
 interface ContextValue {
-  data: AppData
-  setData(data: AppData)
+  meta: AppMeta
+  query: URLSearchParams
+  setMeta(data: AppMeta)
   history?: History
   location?: Location
   params?: object

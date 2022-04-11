@@ -1,4 +1,4 @@
-import { Suspense, useState } from 'react'
+import { Suspense, useMemo, useState } from 'react'
 import { useHistory, useLocation } from 'react-router-dom'
 import Layout from '@/layout'
 import Root from '@/index'
@@ -7,20 +7,24 @@ import { AppContext, wrapPage, matchPage } from '@zc/admin'
 import ReactDOM from 'react-dom'
 
 function Main() {
-  const [data, setData] = useState({})
+  const [meta, setMeta] = useState({})
   const history = useHistory()
   const location = useLocation()
-  const { pathname } = location
+  const { pathname, search } = location
   const { Page, match, layouts } = matchPage(pathname, routesMap)
   const { params } = match || {}
   const wrappedPage = Page ? wrapPage(<Page params={params} />, { layouts, layoutsMap }) : null
+  const query = useMemo(() => {
+    return new URLSearchParams(search)
+  }, [search])
   const contextValue = {
     params,
     location,
     history,
-    data,
-    setData(value) {
-      setData(data === null ? {} : { ...data, ...value })
+    query,
+    meta,
+    setMeta(value) {
+      setMeta(value === null ? {} : { ...meta, ...value })
     },
   }
   return (
