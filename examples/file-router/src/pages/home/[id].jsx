@@ -3,15 +3,15 @@ import { useEffect } from 'react'
 
 export default function Index() {
   useEffect(() => {
-    console.log('index')
+    console.log('home/id')
   }, [])
   return (
     <div>
-      Index page
+      Home/id page
+      <br />
+      <Link to="/">index</Link>
       <br />
       <Link to="/home">home</Link>
-      <br />
-      <Link to="/home/1">home/id</Link>
     </div>
   )
 }

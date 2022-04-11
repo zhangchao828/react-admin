@@ -90,11 +90,12 @@ export function matchPage(pathname, routesMap) {
   }
   pathname = '/' + pathname.split('/').filter(Boolean).join('/')
   const route = routesMap[pathname] || matchRoute(pathname, routesMap)
-  const { component: Page, match = {}, layouts = [] } = route || {}
+  let defaultMatch = { path: pathname, url: pathname, params: {} }
+  const { component: Page, match, layouts = [] } = route || {}
   const { component: Page404 } = routesMap['/404'] || {}
   return {
     Page: (route ? Page : Page404) || null,
-    match: route ? match : false,
+    match: route ? { ...defaultMatch, ...match } : false,
     layouts,
   }
 }
