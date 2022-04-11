@@ -1,18 +1,24 @@
-import { ReactNode, Context } from 'react'
-import { Location, History } from 'history'
+import { Context } from 'react'
+import { Location } from 'history'
 
-interface AppMeta {
+type AppMeta = {
   // 所有的权限集合列表
   authorities?: any
   // 全局控制没有权限的时候显示的组件
-  fallback?: ReactNode
+  fallback?: any
   [propName: string]: any
 }
-interface ContextValue {
+type ContextValue = {
   meta: AppMeta
   query: URLSearchParams
   setMeta(data: AppMeta)
-  history?: History
+  navigate?(
+    to: number | string,
+    props?: {
+      replace?: boolean
+      state?: object
+    }
+  )
   location?: Location
   params?: object
   [propName: string]: any

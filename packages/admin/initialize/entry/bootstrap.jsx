@@ -17,10 +17,30 @@ function Main() {
   const query = useMemo(() => {
     return new URLSearchParams(search)
   }, [search])
+  const navigate = useMemo(() => {
+    return (to, props) => {
+      if (typeof to === 'number') {
+        if (to === 1) {
+          return history.goForward()
+        }
+        if (to === -1) {
+          return history.goBack()
+        }
+        history.go(to)
+      } else {
+        const { replace, state } = props || {}
+        if (replace) {
+          history.replace(to, state)
+        } else {
+          history.push(to, state)
+        }
+      }
+    }
+  }, [history])
   const contextValue = {
     params,
     location,
-    history,
+    navigate,
     query,
     meta,
     setMeta(value) {

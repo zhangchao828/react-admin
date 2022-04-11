@@ -1,8 +1,10 @@
-interface NavigateProps {
-  replace?: boolean
-  state?: any
-}
-export declare function navigate(to: string | number, props?: NavigateProps)
+export declare function navigate(
+  to: string | number,
+  props?: {
+    replace?: boolean
+    state?: any
+  }
+)
 export {
   Redirect,
   useLocation,
