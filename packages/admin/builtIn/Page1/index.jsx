@@ -1,4 +1,4 @@
-import { matchPath } from 'react-router-dom'
+import { matchPath } from '../router'
 
 function getPathSplitLen(path) {
   // 获取路径按照符号 / 分割的长度
@@ -42,10 +42,10 @@ function getMostSimilarRoute(matchedRoutes, pathname) {
   }
   return getLoopIncluded(matchedRoutes, pathname)
 }
-function matchRoute(pathname, routesMap) {
+function matchRoute(pathname, routes) {
   let route = null
   const matchedRoutes = []
-  const routeKeys = Object.keys(routesMap)
+  const routeKeys = Object.keys(routes)
   if (!routeKeys.length) {
     return null
   }
@@ -65,37 +65,35 @@ function matchRoute(pathname, routesMap) {
   // 如果匹配到多个路由，取相似度最高的
   const match = getMostSimilarRoute(matchedRoutes, pathname)
   if (match) {
-    route = routesMap[match.path]
+    route = routes[match.path]
   }
   return route && { match, ...route }
 }
 
-export function wrapPage(page = null, options) {
-  const { layouts = [], layoutsMap = {} } = options || {}
+export function wrapPage(Page, layouts, props) {
+  if (!Page) {
+    return null
+  }
   // 递归嵌套layout将Page包裹住
   function wrapContent(index = 0) {
-    const name = layouts[index]
-    if (name) {
-      const LayoutItem = layoutsMap[name]
-      return <LayoutItem>{wrapContent(index + 1)}</LayoutItem>
+    const Layout = layouts[index]
+    if (Layout) {
+      return <Layout {...props}>{wrapContent(index + 1)}</Layout>
     } else {
-      return page
+      return <Page {...props} />
     }
   }
   return wrapContent()
 }
 export function matchPage(pathname, routesMap) {
-  if (!routesMap) {
-    return { match: false, layouts: [], Page: null }
-  }
   pathname = '/' + pathname.split('/').filter(Boolean).join('/')
   const route = routesMap[pathname] || matchRoute(pathname, routesMap)
   let defaultMatch = { path: pathname, url: pathname, params: {} }
-  const { component: Page, match, layouts = [] } = route || {}
-  const { component: Page404 } = routesMap['/404'] || {}
+  const { component: page, match, layouts = [] } = route || {}
+  const { component: page404 } = routesMap['/404'] || {}
   return {
-    Page: (route ? Page : Page404) || null,
-    match: route ? { ...defaultMatch, ...match } : false,
+    Page: route ? page : page404,
+    match: { ...defaultMatch, ...match, is404: !route },
     layouts,
   }
 }

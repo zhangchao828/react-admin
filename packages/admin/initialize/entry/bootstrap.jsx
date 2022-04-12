@@ -6,26 +6,11 @@ import { routesMap, layoutsMap } from '~admin/routes'
 import { AppContext, wrapPage, matchPage } from '@zc/admin'
 import ReactDOM from 'react-dom'
 
-const cachedPages = {}
 function Main() {
   const [meta, setAppMeta] = useState({})
   const history = useHistory()
   const location = useLocation()
   const { pathname, search } = location
-  const { Page, match, layouts } = matchPage(pathname, routesMap)
-  const { params, path } = match || {}
-  const wrappedPage = Page ? wrapPage(<Page params={params} />, { layouts, layoutsMap }) : null
-  // if (path) {
-  //   cachedPages[path] = wrappedPage
-  // }
-  // const pageList = Object.keys(cachedPages).map((p) => {
-  //   const item = cachedPages[p]
-  //   return (
-  //     <div key={p} style={{ display: p === path ? 'block' : 'none' }}>
-  //       {item}
-  //     </div>
-  //   )
-  // })
   const query = useMemo(() => {
     return new URLSearchParams(search)
   }, [search])
@@ -55,6 +40,8 @@ function Main() {
       return value === null ? {} : { ...prevState, ...value }
     })
   }, [])
+  const { Page, match, layouts } = matchPage(pathname, routesMap)
+  const { params } = match
   const contextValue = {
     params,
     location,
@@ -63,6 +50,11 @@ function Main() {
     meta,
     setMeta,
   }
+  const wrappedPage = wrapPage(
+    Page,
+    layouts.map((name) => layoutsMap[name]),
+    { params, query }
+  )
   return (
     <AppContext.Provider value={contextValue}>
       <Layout location={location} match={match}>

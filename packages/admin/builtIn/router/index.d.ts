@@ -13,4 +13,6 @@ export {
   Link,
   NavLink,
   useParams,
+  useHistory,
+  matchPath,
 } from 'react-router-dom'

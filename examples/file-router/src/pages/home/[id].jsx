@@ -8,6 +8,7 @@ export default function Index() {
   return (
     <div>
       Home/id page
+      <input type="text"/>
       <br />
       <Link to="/">index</Link>
       <br />

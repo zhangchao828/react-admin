@@ -1,6 +1,6 @@
 import { useEffect, useState, memo, useRef, useMemo, useCallback } from 'react'
 import { useAppContext } from '../AppContext'
-import { wrapPage, matchPage } from '@zc/admin'
+import { wrapPage, matchPage } from '../Page'
 import remotes from '~admin/remotes'
 
 function Remote(props) {
@@ -43,11 +43,10 @@ function Remote(props) {
     }
   }, [name, path])
   const { Page, match = {}, layouts, layoutsMap } = remotesRef.current[name] || {}
-  return Page
-    ? wrapPage(<Page params={match.params} {...rest} />, {
-        layouts,
-        layoutsMap,
-      })
-    : null
+  return wrapPage(
+    Page,
+    layouts.map((name) => layoutsMap[name]),
+    { ...match, ...rest }
+  )
 }
 export default memo(Remote)
