@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect } from 'react'
 
-const APP_GLOBAL = Symbol('APP_GLOBAL')
+const APP_GLOBAL = 'APP_GLOBAL_CONFIG'
 
 const Context = createContext({})
 const Provider = ({ children, value }) => {

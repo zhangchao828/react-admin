@@ -1,5 +1,4 @@
 const defineConfig = require('@zc/admin/define')
-const common = require('../common.config')
 
 module.exports = defineConfig({
   publicPath: 'http://localhost:3000',
@@ -12,8 +11,6 @@ module.exports = defineConfig({
         },
       ],
     },
-    webpack: {
-      builtInExternals: false,
-    },
+    builtInExternals: false,
   },
 })

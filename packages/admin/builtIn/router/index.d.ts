@@ -5,14 +5,6 @@ export declare function navigate(
     state?: any
   }
 )
-export {
-  Redirect,
-  useLocation,
-  BrowserRouter,
-  HashRouter,
-  Link,
-  NavLink,
-  useParams,
-  useHistory,
-  matchPath,
-} from 'react-router-dom'
+export declare function getParams(name?: string): object | string
+export declare function getQuery(name?: string): string | URLSearchParams
+export { Redirect, useLocation, BrowserRouter, HashRouter, Link, NavLink } from 'react-router-dom'

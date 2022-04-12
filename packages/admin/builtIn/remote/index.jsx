@@ -1,12 +1,11 @@
 import { useEffect, useState, memo, useRef, useMemo, useCallback } from 'react'
-import { useAppContext } from '../appContext'
+import { useLocation, getQuery } from '../router'
 import { wrapPage, matchPage } from '../page'
 import remotes from '~admin/remotes'
 
 function Remote(props) {
-  const {
-    location: { pathname },
-  } = useAppContext()
+  const { pathname } = useLocation()
+  const query = getQuery()
   const remotesRef = useRef({})
   const { name, path = pathname, ...rest } = props
   const [, setCount] = useState(0)
@@ -42,11 +41,11 @@ function Remote(props) {
       }
     }
   }, [name, path])
-  const { Page, match = {}, layouts, layoutsMap } = remotesRef.current[name] || {}
+  const { Page, match = {}, layouts = [], layoutsMap } = remotesRef.current[name] || {}
   return wrapPage(
     Page,
     layouts.map((name) => layoutsMap[name]),
-    { ...match, ...rest }
+    { params: match.params, query, ...rest }
   )
 }
 export default memo(Remote)

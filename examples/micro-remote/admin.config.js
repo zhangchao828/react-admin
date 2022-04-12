@@ -7,8 +7,6 @@ module.exports = defineConfig({
     mf: {
       name: 'remote',
     },
-    webpack: {
-      builtInExternals: false,
-    },
+    builtInExternals: false,
   },
 })
