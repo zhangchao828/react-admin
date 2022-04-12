@@ -1,11 +1,14 @@
-import { getAppContext } from '../appContext'
+import { getAppContext, useAppContext } from '../appContext'
 import { Redirect, BrowserRouter, HashRouter, Link, NavLink, useLocation } from 'react-router-dom'
 
 function getParams(name) {
   const { params } = getAppContext()
   return name ? params[name] : params
 }
-
+function useParams(name) {
+  const { params } = useAppContext()
+  return name ? params[name] : params
+}
 function navigate(...params) {
   getAppContext().navigate(...params)
 }
@@ -21,6 +24,7 @@ export {
   NavLink,
   navigate,
   getParams,
+  useParams,
   getQuery,
   useLocation,
 }

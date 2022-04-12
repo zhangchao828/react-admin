@@ -6,5 +6,6 @@ export declare function navigate(
   }
 )
 export declare function getParams(name?: string): object | string
+export declare function useParams(name?: string): object | string
 export declare function getQuery(name?: string): string | URLSearchParams
 export { Redirect, useLocation, BrowserRouter, HashRouter, Link, NavLink } from 'react-router-dom'
