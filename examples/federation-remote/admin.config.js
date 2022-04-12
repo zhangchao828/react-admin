@@ -4,7 +4,7 @@ module.exports = defineConfig({
   port: 3001,
   publicPath: 'http://localhost:3001',
   webpack: {
-    mf: {
+    federation: {
       name: 'remote',
     },
     builtInExternals: false,
