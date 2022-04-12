@@ -3,10 +3,10 @@ const { __entryDir } = require('@zc/shared/paths')
 const fs = require('fs-extra')
 const { getConfig } = require('@zc/shared/project')
 
-const { mf } = getConfig().webpack
+const { federation } = getConfig().webpack
 
 module.exports = function createEntry() {
-  if (mf?.remotes) {
+  if (federation?.remotes) {
     fs.outputFileSync(join(__entryDir, 'index.jsx'), `import('./bootstrap')`)
     fs.copySync(join(__dirname, 'bootstrap.jsx'), join(__entryDir, 'bootstrap.jsx'))
   } else {

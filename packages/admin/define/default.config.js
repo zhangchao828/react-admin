@@ -8,7 +8,7 @@ module.exports = {
   vite: false,
   https: false,
   webpack: {
-    mf: false,
+    federation: false,
     externals: [],
     builtInExternals: {
       react: true,
@@ -19,4 +19,5 @@ module.exports = {
     // 开发环境是否按需编译
     lazyCompilation: false,
   },
+  qiankun: false,
 }

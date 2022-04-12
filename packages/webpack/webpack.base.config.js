@@ -7,6 +7,7 @@ const WebpackBar = require('webpackbar')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const HtmlTransformPlugin = require('./plugins/html-transform')
 const MFPlugin = require('./plugins/mf')
+const QiankunPlugin = require('./plugins/qiankun')
 const { APP, RUN_TIME } = require('./constant')
 const rules = require('./loaders')
 const { publicPath } = getConfig()
@@ -51,6 +52,7 @@ const baseConfig = {
   plugins: [
     new WebpackBar(),
     new MFPlugin(),
+    new QiankunPlugin(),
     new webpack.DefinePlugin(define),
     new HtmlWebpackPlugin({
       template: __indexHtml,

@@ -2,9 +2,9 @@ const fs = require('fs-extra')
 const { getConfig } = require('@zc/shared/project')
 const { __routes, __remotes } = require('@zc/shared/paths')
 const { ModuleFederationPlugin } = require('webpack').container
-const { mf } = getConfig().webpack
+const { federation } = getConfig().webpack
 
-const { name, remotes, shared } = mf
+const { name, remotes, shared } = federation
 class MFPlugin {
   apply(compiler) {
     if (name || remotes) {

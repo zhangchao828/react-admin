@@ -1,3 +1,5 @@
+import { RegistrableApp } from 'qiankun/es/interfaces'
+
 interface Script {
   development?: string
   production?: string
@@ -15,7 +17,7 @@ interface BuiltInExternals {
   reactRouter?: boolean
   react?: boolean
 }
-interface MF {
+interface Federation {
   /**
    * 当前应用是否注册为一个微服务应用
    */
@@ -43,7 +45,7 @@ interface WebpackOptions {
   /**
    * 模块联邦
    */
-  mf?: false | MF
+  federation?: false | Federation
   /**
    * 开发环境是否按需编译,
    */
@@ -83,6 +85,10 @@ type ProjectConfig = {
   lessOptions?: LessOptions
   webpack?: WebpackOptions
   vite?: ViteOptions
+  /**
+   * qiankun微应用
+   */
+  qiankun: string | Array<RegistrableApp>
 }
 type ConfigFuncParams = {
   env: 'dev' | 'pre' | 'pro' | string
