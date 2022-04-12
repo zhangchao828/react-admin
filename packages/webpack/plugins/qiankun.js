@@ -30,6 +30,7 @@ if (window.__POWERED_BY_QIANKUN__) {
         __qiankun_register,
         `
 import { registerMicroApps, start } from 'qiankun'
+
 registerMicroApps(${JSON.stringify(qiankun)})
 start()
       `
