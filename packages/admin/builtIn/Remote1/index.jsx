@@ -1,6 +1,6 @@
 import { useEffect, useState, memo, useRef, useMemo, useCallback } from 'react'
 import { useAppContext } from '../AppContext'
-import { wrapPage, matchPage } from '../Page'
+import { wrapPage, matchPage } from '../page'
 import remotes from '~admin/remotes'
 
 function Remote(props) {
