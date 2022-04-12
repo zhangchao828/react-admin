@@ -1,4 +1,4 @@
-import { matchPath } from '../router'
+import { matchPath } from 'react-router-dom'
 
 function getPathSplitLen(path) {
   // 获取路径按照符号 / 分割的长度

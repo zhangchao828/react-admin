@@ -1,4 +1,4 @@
-import { useAppContext, getAppContext } from '../AppContext'
+import { useAppContext, getAppContext } from '../appContext'
 
 /*
 权限组件，

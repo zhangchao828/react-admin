@@ -1,5 +1,5 @@
 import { useEffect, useState, memo, useRef, useMemo, useCallback } from 'react'
-import { useAppContext } from '../AppContext'
+import { useAppContext } from '../appContext'
 import { wrapPage, matchPage } from '../page'
 import remotes from '~admin/remotes'
 

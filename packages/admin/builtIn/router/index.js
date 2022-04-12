@@ -1,4 +1,4 @@
-import { getAppContext, useAppContext } from '../AppContext'
+import { getAppContext, useAppContext } from '../appContext'
 
 function useParams() {
   return useAppContext().params
