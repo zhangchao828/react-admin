@@ -5,7 +5,7 @@ const { ModuleFederationPlugin } = require('webpack').container
 const { federation } = getConfig().webpack
 
 const { name, remotes, shared } = federation
-class MFPlugin {
+class FederationPlugin {
   apply(compiler) {
     if (name || remotes) {
       const remoteConfig = {}
@@ -69,4 +69,4 @@ class MFPlugin {
   }
 }
 
-module.exports = MFPlugin
+module.exports = FederationPlugin

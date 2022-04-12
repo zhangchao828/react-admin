@@ -3,7 +3,7 @@ const fs = require('fs-extra')
 const { __qiankun_register, __qiankun_publicPath } = require('@zc/shared/paths')
 
 const { qiankun } = getConfig()
-class Qiankun {
+class QiankunPlugin {
   apply(compiler) {
     if (typeof qiankun === 'string') {
       compiler.options.output = {
@@ -38,4 +38,4 @@ start()
   }
 }
 
-module.exports = Qiankun
+module.exports = QiankunPlugin
