@@ -1,5 +1,5 @@
 import '~admin/qiankun-public-path'
-import { Suspense, useCallback, useMemo, useState, cloneElement } from 'react'
+import { Suspense, useCallback, useMemo, useState } from 'react'
 import { useHistory, useLocation } from 'react-router-dom'
 import Layout from '@/layout'
 import Root from '@/index'
@@ -71,8 +71,7 @@ function Main() {
   const matchedMicroApp = microApps.find((item) => pathIncludes(pathname, item.activeRule))
   if (matchedMicroApp) {
     // 用来装载匹配到的qiankun微应用的容器
-    const microAppContainer = <div id={matchedMicroApp.name} />
-    wrappedPage = wrappedPage ? cloneElement(wrappedPage, {}, microAppContainer) : microAppContainer
+    wrappedPage = <div id={matchedMicroApp.name} />
   }
   return (
     <AppContext.Provider value={contextValue}>

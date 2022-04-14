@@ -1,4 +1,4 @@
-import { useEffect, useState, memo, useRef, useMemo, useCallback } from 'react'
+import { useEffect, useState, memo, useRef, useMemo, useCallback, Suspense } from 'react'
 import { useLocation, getQuery } from '../router'
 import { wrapPage, matchPage } from '../page'
 import remotes from '~admin/remotes'
@@ -7,7 +7,7 @@ function Remote(props) {
   const { pathname } = useLocation()
   const query = getQuery()
   const remotesRef = useRef({})
-  const { name, path = pathname, ...rest } = props
+  const { name, path = pathname, fallback, ...rest } = props
   const [, setCount] = useState(0)
   const forceUpdate = useCallback(() => {
     setCount((c) => c + 1)
@@ -42,10 +42,15 @@ function Remote(props) {
     }
   }, [name, path])
   const { Page, match = {}, layouts = [], layoutsMap } = remotesRef.current[name] || {}
-  return wrapPage(
-    Page,
-    layouts.map((name) => layoutsMap[name]),
-    { params: match.params, query, ...rest }
+
+  return (
+    <Suspense fallback={fallback || null}>
+      {wrapPage(
+        Page,
+        layouts.map((name) => layoutsMap[name]),
+        { params: match.params, query, ...rest }
+      )}
+    </Suspense>
   )
 }
 export default memo(Remote)

@@ -31,7 +31,7 @@ function initConfig(defaultConfig) {
     projectConfig = mergeConfig(projectConfig, localConfig)
   }
   const { publicPath, proxy, webpack } = projectConfig
-  const { name: mfName, remotes } = webpack?.mf || {}
+  const { name: mfName, remotes } = webpack?.federation || {}
   /* publicPath */
   projectConfig.publicPath = optimizePublicPath(publicPath) || '/'
 
@@ -49,13 +49,13 @@ function initConfig(defaultConfig) {
   })
   projectConfig.proxy = proxyObj
 
-  /* mf模块联邦 */
+  /* 模块联邦 */
   if (mfName) {
     if (typeof publicPath !== 'string' || !publicPath.startsWith('http')) {
-      message.error('mf: 必须配置一个有效的以http开头的publicPath')
+      message.error('federation: 必须配置一个有效的以http开头的publicPath')
     }
     if (typeof mfName !== 'string' || !/^[A-Za-z]+$/.test(mfName)) {
-      message.error('mf: name必须是大小写字母组成，不能包含空格、汉字、数字等特殊字符')
+      message.error('federation: name必须是大小写字母组成，不能包含空格、汉字、数字等特殊字符')
     }
   }
   if (Array.isArray(remotes) && remotes.length > 0) {
@@ -71,13 +71,13 @@ function initConfig(defaultConfig) {
         if (!match) {
           appList.push({ name, publicPath: remotePublicPath })
         } else {
-          message.error(`mf: name重复'${match.name}'`)
+          message.error(`federation: name重复'${match.name}'`)
         }
       } else {
-        message.error('mf: 必须配置name和publicPath属性')
+        message.error('federation: 必须配置name和publicPath属性')
       }
     })
-    projectConfig.webpack.mf.remotes = appList
+    projectConfig.webpack.federation.remotes = appList
   }
   return projectConfig
 }

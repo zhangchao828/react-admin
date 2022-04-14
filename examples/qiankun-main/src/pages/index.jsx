@@ -10,6 +10,7 @@ export default function Index() {
       Index page
       <br />
       <Link to="/demo">demo</Link>
+      <p>Remote</p>
     </div>
   )
 }
