@@ -1,6 +1,6 @@
 const { getConfig } = require('@zc/shared/project')
 const fs = require('fs-extra')
-const { __qiankun_register, __qiankun_publicPath } = require('@zc/shared/paths')
+const { __qiankun_microApps, __qiankun_publicPath } = require('@zc/shared/paths')
 
 const { qiankun } = getConfig()
 class QiankunPlugin {
@@ -27,12 +27,15 @@ if (window.__POWERED_BY_QIANKUN__) {
     }
     if (Array.isArray(qiankun)) {
       fs.outputFileSync(
-        __qiankun_register,
+        __qiankun_microApps,
         `
 import { registerMicroApps, start } from 'qiankun'
 
-registerMicroApps(${JSON.stringify(qiankun)})
+const microApps = ${JSON.stringify(qiankun)}
+registerMicroApps(microApps)
 start()
+
+export default microApps
       `
       )
     }

@@ -6,7 +6,7 @@ import Root from '@/index'
 import { routesMap, layoutsMap } from '~admin/routes'
 import { AppContext, wrapPage, matchPage } from '@zc/admin'
 import ReactDOM from 'react-dom'
-import '~admin/qiankun-register'
+import '~admin/qiankun-micro-apps'
 
 function Main() {
   const [meta, setAppMeta] = useState({})

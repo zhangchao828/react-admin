@@ -6,7 +6,7 @@ const fs = require('fs-extra')
 const {
   __remotes,
   __routes,
-  __qiankun_register,
+  __qiankun_microApps,
   __qiankun_publicPath,
 } = require('@zc/shared/paths')
 
@@ -16,7 +16,7 @@ module.exports = function () {
   createLayout()
   createIndexPage()
   fs.outputFileSync(__remotes, `export default {}`)
-  fs.outputFileSync(__qiankun_register, ``)
+  fs.outputFileSync(__qiankun_microApps, `export default []`)
   fs.outputFileSync(__qiankun_publicPath, ``)
   fs.outputFileSync(
     __routes,
