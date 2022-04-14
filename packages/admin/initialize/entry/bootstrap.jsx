@@ -6,8 +6,19 @@ import Root from '@/index'
 import { routesMap, layoutsMap } from '~admin/routes'
 import { AppContext, wrapPage, matchPage } from '@zc/admin'
 import ReactDOM from 'react-dom'
-import '~admin/qiankun-micro-apps'
+import microApps from '~admin/qiankun-micro-apps'
 
+function pathIncludes(path, target) {
+  if (!target) {
+    return false
+  }
+  path = path.split('/').filter(Boolean)
+  target = target.split('/').filter(Boolean)
+  if (target.length === 0 || path.length < target.length) {
+    return false
+  }
+  return target.every((item, i) => item === path[i])
+}
 function Main() {
   const [meta, setAppMeta] = useState({})
   const history = useHistory()
@@ -52,11 +63,18 @@ function Main() {
     meta,
     setMeta,
   }
-  const wrappedPage = wrapPage(
+  let wrappedPage = wrapPage(
     Page,
     layouts.map((name) => layoutsMap[name]),
     { params, query }
   )
+  if (!wrappedPage) {
+    const matchedMicroApp = microApps.find((item) => pathIncludes(pathname, item.activeRule))
+    if (matchedMicroApp) {
+      // 用来装载匹配到的qiankun微应用的容器,substring(1)表示去掉符号#
+      wrappedPage = <div id={matchedMicroApp.name} />
+    }
+  }
   return (
     <AppContext.Provider value={contextValue}>
       <Layout location={location} match={match}>

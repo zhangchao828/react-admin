@@ -1,6 +1,3 @@
-export default function Layout({ children, location: { pathname } }) {
-  if (pathname.startsWith('/demo')) {
-    return <div id="demo" />
-  }
+export default function Layout({ children }) {
   return <div>{children}</div>
 }

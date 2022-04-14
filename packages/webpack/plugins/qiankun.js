@@ -26,12 +26,18 @@ if (window.__POWERED_BY_QIANKUN__) {
       )
     }
     if (Array.isArray(qiankun)) {
+      const list = qiankun.map((item) => {
+        return {
+          ...item,
+          container: `#${item.name}`,
+        }
+      })
       fs.outputFileSync(
         __qiankun_microApps,
         `
 import { registerMicroApps, start } from 'qiankun'
 
-const microApps = ${JSON.stringify(qiankun)}
+const microApps = ${JSON.stringify(list)}
 registerMicroApps(microApps)
 start()
 
