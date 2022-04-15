@@ -23,6 +23,8 @@ module.exports = {
   __entry: resolvePath(temporary, 'entry/index.jsx'),
   __entryRelative: `/${temporary}/entry/index.jsx`,
   __routes: resolvePath(`${temporary}/routes.jsx`),
+  __event: resolvePath(`${temporary}/event.js`),
+  __router: resolvePath(`${temporary}/router.jsx`),
   __customRoutes: resolvePath('src/routes'),
   __remotes: resolvePath(`${temporary}/remotes.js`),
   __qiankun_microApps: resolvePath(`${temporary}/qiankun-micro-apps.js`),

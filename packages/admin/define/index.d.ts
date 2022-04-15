@@ -88,7 +88,8 @@ type ProjectConfig = {
   /**
    * qiankun微应用
    */
-  qiankun: string | Array<RegistrableApp>
+  qiankun: string | Array<{ name: string; entry: string }>
+  router: 'BrowserRouter' | 'MemoryRouter' | 'HashRouter'
 }
 type ConfigFuncParams = {
   env: 'dev' | 'pre' | 'pro' | string

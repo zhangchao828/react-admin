@@ -20,4 +20,5 @@ module.exports = {
     lazyCompilation: false,
   },
   qiankun: false,
+  router: 'BrowserRouter',
 }

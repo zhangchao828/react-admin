@@ -49,25 +49,7 @@ function createRoutes() {
       __routes,
       `
 import { lazy } from 'react'
-
-export const store = {
-  modules: {},
-  event: null,
-  resolve(path, m) {
-    store.modules[path] = m
-    if (store.event) {
-      store.event(m)
-    }
-  },
-  trigger(path, callback) {
-    store.event = null
-    if (store.modules[path]) {
-      callback(store.modules[path])
-    } else {
-      store.event = callback
-    }
-  },
-}
+import event from '~admin/event'
 
 export const routesMap = {
 ${routes}
@@ -130,7 +112,7 @@ function getRoutes(files) {
     const route = `
   '${routePath}': {
      component: lazy(() => import(/* webpackChunkName: "${chunkName}", webpackPrefetch: true */ '${component}').then(res => {
-        store.resolve('${routePath}', res.default)
+        event.resolve('${routePath}', res.default)
         return res
       })
      ),

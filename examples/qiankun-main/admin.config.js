@@ -7,7 +7,6 @@ module.exports = defineConfig({
   qiankun: [
     {
       name: 'demo',
-      activeRule: '/demo',
       entry: '//localhost:3001',
     },
   ],

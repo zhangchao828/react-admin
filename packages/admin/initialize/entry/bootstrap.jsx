@@ -1,12 +1,14 @@
 import '~admin/qiankun-public-path'
-import { Suspense, useCallback, useEffect, useMemo, useState } from 'react'
-import { useHistory, useLocation } from 'react-router-dom'
-import Layout from '@/layout'
 import Root from '@/index'
-import { routesMap, layoutsMap, store } from '~admin/routes'
-import { AppContext, wrapPage, matchPage } from '@zc/admin'
+import Layout from '@/layout'
 import ReactDOM from 'react-dom'
+import event from '~admin/event'
+import Router from '~admin/router'
 import microApps from '~admin/qiankun-micro-apps'
+import { routesMap, layoutsMap } from '~admin/routes'
+import { useHistory, useLocation } from 'react-router-dom'
+import { AppContext, wrapPage, matchPage } from '@zc/admin'
+import { Suspense, useCallback, useEffect, useMemo, useState } from 'react'
 
 function pathIncludes(path, target) {
   if (!target) {
@@ -74,7 +76,7 @@ function Main() {
     wrappedPage = <div id={microApp.name} />
   }
   useEffect(() => {
-    store.trigger(path, (module) => {
+    event.trigger(path, (module) => {
       const values = Object.keys(module).reduce((p, n) => ({ ...p, [n]: module[n] }), {})
       Root.onRouterChange?.(pathname, values)
     })
@@ -92,7 +94,9 @@ function render(props) {
   const { container } = props
   ReactDOM.render(
     <Root>
-      <Main />
+      <Router>
+        <Main />
+      </Router>
     </Root>,
     container ? container.querySelector('#app') : document.querySelector('#app')
   )

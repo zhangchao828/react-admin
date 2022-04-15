@@ -1,5 +1,5 @@
 import { getAppContext, useAppContext } from '../appContext'
-import { Redirect, BrowserRouter, HashRouter, Link, NavLink, useLocation } from 'react-router-dom'
+import { Redirect, Link, NavLink, useLocation } from 'react-router-dom'
 
 function getParams(name) {
   const { params } = getAppContext()
@@ -16,15 +16,4 @@ function getQuery(name) {
   const { query } = getAppContext()
   return name ? query.get(name) : query
 }
-export {
-  Redirect,
-  BrowserRouter,
-  HashRouter,
-  Link,
-  NavLink,
-  navigate,
-  getParams,
-  useParams,
-  getQuery,
-  useLocation,
-}
+export { Redirect, Link, NavLink, navigate, getParams, useParams, getQuery, useLocation }

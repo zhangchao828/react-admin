@@ -22,6 +22,7 @@ function createRoutes() {
         __routes,
         `
 import { lazy } from 'react'
+import event from '~admin/event'
 
 export const routesMap = {
 ${routes}
@@ -79,9 +80,15 @@ function getRoutes(routeConfig) {
       '@/pages'.length + 1,
       component.indexOf(extname(component))
     )
-    const _layouts = JSON.stringify(layouts)
-    const _component = `lazy(() => import(/* webpackChunkName: "${chunkName}", webpackPrefetch: true */ '${component}'))`
-    const route = `'${routePath}': { component: ${_component}, layouts: ${_layouts}}`
+    const route = `
+    '${routePath}': {
+        component: lazy(() => import(/* webpackChunkName: "${chunkName}", webpackPrefetch: true */ '${component}').then(res=> {
+          event.resolve('${routePath}', res.default)
+          return res
+        })
+      ), 
+      layouts: ${JSON.stringify(layouts)}
+     }`
     routes.push(route)
   })
   return {
