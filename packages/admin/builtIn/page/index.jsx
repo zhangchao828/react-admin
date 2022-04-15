@@ -93,7 +93,8 @@ export function matchPage(pathname, routesMap) {
   const { component: page404 } = routesMap['/404'] || {}
   return {
     Page: route ? page : page404,
-    match: { ...defaultMatch, ...match, is404: !route },
+    match: { ...defaultMatch, ...match },
     layouts,
+    is404: !route,
   }
 }

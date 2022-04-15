@@ -53,7 +53,7 @@ function Main() {
       return value === null ? {} : { ...prevState, ...value }
     })
   }, [])
-  const { Page, match, layouts } = matchPage(pathname, routesMap)
+  let { Page, match, layouts } = matchPage(pathname, routesMap)
   const { params } = match
   const contextValue = {
     params,
@@ -68,14 +68,14 @@ function Main() {
     layouts.map((name) => layoutsMap[name]),
     { params, query }
   )
-  const matchedMicroApp = microApps.find((item) => pathIncludes(pathname, item.activeRule))
-  if (matchedMicroApp) {
+  const microApp = microApps.find((item) => pathIncludes(pathname, item.activeRule))
+  if (microApp) {
     // 用来装载匹配到的qiankun微应用的容器
-    wrappedPage = <div id={matchedMicroApp.name} />
+    wrappedPage = <div id={microApp.name} />
   }
   return (
     <AppContext.Provider value={contextValue}>
-      <Layout location={location} match={match}>
+      <Layout location={location} match={match} microApp={microApp && microApp.name}>
         <Suspense fallback={null}>{wrappedPage}</Suspense>
       </Layout>
     </AppContext.Provider>
