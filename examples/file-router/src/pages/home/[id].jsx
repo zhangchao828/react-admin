@@ -8,7 +8,7 @@ export default function Index() {
   return (
     <div>
       Home/id page
-      <input type="text"/>
+      <input type="text" />
       <br />
       <Link to="/">index</Link>
       <br />
@@ -16,3 +16,4 @@ export default function Index() {
     </div>
   )
 }
+Index.title = 'Home Detail'

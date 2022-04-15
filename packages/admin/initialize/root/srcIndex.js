@@ -1,7 +1,7 @@
-const { __src } = require('@zc/shared/paths')
 const fs = require('fs-extra')
 const { join } = require('path')
-const getIndexPath = require('../getIndexPath')
+const { __src } = require('@zc/shared/paths')
+const getIndexPath = require('@zc/shared/getIndexPath')
 
 function createSrcIndex() {
   const rootPath = getIndexPath(__src)

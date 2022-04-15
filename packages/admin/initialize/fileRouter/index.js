@@ -50,9 +50,29 @@ function createRoutes() {
       `
 import { lazy } from 'react'
 
+export const store = {
+  modules: {},
+  event: null,
+  resolve(path, m) {
+    store.modules[path] = m
+    if (store.event) {
+      store.event(m)
+    }
+  },
+  trigger(path, callback) {
+    store.event = null
+    if (store.modules[path]) {
+      callback(store.modules[path])
+    } else {
+      store.event = callback
+    }
+  },
+}
+
 export const routesMap = {
 ${routes}
 }
+
 export const layoutsMap = {
 ${layouts}
 }
@@ -107,9 +127,15 @@ function getRoutes(files) {
       '@/pages'.length + 1,
       component.indexOf(extname(component))
     )
-    const _layouts = JSON.stringify(layouts)
-    const _component = `lazy(() => import(/* webpackChunkName: "${chunkName}", webpackPrefetch: true */ '${component}'))`
-    const route = `'${routePath}': { component: ${_component}, layouts: ${_layouts}}`
+    const route = `
+  '${routePath}': {
+     component: lazy(() => import(/* webpackChunkName: "${chunkName}", webpackPrefetch: true */ '${component}').then(res => {
+        store.resolve('${routePath}', res.default)
+        return res
+      })
+     ),
+     layouts: ${JSON.stringify(layouts)},
+  }`
     routes.push(route)
   })
   return {

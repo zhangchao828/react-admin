@@ -1,7 +1,7 @@
 const { __pages } = require('@zc/shared/paths')
+const getIndexPath = require('@zc/shared/getIndexPath')
 const fs = require('fs-extra')
 const { join } = require('path')
-const getIndexPath = require('../getIndexPath')
 
 module.exports = function createIndexPage() {
   const indexPagePath = getIndexPath(join(__pages, 'index'))

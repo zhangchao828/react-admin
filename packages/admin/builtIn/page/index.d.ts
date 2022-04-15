@@ -4,7 +4,6 @@ interface ComponentMap {
 }
 type Match = {
   params: object
-  is404: boolean
   path: string
   [name: string]: any
 }
@@ -12,6 +11,7 @@ interface Matched {
   match: Match
   Page: ReactNode
   layouts: Array<string>
+  is404: boolean
 }
 export declare function wrapPage(
   Page: ReactNode,

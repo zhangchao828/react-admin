@@ -21,6 +21,9 @@ module.exports = function () {
   fs.outputFileSync(
     __routes,
     `
+  export const store = { 
+    trigger(){} 
+  }
   export const routesMap = {}
   export const layoutsMap = {}
   `

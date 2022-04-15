@@ -1,9 +1,9 @@
 import '~admin/qiankun-public-path'
-import { Suspense, useCallback, useMemo, useState } from 'react'
+import { Suspense, useCallback, useEffect, useMemo, useState } from 'react'
 import { useHistory, useLocation } from 'react-router-dom'
 import Layout from '@/layout'
 import Root from '@/index'
-import { routesMap, layoutsMap } from '~admin/routes'
+import { routesMap, layoutsMap, store } from '~admin/routes'
 import { AppContext, wrapPage, matchPage } from '@zc/admin'
 import ReactDOM from 'react-dom'
 import microApps from '~admin/qiankun-micro-apps'
@@ -53,8 +53,8 @@ function Main() {
       return value === null ? {} : { ...prevState, ...value }
     })
   }, [])
-  let { Page, match, layouts } = matchPage(pathname, routesMap)
-  const { params } = match
+  let { Page, match, layouts } = useMemo(() => matchPage(pathname, routesMap), [pathname])
+  const { params, path } = match
   const contextValue = {
     params,
     location,
@@ -73,6 +73,12 @@ function Main() {
     // 用来装载匹配到的qiankun微应用的容器
     wrappedPage = <div id={microApp.name} />
   }
+  useEffect(() => {
+    store.trigger(path, (module) => {
+      const values = Object.keys(module).reduce((p, n) => ({ ...p, [n]: module[n] }), {})
+      Root.onRouterChange?.(pathname, values)
+    })
+  }, [pathname])
   return (
     <AppContext.Provider value={contextValue}>
       <Layout location={location} match={match} microApp={microApp && microApp.name}>

@@ -1,10 +1,10 @@
-const { __pages, __routes, __customRoutes } = require('@zc/shared/paths')
-const { extname } = require('path')
-const getIndexPath = require('../getIndexPath')
 const fs = require('fs-extra')
 const { join } = require('path')
+const { extname } = require('path')
 const { isDev } = require('@zc/shared/env')
 const watchFiles = require('@zc/shared/watchFiles')
+const getIndexPath = require('@zc/shared/getIndexPath')
+const { __pages, __routes, __customRoutes } = require('@zc/shared/paths')
 
 let lastContent = ``
 function createRoutes() {
