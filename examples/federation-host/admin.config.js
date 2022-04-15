@@ -1,7 +1,6 @@
 const defineConfig = require('@zc/admin/define')
 
 module.exports = defineConfig({
-  publicPath: 'http://localhost:3000',
   webpack: {
     federation: {
       remotes: [

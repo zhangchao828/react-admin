@@ -30,11 +30,13 @@ function initConfig(defaultConfig) {
     localConfig = typeof localConfig === 'function' ? localConfig({ command, env }) : localConfig
     projectConfig = mergeConfig(projectConfig, localConfig)
   }
-  const { publicPath, proxy, webpack } = projectConfig
+  const { publicPath, proxy, webpack, qiankun } = projectConfig
   const { name: mfName, remotes } = webpack?.federation || {}
+  if (typeof qiankun === 'string' && !/^[A-Za-z]+$/.test(qiankun)) {
+    message.error('qiankun: 定义成字符串时必须是大小写字母组成，不能包含空格、汉字、数字等特殊字符')
+  }
   /* publicPath */
   projectConfig.publicPath = optimizePublicPath(publicPath) || '/'
-
   /* proxy */
   const proxyObj = {}
   Object.keys(proxy || {}).forEach((context) => {

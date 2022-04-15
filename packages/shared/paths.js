@@ -27,7 +27,7 @@ module.exports = {
   __router: resolvePath(`${temporary}/router.jsx`),
   __customRoutes: resolvePath('src/routes'),
   __remotes: resolvePath(`${temporary}/remotes.js`),
-  __qiankun_microApps: resolvePath(`${temporary}/qiankun-micro-apps.js`),
-  __qiankun_publicPath: resolvePath(`${temporary}/qiankun-public-path.js`),
+  __microApps: resolvePath(`${temporary}/micro-apps.js`),
+  __publicPath: resolvePath(`${temporary}/public-path.js`),
   __mock: resolvePath('mock'),
 }

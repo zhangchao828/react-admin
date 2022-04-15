@@ -9,8 +9,8 @@ const {
   __routes,
   __event,
   __router,
-  __qiankun_microApps,
-  __qiankun_publicPath,
+  __microApps,
+  __publicPath,
 } = require('@zc/shared/paths')
 
 const { router, qiankun } = getConfig()
@@ -21,9 +21,8 @@ module.exports = function () {
   createLayout()
   createIndexPage()
   fs.outputFileSync(__remotes, `export default {}`)
-  fs.outputFileSync(__qiankun_microApps, `export default []`)
-  fs.outputFileSync(__qiankun_publicPath, ``)
-  fs.outputFileSync(__qiankun_publicPath, ``)
+  fs.outputFileSync(__microApps, `export default []`)
+  fs.outputFileSync(__publicPath, ``)
   fs.outputFileSync(
     __routes,
     `

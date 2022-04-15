@@ -1,6 +1,7 @@
 const defineConfig = require('@zc/admin/define')
 
 module.exports = defineConfig({
+  publicPath: '//localhost:3000',
   webpack: {
     builtInExternals: false,
   },
