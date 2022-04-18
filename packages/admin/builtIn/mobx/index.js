@@ -1,8 +1,16 @@
 import { configure } from 'mobx'
 
 configure({
-  useProxies: 'ifavailable',
+  useProxies: 'always',
   enforceActions: 'observed',
 })
-export { observable, computed, action, runInAction, makeObservable, makeAutoObservable } from 'mobx'
+export {
+  observable,
+  computed,
+  action,
+  flow,
+  runInAction,
+  makeObservable,
+  makeAutoObservable,
+} from 'mobx'
 export { observer } from 'mobx-react-lite'

@@ -1,6 +1,7 @@
 export {
   observable,
   computed,
+  flow,
   action,
   runInAction,
   makeObservable,
