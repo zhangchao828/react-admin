@@ -1,6 +1,6 @@
 const babelOptions = require('./babel.config')
-const { __src, __temporary, __admin } = require('@zc/shared/paths')
 const { isDev } = require('@zc/shared/env')
+const { ADMIN_NPM } = require('@zc/shared/constant')
 const postcssOptions = require('./postcss.config')
 const project = require('@zc/shared/project')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
@@ -50,7 +50,7 @@ module.exports = [
     loader: 'babel-loader',
     // include: [__src, __temporary, __admin],
     exclude(content) {
-      return /node_modules/.test(content) && !content.includes(path.join('@zc/admin'))
+      return /node_modules/.test(content) && !content.includes(path.join(ADMIN_NPM))
     },
     options: {
       cacheDirectory: true,

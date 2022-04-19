@@ -1,11 +1,5 @@
-const { getConfig } = require('@zc/shared/project')
+const webpackBuild = require('@zc/webpack/build')
 
-const { vite } = getConfig()
-
-module.exports = function build() {
-  if (vite) {
-    require('@zc/vite/build')()
-  } else {
-    require('@zc/webpack/build')()
-  }
+module.exports = function () {
+  webpackBuild()
 }
