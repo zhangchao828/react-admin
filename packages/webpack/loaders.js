@@ -94,13 +94,16 @@ module.exports = [
     include: /node_modules/,
     use: [miniCssLoader, cssLoader, postcssLoader, lessLoader],
   },
-  // {
-  //   test: /\.svg$/,
-  //   exclude: /node_modules/,
-  //   use: ['@svgr/webpack'],
-  // },
   {
-    test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
+    test: /\.svg$/i,
+    issuer: /\.[jt]sx?$/,
+    exclude: /node_modules/,
+    resourceQuery: { not: [/url/] },
+    use: [{ loader: '@svgr/webpack', options: { memo: true } }],
+  },
+  { test: /\.svg$/i, type: 'asset', resourceQuery: /url/ },
+  {
+    test: /\.(png|jpe?g|gif)(\?.*)?$/,
     type: 'asset',
     // generator: {
     //   filename: 'assets/[name].[hash:7][ext]',
