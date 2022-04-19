@@ -48,7 +48,10 @@ module.exports = [
   {
     test: /\.[jt]sx?$/,
     loader: 'babel-loader',
-    include: [__src, __temporary, __admin],
+    // include: [__src, __temporary, __admin],
+    exclude(content) {
+      return /node_modules/.test(content) && !content.includes(path.join('@zc/admin'))
+    },
     options: {
       cacheDirectory: true,
       ...babelOptions,
