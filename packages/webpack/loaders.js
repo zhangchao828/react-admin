@@ -43,13 +43,12 @@ const postcssLoader = {
   },
 }
 const miniCssLoader = isDev ? 'style-loader' : MiniCssExtractPlugin.loader
-// 为了example能正常编译
-const exampleAdminPath = path.resolve('../../node_modules/@zc/admin')
+
 module.exports = [
   {
     test: /\.[jt]sx?$/,
     loader: 'babel-loader',
-    include: [__src, __temporary, __admin, exampleAdminPath],
+    include: [__src, __temporary, __admin],
     options: {
       cacheDirectory: true,
       ...babelOptions,
@@ -83,7 +82,7 @@ module.exports = [
       },
     ],
   },
-  /** node_modules中的 **/
+  /** node_modules中的 css**/
   {
     test: /\.css$/,
     include: /node_modules/,
