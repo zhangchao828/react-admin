@@ -42,7 +42,7 @@
     "qiankun": "^2.7.0",
     "react-router-dom": "5.3.0",
     "zs-shared": "0.0.4",
-    "zs-utils": "0.0.4",
+    "zs-utils": "0.0.5",
     "zs-webpack": "0.0.4"
   }
 }
