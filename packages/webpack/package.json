@@ -1,6 +1,6 @@
 {
   "name": "zs-webpack",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "dependencies": {
     "@babel/core": "7.17.9",
     "@babel/eslint-parser": "7.17.0",

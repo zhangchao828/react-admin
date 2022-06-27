@@ -1,6 +1,6 @@
 {
   "name": "zs-admin",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "react",
   "main": "lib/index.js",
   "module": "es/index.js",
@@ -29,13 +29,10 @@
     "es"
   ],
   "dependencies": {
-    "eslint-config-zs": "0.0.1",
-    "zs-shared": "0.0.1",
-    "zs-utils": "0.0.1",
-    "zs-webpack": "0.0.1",
     "@types/react": "^17.0.38",
     "@types/react-dom": "^17.0.11",
     "@types/react-router-dom": "^5.3.3",
+    "eslint-config-zs": "0.0.2",
     "glob": "7.2.0",
     "less": "4.1.2",
     "mobx": "6.6.0",
@@ -43,6 +40,9 @@
     "nprogress": "0.2.0",
     "postcss": "8.4.5",
     "qiankun": "^2.7.0",
-    "react-router-dom": "5.3.0"
+    "react-router-dom": "5.3.0",
+    "zs-shared": "0.0.2",
+    "zs-utils": "0.0.2",
+    "zs-webpack": "0.0.2"
   }
 }
