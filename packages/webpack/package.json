@@ -2,9 +2,9 @@
   "name": "zs-webpack",
   "version": "0.0.2",
   "dependencies": {
-    "@babel/core": "7.17.9",
-    "@babel/eslint-parser": "7.17.0",
-    "@babel/preset-env": "7.16.11",
+    "@babel/core": "7.18.5",
+    "@babel/eslint-parser": "7.18.2",
+    "@babel/preset-env": "7.18.2",
     "@babel/preset-react": "7.16.7",
     "@babel/preset-typescript": "7.16.7",
     "@pmmmwh/react-refresh-webpack-plugin": "0.5.7",
