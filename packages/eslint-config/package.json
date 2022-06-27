@@ -1,6 +1,6 @@
 {
   "name": "eslint-config-zs",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "eslint",
   "main": "index.js",
   "repository": {
