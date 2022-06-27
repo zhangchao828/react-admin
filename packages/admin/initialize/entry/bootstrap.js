@@ -8,17 +8,11 @@ import { routesMap, layoutsMap } from '~admin/routes'
 import { useHistory, useLocation } from 'react-router-dom'
 import { AppContext, wrapPage, matchPage, setMainApp, getQuery } from 'zs-admin'
 import { Suspense, useCallback, useEffect, useMemo, useState } from 'react'
-import NProgress from 'nprogress'
-import 'nprogress/nprogress.css'
 
 if (!Root.config) {
   Root.config = {}
 }
 function Fallback() {
-  useEffect(() => {
-    NProgress.start({ showSpinner: false })
-    return NProgress.done
-  }, [])
   return null
 }
 function Main() {
