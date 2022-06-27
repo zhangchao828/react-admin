@@ -2,8 +2,8 @@ const fs = require('fs-extra')
 const webpack = require('webpack')
 const beautifyStats = require('./beautifyStats')
 const webpackProdConfig = require('./webpack.prod.config')
-const { __static, __dist } = require('@zc/shared/paths')
-const message = require('@zc/shared/message')
+const { __static, __dist } = require('zs-shared/paths')
+const message = require('zs-shared/message')
 
 module.exports = function () {
   message.info('正在打包构建......')

@@ -1,9 +1,10 @@
 const fs = require('fs-extra')
 const glob = require('glob')
 const { extname } = require('path')
-const { __pages, __routes } = require('@zc/shared/paths')
-const { isDev } = require('@zc/shared/env')
-const watchFiles = require('@zc/shared/watchFiles')
+const { __pages, __routes } = require('zs-shared/paths')
+const { isDev } = require('zs-shared/env')
+const watchFiles = require('zs-shared/watchFiles')
+const debounce = require('lodash/debounce')
 
 const layoutId = '/layout'
 const ignoreFileList = [
@@ -35,6 +36,7 @@ const with$Reg = /\[[0-9a-zA-Z_.]+\$]/g
 const without$Reg = /\[[0-9a-zA-Z_.]+]/g
 
 let lastContent = ``
+
 function createRoutes() {
   watchRoutes()
   const files = glob.sync('**/*.*(js|jsx|tsx)', {
@@ -99,11 +101,12 @@ function getRoutes(files) {
     routesMap[routePath] = {
       component: `@/pages${realFilePath}`,
       layouts: getLayouts(layoutsMap, routePath),
+      filePath: filePath === '/' ? 'index' : filePath,
     }
   })
   // 拼接路由和layout
   Object.keys(routesMap).forEach((routePath) => {
-    const { component, layouts } = routesMap[routePath]
+    const { component, layouts, filePath } = routesMap[routePath]
     // 按照目录结构取webpackChunkName,使打包之后的目录结构更清晰
     const chunkName = component.substring(
       '@/pages'.length + 1,
@@ -117,14 +120,16 @@ function getRoutes(files) {
       })
      ),
      layouts: ${JSON.stringify(layouts)},
+     dir: ${JSON.stringify(filePath.split('/').filter(Boolean))}
   }`
     routes.push(route)
   })
   return {
-    routes: routes.join(',\n'),
-    layouts: allLayouts.join(',\n'),
+    routes: routes.join(','),
+    layouts: allLayouts.join(','),
   }
 }
+
 function getLayouts(layoutsMap, routePath) {
   const layouts = []
   const list = routePath.split('/').slice(1)
@@ -137,12 +142,15 @@ function getLayouts(layoutsMap, routePath) {
   }, '')
   return layouts
 }
+
 function isLayout(filePath) {
   return filePath && filePath.endsWith(layoutId)
 }
+
 function replaceIndex(str) {
   return str && str.replace(/(\/index)?\.[jt]sx?/g, '')
 }
+
 function becomeRoutePath(filePath) {
   if (filePath === '/') {
     return filePath
@@ -159,21 +167,18 @@ function becomeRoutePath(filePath) {
   }
   return filePath
 }
+
 function isDynamicRoute(routePath) {
   return routePath && (routePath.includes('*') || routePath.includes(':'))
 }
-function ignorePath(routePath = '', extraIgnore = []) {
+
+function ignorePath(routePath = '') {
   if (!routePath) {
     return true
   }
-  const ignoreList = ignoreFileList.concat(extraIgnore || [])
-  // 微服务打包时可能会排除pages/index
-  if (routePath === '/' && ignoreList.includes('index')) {
-    return true
-  }
-  const routePathList = routePath.split('/').filter(Boolean)
+  const routePathSplit = routePath.split('/').filter(Boolean)
   // 存在ignoreFileList里面列出的关键字的路径会被忽略
-  if (ignoreList.some((item) => routePathList.includes(item))) {
+  if (ignoreFileList.some((item) => routePathSplit.includes(item))) {
     return true
   }
   // pages/index下的路径会被忽略
@@ -189,11 +194,18 @@ function ignorePath(routePath = '', extraIgnore = []) {
     return true
   }
   /*
-  1: 非动态路由带有大写字母的文件或目录会被忽略，
-  2: 动态路由[]包裹住的内容可以有大写字母
-  3: 动态路由[]包裹住的内容不能带有中划线 - 符号，这是因为react-router中的matchPath无法匹配
+  1: 首字母大写的文件或目录会被忽略，
+  2: 动态路由[]包裹住的内容不能带有中划线 - 符号，这是因为react-router中的matchPath无法匹配
    */
-  if (routePathList.find((item) => !isDynamicRoute(item) && item.toLowerCase() !== item)) {
+  if (
+    routePathSplit.find((item) => {
+      if (isDynamicRoute(item)) {
+        // 动态路由就三种情况 * 或者 :id 或者 :id?
+        return item !== '*' && (item.includes('-') || item[1].toLowerCase() !== item[1])
+      }
+      return item[0].toLowerCase() !== item[0]
+    })
+  ) {
     return true
   }
   // 转为路由之后还存在. $ [ ] _符号的文件会被忽略
@@ -201,6 +213,7 @@ function ignorePath(routePath = '', extraIgnore = []) {
 }
 
 let hasWatched = false
+
 function watchRoutes() {
   if (isDev && !hasWatched) {
     hasWatched = true
@@ -209,7 +222,7 @@ function watchRoutes() {
       {
         cwd: __pages,
       },
-      createRoutes
+      debounce(createRoutes, 150)
     )
   }
 }

@@ -1,17 +1,26 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const cheerio = require('cheerio')
-const { isDev } = require('@zc/shared/env')
+const { isDev } = require('zs-shared/env')
+const { getConfig } = require('zs-shared/project')
 const optimizeExternals = require('../optimizeExternals')
 const { RUN_TIME, REACT_REFRESH, APP } = require('../constant')
 
+const { microApp } = getConfig()
 class HtmlTransform {
+  scripts = []
+  css = []
   apply(compiler) {
-    const { path: outputPath, publicPath } = compiler.options.output
-    const { externals: webpackExternals, scripts } = optimizeExternals({
-      outputPath,
-      publicPath,
-    })
-    compiler.options.externals = webpackExternals
+    if (!Array.isArray(microApp)) {
+      // 当是主应用，就不要配置externals
+      const { path: outputPath, publicPath } = compiler.options.output
+      const { webpackExternals, scripts, css } = optimizeExternals({
+        outputPath,
+        publicPath,
+      })
+      this.scripts = scripts
+      this.css = css
+      compiler.options.externals = webpackExternals
+    }
     compiler.hooks.compilation.tap('HtmlTransform', (compilation) => {
       HtmlWebpackPlugin.getHooks(compilation).afterTemplateExecution.tapAsync(
         'HtmlTransform',
@@ -25,10 +34,12 @@ class HtmlTransform {
           以下注入必须按照这样的先后顺序,否则热更新会失效
            */
             this.injectRuntime($, htmlPluginData)
-            this.injectExternalScripts($, scripts)
+            this.injectCss($)
+            this.injectExternalScripts($)
             this.injectAppTag($, htmlPluginData)
           } else {
-            this.injectExternalScripts($, scripts)
+            this.injectCss($)
+            this.injectExternalScripts($)
           }
           htmlPluginData.html = $.html()
           callback(null, htmlPluginData)
@@ -66,13 +77,18 @@ class HtmlTransform {
       $('body').append(entry)
     }
   }
-  injectExternalScripts($, scripts) {
-    scripts.forEach(({ src, async }) => {
+  injectExternalScripts($) {
+    this.scripts.forEach(({ src, async }) => {
       if (src) {
         $('body').append(
           async ? `<script src="${src}" async="async"></script>` : `<script src="${src}"></script>`
         )
       }
+    })
+  }
+  injectCss($) {
+    this.css.forEach((href) => {
+      $('head').append(`<link rel="stylesheet" href="${href}">`)
     })
   }
 }

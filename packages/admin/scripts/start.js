@@ -1,11 +1,5 @@
-const { getConfig } = require('@zc/shared/project')
+const webpackStart = require('zs-webpack/start')
 
-const {  vite } = getConfig()
-
-module.exports = function start() {
-  if (vite) {
-    require('@zc/vite/start')()
-  } else {
-    require('@zc/webpack/start')()
-  }
+module.exports = async function start() {
+  webpackStart()
 }

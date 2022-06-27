@@ -12,5 +12,5 @@ module.exports = {
     },
   },
   parser: '@babel/eslint-parser',
-  extends: ['@zc/eslint-config'],
+  extends: ['eslint-config-zs'],
 }

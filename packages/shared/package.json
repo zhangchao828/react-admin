@@ -1,5 +1,5 @@
 {
-  "name": "@zc/shared",
+  "name": "zs-shared",
   "version": "0.0.1",
   "description": "shared",
   "keywords": [
@@ -13,7 +13,7 @@
     "chalk": "4.1.1",
     "chokidar": "3.5.2",
     "detect-port": "1.3.0",
-    "fs-extra": "10.0.0",
+    "fs-extra": "10.1.0",
     "mockjs": "1.1.0",
     "semver": "7.3.5",
     "shelljs": "0.8.4"

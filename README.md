@@ -1,2 +1,1 @@
-# zc-react
-react admin
+## 前端脚手架集成方案 react admin

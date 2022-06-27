@@ -20,13 +20,13 @@ function initEnv() {
   process.env.admin_env = env || 'dev'
 }
 
-if (['start', 'build'].includes(script)) {
+if (['start', 'build', 'update'].includes(script)) {
   const mode = script === 'start' ? 'development' : 'production'
   process.env.NODE_ENV = mode
   process.env.BABEL_ENV = mode
   initEnv()
   // 初始化项目配置文件
-  require('@zc/shared/project').initConfig(defaultConfig)
+  require('zs-shared/project').initConfig(defaultConfig)
   // 根据项目配置初始化整个项目
   require('../initialize')()
   require('../scripts/' + script)(process.argv)

@@ -30,11 +30,7 @@ function initConfig(defaultConfig) {
     localConfig = typeof localConfig === 'function' ? localConfig({ command, env }) : localConfig
     projectConfig = mergeConfig(projectConfig, localConfig)
   }
-  const { publicPath, proxy, webpack, qiankun } = projectConfig
-  const { name: mfName, remotes } = webpack?.federation || {}
-  if (typeof qiankun === 'string' && !/^[A-Za-z]+$/.test(qiankun)) {
-    message.error('qiankun: 定义成字符串时必须是大小写字母组成，不能包含空格、汉字、数字等特殊字符')
-  }
+  const { publicPath, proxy, federation, microApp } = projectConfig
   /* publicPath */
   projectConfig.publicPath = optimizePublicPath(publicPath) || '/'
   /* proxy */
@@ -51,35 +47,50 @@ function initConfig(defaultConfig) {
   })
   projectConfig.proxy = proxyObj
 
+  /* 一个应用不能既是模块联邦应用又是乾坤微应用 */
+  if (typeof federation === 'string' && typeof microApp === 'string') {
+    message.error('一个应用不能既是模块联邦应用又是乾坤微应用')
+  }
   /* 模块联邦 */
-  if (mfName) {
-    if (typeof publicPath !== 'string' || !publicPath.startsWith('http')) {
-      message.error('federation: 必须配置一个有效的以http开头的publicPath')
-    }
-    if (typeof mfName !== 'string' || !/^[A-Za-z]+$/.test(mfName)) {
+  if (federation) {
+    if (typeof federation === 'string' && !/^[A-Za-z]+$/.test(federation)) {
       message.error('federation: name必须是大小写字母组成，不能包含空格、汉字、数字等特殊字符')
     }
-  }
-  if (Array.isArray(remotes) && remotes.length > 0) {
-    const appList = []
-    // 去重微应用，每个微应用的名称和publicPath必须唯一
-    remotes.forEach((item) => {
-      const { name } = item || {}
-      const remotePublicPath = optimizePublicPath(item.publicPath)
-      if (name && remotePublicPath) {
-        const match = appList.find(
-          (node) => node.name === name || node.publicPath === remotePublicPath
-        )
-        if (!match) {
-          appList.push({ name, publicPath: remotePublicPath })
+    if (Array.isArray(federation) && federation.length > 0) {
+      const appList = []
+      // 去重微应用，每个微应用的名称和publicPath必须唯一
+      federation.forEach((item) => {
+        const { name } = item || {}
+        const remotePublicPath = optimizePublicPath(item.publicPath)
+        if (name && remotePublicPath) {
+          const match = appList.find(
+            (node) => node.name === name || node.publicPath === remotePublicPath
+          )
+          if (!match) {
+            appList.push({ name, publicPath: remotePublicPath })
+          } else {
+            message.error(`federation: name重复'${match.name}'`)
+          }
         } else {
-          message.error(`federation: name重复'${match.name}'`)
+          message.error('federation: 必须配置name和publicPath属性')
         }
-      } else {
-        message.error('federation: 必须配置name和publicPath属性')
+      })
+      projectConfig.federation = appList
+    }
+  }
+  /**
+   * qiankun微应用
+   */
+  if (Array.isArray(microApp)) {
+    const microAppList = []
+    microApp.forEach((item) => {
+      const { name } = item
+      const entry = optimizePublicPath(item.entry)
+      if (name && entry) {
+        microAppList.push({ activeRule: `/${name}`, ...item, entry })
       }
     })
-    projectConfig.webpack.federation.remotes = appList
+    projectConfig.microApp = microAppList.length ? microAppList : false
   }
   return projectConfig
 }

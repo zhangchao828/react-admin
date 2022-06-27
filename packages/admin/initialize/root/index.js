@@ -3,25 +3,32 @@ const createSrcIndex = require('./srcIndex')
 const createIndexPage = require('./indexPage')
 const createLayout = require('./layout')
 const fs = require('fs-extra')
-const { getConfig } = require('@zc/shared/project')
+const { getConfig } = require('zs-shared/project')
 const {
-  __remotes,
+  __federationApps,
   __routes,
   __event,
-  __router,
+  __config,
   __microApps,
   __publicPath,
-} = require('@zc/shared/paths')
+} = require('zs-shared/paths')
 
-const { router, qiankun } = getConfig()
+const { microApp } = getConfig()
 
 module.exports = function () {
   createIndexHtml()
   createSrcIndex()
   createLayout()
   createIndexPage()
-  fs.outputFileSync(__remotes, `export default {}`)
-  fs.outputFileSync(__microApps, `export default []`)
+  fs.outputFileSync(__federationApps, `export default {}`)
+  fs.outputFileSync(
+    __config,
+    `
+  export default {
+    microApp:'${typeof microApp === 'string' ? microApp : ''}'
+  }`
+  )
+  fs.outputFileSync(__microApps, `export default ()=> null`)
   fs.outputFileSync(__publicPath, ``)
   fs.outputFileSync(
     __routes,
@@ -52,16 +59,6 @@ const event = {
   },
 }
 export default event
-  `
-  )
-  const basename = typeof qiankun === 'string' ? `/${qiankun}` : '/'
-  fs.outputFileSync(
-    __router,
-    `
-import { ${router} } from 'react-router-dom'
-
-const basename = window.__POWERED_BY_QIANKUN__ ? '${basename}':undefined
-export default ({ children }) => <${router} basename={basename}>{children}</${router}>
   `
   )
 }

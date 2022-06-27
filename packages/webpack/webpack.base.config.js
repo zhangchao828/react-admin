@@ -1,13 +1,13 @@
-const { __dist, __entry, __indexHtml } = require('@zc/shared/paths')
-const { isDev, define } = require('@zc/shared/env')
-const alias = require('@zc/shared/alias')
-const { getConfig } = require('@zc/shared/project')
+const { __dist, __entry, __indexHtml } = require('zs-shared/paths')
+const { isDev, define } = require('zs-shared/env')
+const alias = require('zs-shared/alias')
+const { getConfig } = require('zs-shared/project')
 const webpack = require('webpack')
 const WebpackBar = require('webpackbar')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const HtmlTransformPlugin = require('./plugins/html-transform')
 const FederationPlugin = require('./plugins/federation')
-const QiankunPlugin = require('./plugins/qiankun')
+const MicroAppPlugin = require('./plugins/micro-app')
 const { APP, RUN_TIME } = require('./constant')
 const rules = require('./loaders')
 const { publicPath } = getConfig()
@@ -52,7 +52,7 @@ const baseConfig = {
   plugins: [
     new WebpackBar(),
     new FederationPlugin(),
-    new QiankunPlugin(),
+    new MicroAppPlugin(),
     new webpack.DefinePlugin(define),
     new HtmlWebpackPlugin({
       template: __indexHtml,

@@ -1,160 +1,156 @@
-const isPlainObject = require('lodash/isPlainObject')
 const fs = require('fs-extra')
 const { join } = require('path')
-const { __root } = require('@zc/shared/paths')
-const { isDev } = require('@zc/shared/env')
-const { getConfig } = require('@zc/shared/project')
+const { __root } = require('zs-shared/paths')
+const { isDev } = require('zs-shared/env')
+const { getConfig } = require('zs-shared/project')
+const { getModuleVersionInNodeModules } = require('zs-shared/version')
 
-const { externals, builtInExternals } = getConfig().webpack
-const builtInLib = {
-  react: [
-    {
-      name: 'react',
-      global: 'React',
-      script: {
-        development: '/node_modules/react/umd/react.development.js',
-        production: '/node_modules/react/umd/react.production.min.js',
-      },
-    },
-    {
-      name: 'react-dom',
-      global: 'ReactDOM',
-      script: {
-        development: '/node_modules/react-dom/umd/react-dom.development.js',
-        production: '/node_modules/react-dom/umd/react-dom.production.min.js',
-      },
-    },
-  ],
-  reactRouter: [
-    // {
-    //   name: 'history',
-    //   global: 'HistoryLibrary',
-    //   script: {
-    //     development: '/node_modules/history/umd/history.development.js',
-    //     production: '/node_modules/history/umd/history.production.min.js',
-    //   },
-    // },
-    // {
-    //   name: 'react-router',
-    //   global: 'ReactRouter',
-    //   script: {
-    //     development: '/node_modules/react-router/umd/react-router.development.js',
-    //     production: '/node_modules/react-router/umd/react-router.production.min.js',
-    //   },
-    // },
-    {
-      name: 'react-router-dom',
-      global: 'ReactRouterDOM',
-      script: {
-        development: '/node_modules/react-router-dom/umd/react-router-dom.js',
-        production: '/node_modules/react-router-dom/umd/react-router-dom.min.js',
-      },
-    },
-  ],
-  mobx: [
-    {
-      name: 'mobx',
-      global: 'mobx',
-      script: {
-        development: '/node_modules/mobx/dist/mobx.umd.development.js',
-        production: '/node_modules/mobx/dist/mobx.umd.production.min.js',
-      },
-    },
-    {
-      name: 'mobx-react-lite',
-      global: 'mobxReactLite',
-      script: {
-        development: '/node_modules/mobx-react-lite/dist/mobxreactlite.umd.development.js',
-        production: '/node_modules/mobx-react-lite/dist/mobxreactlite.umd.production.min.js',
-      },
-    },
-  ],
-  axios: [
-    {
-      name: 'axios',
-      global: 'axios',
-      script: {
-        development: '/node_modules/axios/dist/axios.js',
-        production: '/node_modules/axios/dist/axios.min.js',
-      },
-    },
-  ],
-}
-
-function getExternals() {
-  if (!builtInExternals) {
-    return []
-  }
-  let extraExternals = []
-  Object.keys(builtInLib).forEach((name) => {
-    if (builtInExternals[name]) {
-      extraExternals = extraExternals.concat(builtInLib[name])
-    }
-  })
-  return [...extraExternals, ...externals]
+const { externals, css } = getConfig()
+const builtIn = {
+  react: {
+    global: 'React',
+    script: isDev
+      ? '/node_modules/react/umd/react.development.js'
+      : '/node_modules/react/umd/react.production.min.js',
+  },
+  'react-dom': {
+    global: 'ReactDOM',
+    script: isDev
+      ? '/node_modules/react-dom/umd/react-dom.development.js'
+      : '/node_modules/react-dom/umd/react-dom.production.min.js',
+  },
+  // history: {
+  //   global: 'HistoryLibrary',
+  //   script: {
+  //     development: '/node_modules/history/umd/history.development.js',
+  //     production: '/node_modules/history/umd/history.production.min.js',
+  //   },
+  // },
+  // 'react-router': {
+  //   name: 'react-router',
+  //   global: 'ReactRouter',
+  //   script: {
+  //     development: '/node_modules/react-router/umd/react-router.development.js',
+  //     production: '/node_modules/react-router/umd/react-router.production.min.js',
+  //   },
+  // },
+  'react-router-dom': {
+    global: 'ReactRouterDOM',
+    script: isDev
+      ? '/node_modules/react-router-dom/umd/react-router-dom.js'
+      : '/node_modules/react-router-dom/umd/react-router-dom.min.js',
+  },
+  mobx: {
+    global: 'mobx',
+    script: isDev
+      ? '/node_modules/mobx/dist/mobx.umd.development.js'
+      : '/node_modules/mobx/dist/mobx.umd.production.min.js',
+  },
+  'mobx-react-lite': {
+    global: 'mobxReactLite',
+    script: isDev
+      ? '/node_modules/mobx-react-lite/dist/mobxreactlite.umd.development.js'
+      : '/node_modules/mobx-react-lite/dist/mobxreactlite.umd.production.min.js',
+  },
+  axios: {
+    global: 'axios',
+    script: isDev ? '/node_modules/axios/dist/axios.js' : '/node_modules/axios/dist/axios.min.js',
+  },
+  moment: {
+    global: 'moment',
+    script: isDev ? '/node_modules/moment/moment.js' : '/node_modules/moment/min/moment.min.js',
+  },
+  'moment/locale/zh-cn': {
+    global: 'moment.locale',
+    script: '/node_modules/moment/locale/zh-cn.js',
+  },
+  antd: {
+    global: 'antd',
+    script: isDev ? '/node_modules/antd/dist/antd.js' : '/node_modules/antd/dist/antd.min.js',
+  },
 }
 
 function optimizeScript(script, config) {
-  const { outputPath, publicPath = '/', devOnly } = config || {}
-  const res = {}
-  if (!isDev && devOnly) {
-    return {}
-  }
-  if (typeof script === 'string') {
-    res.src = script
-  } else if (isPlainObject(script)) {
-    const { development, production, async } = script
-    res.src = isDev ? development : production
-    res.async = async
-  }
-  if (!res.src) {
-    return {}
-  }
+  const { outputPath, publicPath = '/' } = config || {}
   const prefix = '/node_modules'
-  const { src } = res
-  if (src.startsWith(prefix)) {
-    const modulePath = join(__root, src)
-    const copyPath = outputPath && join(outputPath, src)
-    res.src = publicPath + src.substring(1)
-    if (fs.pathExistsSync(modulePath)) {
+  let src = script
+  if (script.startsWith(prefix)) {
+    const jsPath = join(__root, script)
+    const copyPath = outputPath && join(outputPath, script)
+    if (fs.pathExistsSync(jsPath)) {
+      src = publicPath + script.substring(1)
+      const moduleName = script.split('/').filter(Boolean)[1]
+      const version = getModuleVersionInNodeModules(moduleName)
+      if (version) {
+        src += `?version=${version}`
+      }
       if (!isDev && copyPath) {
-        fs.copy(modulePath, copyPath)
+        fs.copy(jsPath, copyPath)
       }
     } else {
+      src = ''
       // error(`module not found: ${modulePath}`)
     }
   }
-  return res
+  return src
 }
+
+function optimizeCss(css, config) {
+  if (typeof css === 'string') {
+    let href = css
+    const { outputPath, publicPath } = config || {}
+    const prefix = '/node_modules'
+    if (css.startsWith(prefix)) {
+      const cssPath = join(__root, css)
+      const copyPath = outputPath && join(outputPath, css)
+      if (fs.pathExistsSync(cssPath)) {
+        href = publicPath + css.substring(1)
+        const moduleName = css.split('/').filter(Boolean)[1]
+        const version = getModuleVersionInNodeModules(moduleName)
+        if (version) {
+          href += `?version=${version}`
+        }
+        if (!isDev && copyPath) {
+          fs.copy(cssPath, copyPath)
+        }
+      } else {
+        href = ''
+      }
+    }
+    return href
+  }
+}
+
 let optimizedExternals = null
 
 function optimiseExternals(config) {
   if (optimizedExternals) {
     return optimizedExternals
   }
-  const resExternals = getExternals()
-  const externalsMap = {}
-  const scripts = {}
-  resExternals.forEach((item) => {
-    const { name, global, script, devOnly } = typeof item === 'string' ? { script: item } : item
-    const { src, async } = optimizeScript(script, { ...config, devOnly })
-    if (!isDev && devOnly) {
-      // do nothing
-    } else {
-      if (name && !externalsMap[name]) {
-        externalsMap[name] = global
-      }
-      if (src && !scripts[src]) {
-        scripts[src] = { async }
+  const allExternals = {
+    ...builtIn,
+    ...externals,
+  }
+  const webpackExternals = {}
+  const scripts = []
+  Object.keys(allExternals).forEach((name) => {
+    const obj = allExternals[name]
+    if (obj) {
+      const { global, script, async } = typeof obj === 'string' ? { script: obj } : obj
+      const src = optimizeScript(script, config)
+      if (src) {
+        if (global) {
+          webpackExternals[name] = global
+        }
+        scripts.push({ src, async })
       }
     }
   })
+  const cssList = (css || []).map((item) => optimizeCss(item, config)).filter(Boolean)
   const res = {
-    scripts: Object.keys(scripts).map((src) => ({
-      src,
-      async: scripts[src].async,
-    })),
-    externals: externalsMap,
+    scripts,
+    webpackExternals,
+    css: cssList,
   }
   optimizedExternals = res
   return res

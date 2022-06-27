@@ -8,6 +8,7 @@ module.exports = {
   command,
   define: {
     __ENV__: JSON.stringify(env),
+    __MODE__: JSON.stringify(isDev ? 'start' : 'build'),
     'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
   },
 }

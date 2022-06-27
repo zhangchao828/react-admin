@@ -1,62 +1,37 @@
-import { RegistrableApp } from 'qiankun/es/interfaces'
+type External =
+  | string
+  | {
+      global?: any
+      script?: string
+      /**
+       * 是否异步加载script
+       */
+      async?: boolean
+    }
 
-interface Script {
-  development?: string
-  production?: string
-  async?: boolean
-}
 interface Externals {
-  name?: string
-  global?: any
-  script?: string | Script
-  devOnly?: boolean
+  react?: External
+  'react-dom'?: External
+  'react-router-dom'?: External
+  axios?: External
+  mobx?: External
+  'mobx-react-lite'?: External
+  'moment/locale/zh-cn'?: External
+  antd?: External
+  moment?: External
+
+  [name: string | SomeModulesName]: External
 }
-interface BuiltInExternals {
-  mobx?: boolean
-  axios?: boolean
-  reactRouter?: boolean
-  react?: boolean
-}
-interface Federation {
+type Federation = Array<{
   /**
-   * 当前应用是否注册为一个微服务应用
+   * 模块联邦的名称
    */
-  name?: string
+  name: string
   /**
-   * 当前项目需要使用哪些微服务系统，这些微服务必须是经过注册过的
-   * 使用了该配置后，需要注意当前项目的package.json中的name最好不要出现数字，中文，- 等特殊字符，有共享模块时，可能会报错
+   * 模块联邦应用的地址
    */
-  remotes?: Array<{
-    /**
-     * 微服务的名称
-     */
-    name: string
-    /**
-     * 微服务的地址
-     */
-    publicPath: string
-  }>
-  /**
-   * 共享模块
-   */
-  shared?: any
-}
-interface WebpackOptions {
-  /**
-   * 模块联邦
-   */
-  federation?: false | Federation
-  /**
-   * 开发环境是否按需编译,
-   */
-  lazyCompilation?: boolean
-  /**
-   * webpack的externals配置
-   */
-  externals?: Array<string | Externals>
-  builtInExternals?: false | null | BuiltInExternals
-}
-type ViteOptions = boolean | {}
+  publicPath: string
+}>
 type LessOptions = {
   /**
    * 定义less变量
@@ -66,6 +41,21 @@ type LessOptions = {
    * 修改less变量
    */
   modifyVars?: object
+}
+type MicroApp = {
+  name: string
+  entry: string
+  activeRule: string
+  credentials?: boolean
+}
+type Px2viewport = {
+  viewportWidth?: number
+  unitPrecision?: number
+  propList?: string[]
+  selectorBlackList?: string[]
+  exclude?: (string | RegExp)[] | RegExp
+  include?: (string | RegExp)[] | RegExp
+  [name: string]: any
 }
 type ProjectConfig = {
   port?: number
@@ -83,13 +73,21 @@ type ProjectConfig = {
    */
   proxy?: object
   lessOptions?: LessOptions
-  webpack?: WebpackOptions
-  vite?: ViteOptions
+  css?: string[]
+  externals?: Externals
+  /**
+   * 模块联邦
+   */
+  federation?: false | string | Federation
+  /**
+   * 开发环境是否按需编译,
+   */
+  lazyCompilation?: boolean
   /**
    * qiankun微应用
    */
-  qiankun: string | Array<{ name: string; entry: string }>
-  router: 'BrowserRouter' | 'MemoryRouter' | 'HashRouter'
+  microApp?: string | Array<MicroApp>
+  px2viewport?: boolean | Px2viewport
 }
 type ConfigFuncParams = {
   env: 'dev' | 'pre' | 'pro' | string

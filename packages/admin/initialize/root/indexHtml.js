@@ -1,4 +1,4 @@
-const { __indexHtml } = require('@zc/shared/paths')
+const { __indexHtml } = require('zs-shared/paths')
 const fs = require('fs-extra')
 
 module.exports = function () {
@@ -10,7 +10,7 @@ module.exports = function () {
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <title>admin</title>
+    <title>浙商未来</title>
   </head>
   <body>
     <div id="app"></div>

@@ -7,16 +7,19 @@
   ],
   "private": true,
   "scripts": {
-    "postinstall": "npm run build:helper",
-    "build:helper": "cd packages/helper && npm run build",
+    "postinstall": "npm run build",
+    "build:utils": "cd packages/utils && npm run build",
+    "build:admin": "cd packages/admin && npm run build",
+    "build": "npm run build:utils && npm run build:admin && npm run clearCache",
+    "clearCache": "node scripts/clear.js",
     "release": "lerna publish"
   },
   "//": "father-build 暂不兼容less4，所以这里必须再安装less3版本",
   "devDependencies": {
-    "@babel/core": "7.16.7",
-    "@babel/eslint-parser": "7.16.5",
+    "@babel/core": "7.17.9",
+    "@babel/eslint-parser": "7.17.0",
     "@babel/preset-typescript": "7.16.7",
-    "babel-loader": "8.2.3",
+    "babel-loader": "8.2.5",
     "father-build": "1.20.4",
     "lerna": "^4.0.0",
     "less": "^3.13.1",
@@ -24,7 +27,6 @@
     "typescript": "^4.2.4"
   },
   "dependencies": {
-    "antd": "4.18.6",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
   }

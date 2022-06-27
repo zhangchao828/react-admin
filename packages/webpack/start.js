@@ -1,10 +1,10 @@
-const { __static, __nodeModules } = require('@zc/shared/paths')
+const { __static, __nodeModules } = require('zs-shared/paths')
 const webpack = require('webpack')
 // const open = require('open')
 const webpackDevConfig = require('./webpack.dev.config')
-const getUnusedPort = require('@zc/shared/getUnusedPort')
-const message = require('@zc/shared/message')
-const { getConfig } = require('@zc/shared/project')
+const getUnusedPort = require('zs-shared/getUnusedPort')
+const message = require('zs-shared/message')
+const { getConfig } = require('zs-shared/project')
 const mock = require('./plugins/mock')
 const WebpackDevServer = require('webpack-dev-server')
 
@@ -35,7 +35,7 @@ async function start() {
     static: [
       {
         directory: __static,
-        publicPath: '/',
+        publicPath: '/public',
         watch: true,
       },
       {
@@ -58,7 +58,7 @@ async function start() {
       const hostname = await WebpackDevServer.getHostname('local-ip')
       const ipUrl = `${httpType}://${hostname}:${port}`
       const localUrl = `${httpType}://localhost:${port}`
-      message.success(`${ipUrl}\n  ${localUrl}`)
+      message.info(`可通过以下地址打开应用:\n ${ipUrl}\n ${localUrl}`)
       // open(url)
     }
   })

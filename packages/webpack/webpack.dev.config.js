@@ -1,19 +1,15 @@
 const { merge } = require('webpack-merge')
 const baseWebpackConfig = require('./webpack.base.config')
-const { getConfig } = require('@zc/shared/project')
-const { env } = require('@zc/shared/env')
+const { getConfig } = require('zs-shared/project')
+const { env } = require('zs-shared/env')
 const { REACT_REFRESH } = require('./constant')
 const ReactRefreshPlugin = require('@pmmmwh/react-refresh-webpack-plugin')
 const ESLintPlugin = require('eslint-webpack-plugin')
 const eslintFormatter = require('eslint-friendly-formatter')
 // const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin')
-const { join } = require('path')
 const eslintConfig = require('./eslint.config')
 
-const {
-  eslint,
-  webpack: { lazyCompilation },
-} = getConfig()
+const { eslint, lazyCompilation } = getConfig()
 const webpackDevConfig = merge(baseWebpackConfig, {
   mode: 'development',
   entry: {

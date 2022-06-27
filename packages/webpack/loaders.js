@@ -1,9 +1,9 @@
 const babelOptions = require('./babel.config')
-const { isDev } = require('@zc/shared/env')
-const { ADMIN_NPM } = require('@zc/shared/constant')
+const { isDev } = require('zs-shared/env')
 const postcssOptions = require('./postcss.config')
-const project = require('@zc/shared/project')
+const project = require('zs-shared/project')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const { __src, __temporary } = require('zs-shared/paths')
 const path = require('path')
 
 const { lessOptions } = project.getConfig()
@@ -21,6 +21,7 @@ const cssModulesLoader = {
     modules: {
       mode: 'local',
       localIdentName: '[name]__[local]--[hash:base64:8]',
+      exportLocalsConvention: 'dashes',
     },
   },
 }
@@ -42,20 +43,20 @@ const postcssLoader = {
     postcssOptions,
   },
 }
+const babelLoader = {
+  loader: 'babel-loader',
+  options: {
+    cacheDirectory: true,
+    ...babelOptions,
+  },
+}
 const miniCssLoader = isDev ? 'style-loader' : MiniCssExtractPlugin.loader
 
 module.exports = [
   {
     test: /\.[jt]sx?$/,
-    loader: 'babel-loader',
-    // include: [__src, __temporary, __admin],
-    exclude(content) {
-      return /node_modules/.test(content) && !content.includes(path.join(ADMIN_NPM))
-    },
-    options: {
-      cacheDirectory: true,
-      ...babelOptions,
-    },
+    include: [__src, __temporary],
+    use: [babelLoader],
   },
   /** css module **/
   {
@@ -64,7 +65,7 @@ module.exports = [
     oneOf: [
       {
         // 配合auto-css-modules
-        resourceQuery: /css_modules/,
+        resourceQuery: /css-modules/,
         use: [miniCssLoader, cssModulesLoader, postcssLoader],
       },
       {
@@ -77,7 +78,7 @@ module.exports = [
     exclude: /node_modules/,
     oneOf: [
       {
-        resourceQuery: /css_modules/,
+        resourceQuery: /css-modules/,
         use: [miniCssLoader, cssModulesLoader, postcssLoader, lessLoader],
       },
       {

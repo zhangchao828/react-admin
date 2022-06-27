@@ -5,11 +5,11 @@
   "version": "independent",
   "command": {
     "publish": {
-      "allowBranch": ["main"],
-      "registry": "https://www.npmjs.com"
+      "allowBranch": ["master"],
+      "registry": "https://registry.npmjs.org/"
     },
     "version": {
-      "allowBranch": ["main"],
+      "allowBranch": ["master"],
       "exact": true
     }
   }

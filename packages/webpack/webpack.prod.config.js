@@ -1,17 +1,14 @@
 const { merge } = require('webpack-merge')
 const baseWebpackConfig = require('./webpack.base.config')
-const { getConfig } = require('@zc/shared/project')
-const { env } = require('@zc/shared/env')
+const { env } = require('zs-shared/env')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
 
-const { publicPath } = getConfig()
 const webpackProdConfig = merge(baseWebpackConfig, {
   mode: 'production',
   devtool: false,
   output: {
-    publicPath,
     filename: 'js/[name].[contenthash].js',
     chunkFilename: 'js/[name].[contenthash].js',
     hashDigestLength: 10,
@@ -59,7 +56,7 @@ const webpackProdConfig = merge(baseWebpackConfig, {
         },
         admin: {
           name: 'chunk-admin',
-          test: /@zc\/admin/,
+          test: /@sd\/admin/,
           enforce: true,
           priority: 1,
         },

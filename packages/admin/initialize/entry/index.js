@@ -1,15 +1,18 @@
 const { join } = require('path')
-const { __entryDir } = require('@zc/shared/paths')
+const { __entryDir, __entry, __federationExpose } = require('zs-shared/paths')
 const fs = require('fs-extra')
-const { getConfig } = require('@zc/shared/project')
+const { getConfig } = require('zs-shared/project')
 
-const { federation } = getConfig().webpack
+const { federation } = getConfig()
 
 module.exports = function createEntry() {
-  if (federation?.remotes) {
-    fs.outputFileSync(join(__entryDir, 'index.jsx'), `import('./bootstrap')`)
-    fs.copySync(join(__dirname, 'bootstrap.jsx'), join(__entryDir, 'bootstrap.jsx'))
+  if (Array.isArray(federation)) {
+    fs.outputFileSync(__entry, `import('./bootstrap')`)
+    fs.copySync(join(__dirname, 'bootstrap.js'), join(__entryDir, 'bootstrap.js'))
   } else {
-    fs.copySync(join(__dirname, 'bootstrap.jsx'), join(__entryDir, 'index.jsx'))
+    fs.copySync(join(__dirname, 'bootstrap.js'), __entry)
+  }
+  if (typeof federation === 'string') {
+    fs.copySync(join(__dirname, 'federationExpose.js'), __federationExpose)
   }
 }

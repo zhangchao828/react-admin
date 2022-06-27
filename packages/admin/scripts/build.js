@@ -1,4 +1,4 @@
-const webpackBuild = require('@zc/webpack/build')
+const webpackBuild = require('zs-webpack/build')
 
 module.exports = function () {
   webpackBuild()
