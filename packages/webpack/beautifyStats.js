@@ -1,14 +1,14 @@
 const chalk = require('chalk')
 const Table = require('cli-table')
 const { extname } = require('path')
-const { success } = require('zs-shared/message')
+const { success } = require('@zswl/shared/message')
 
 function beautifyStats(stats) {
   const statsJson = stats.toJson()
   const { time, assets } = statsJson
   const resTime = time < 1000 ? `${time}ms` : `${(time / 1000).toFixed(2)}s`
   const table = new Table({
-    head: ['Name', 'Size', 'ChunkNames', 'Type'],
+    head: ['Path', 'Hash', 'Size', 'Type'],
     chars: {
       top: '═',
       'top-mid': '╤',
@@ -28,7 +28,7 @@ function beautifyStats(stats) {
     },
   })
   assets.forEach((item) => {
-    let { name, size, chunkNames } = item
+    let { name, size } = item
     const m1 = 1024 * 1024
     const k1 = 1024
     const k200 = 1024 * 200
@@ -39,7 +39,7 @@ function beautifyStats(stats) {
       resSize = size > k1 ? `${(size / k1).toFixed(2)} Kb` : `${size} B`
     }
     if (size >= k200) {
-      resSize = chalk.hex('#FFF40F').bold(`${resSize} [big]`)
+      resSize = chalk.hex('#FFF40F').bold(resSize)
     }
     const type = extname(name)
     if (name.indexOf('js/') === 0) {
@@ -47,7 +47,13 @@ function beautifyStats(stats) {
     } else if (name.indexOf('css/') === 0) {
       name = name.substring(4)
     }
-    table.push([name, resSize, chunkNames.join(), type.substring(1)])
+    const [f, hash, l] = name.split('.')
+    name = [f, l || hash].join('.')
+    if (name !== 'index.html' && name.length > 40) {
+      const nameSplit = name.split('/')
+      name = nameSplit[0] + '/.../' + nameSplit[nameSplit.length - 1]
+    }
+    table.push([name, hash === 'html' ? '' : hash, resSize, type.substring(1)])
   })
   console.log(chalk.blue(table.toString()))
   success(`总耗时：${resTime}`)

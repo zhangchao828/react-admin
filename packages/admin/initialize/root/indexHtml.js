@@ -1,4 +1,4 @@
-const { __indexHtml } = require('zs-shared/paths')
+const { __indexHtml } = require('@zswl/shared/paths')
 const fs = require('fs-extra')
 
 module.exports = function () {

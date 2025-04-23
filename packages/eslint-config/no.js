@@ -6,8 +6,9 @@ module.exports = {
     'no-alert': 0,
     'no-param-reassign': 0,
     'no-plusplus': 0,
+    // 移除没有使用的变量的规则，业务中太多警告了
+    'no-unused-vars': 0,
     'no-nested-ternary': 0,
-    'no-unused-vars': 1,
     'no-underscore-dangle': 0,
     'no-tabs': 0,
     'no-multi-assign': 0,
@@ -114,7 +115,7 @@ module.exports = {
     // 一个const，let 定义一个变量
     'one-var': ['warn', 'never'],
     // 不使用 var
-    'no-var': 'warn',
+    'no-var': 2,
     'no-confusing-arrow': 0,
     'no-trailing-spaces': 0,
   },

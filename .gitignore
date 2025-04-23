@@ -2,6 +2,7 @@
 node_modules
 .idea
 lerna-debug.log
+.vscode
 /**/dist
 /**/.admin
 /**/yarn-error.log
@@ -9,3 +10,4 @@ lerna-debug.log
 .umi
 es
 lib
+yarn.lock

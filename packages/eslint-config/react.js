@@ -8,7 +8,7 @@ module.exports = {
     'react/button-has-type': 0,
     'react/jsx-no-comment-textnodes': 'warn',
     'react/jsx-no-duplicate-props': ['warn', { ignoreCase: true }],
-    'react/jsx-no-target-blank': 'warn',
+    'react/jsx-no-target-blank': 0,
     'react/jsx-no-undef': 'error',
     'react/jsx-pascal-case': [
       'warn',
@@ -30,7 +30,8 @@ module.exports = {
     'react/no-unescaped-entities': 'warn',
     'react/jsx-filename-extension': 0,
     // hooks
-    'react-hooks/rules-of-hooks': 'error',
-    'react-hooks/exhaustive-deps': 'warn',
+    // 'react-hooks/rules-of-hooks': 'error',
+    // 依赖不报警告
+    // 'react-hooks/exhaustive-deps': 0,
   },
 }

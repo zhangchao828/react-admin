@@ -1,9 +1,13 @@
-const { __src, __temporary, __env } = require('./paths')
-const { env } = require('./env')
+const { __temporary, __root } = require('./paths')
+const { admin } = require('./env')
 const path = require('path')
 
-module.exports = {
-  '@': __src,
-  '@env': path.join(__env, env),
+const alias = {
+  '@': __root,
   '~admin': __temporary,
+  lodash: 'lodash-es',
 }
+if (admin) {
+  alias['@zswl/admin'] = path.join(__dirname, '../admin/src/index.js')
+}
+module.exports = alias

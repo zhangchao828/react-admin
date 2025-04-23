@@ -1,5 +1,9 @@
 module.exports = {
-  '/getList': {
-    name: 'aaa',
+  '/list': {
+    name: 'ccc',
+  },
+  '/detail': {
+    id: 1,
+    name: 'ccccc',
   },
 }

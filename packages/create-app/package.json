@@ -1,0 +1,32 @@
+{
+  "name": "@zswl/cli",
+  "version": "1.4.0",
+  "description": "react-cli",
+  "keywords": [
+    "react-cli"
+  ],
+  "author": "zhangchao",
+  "license": "ISC",
+  "main": "index.js",
+  "bin": {
+    "zswl": "bin/index.js"
+  },
+  "files": [
+    "bin",
+    "command",
+    "utils"
+  ],
+  "preferGlobal": true,
+  "scripts": {
+    "page": "node bin/index.js page"
+  },
+  "dependencies": {
+    "@zswl/shared": "1.4.0",
+    "commander": "9.2.0",
+    "enquirer": "2.3.6",
+    "fs-extra": "10.1.0",
+    "ora": "5.4.1",
+    "shelljs": "0.8.5"
+  },
+  "gitHead": "89a8ec7d1b1a1114b31f166ffe475857154a1a20"
+}

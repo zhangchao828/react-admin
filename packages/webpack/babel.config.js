@@ -1,6 +1,18 @@
-const { isDev } = require('zs-shared/env')
-const autoCssModules = require('./plugins/auto-css-modules')
+const { isDev } = require('@zswl/shared/env')
+const autoCssModules = require('@zswl/plugins/auto-css-modules')
+const moduleWhiteList = require('@zswl/plugins/module-white-list')
+const assets = require('@zswl/plugins/assets')
+const { __packageJson } = require('@zswl/shared/paths')
+const { getConfig } = require('@zswl/shared/project')
+const { doctor } = getConfig()
 
+const { browserslist } = require(__packageJson)
+let browsers = browserslist
+if (!browsers) {
+  browsers = isDev
+    ? ['last 1 chrome version', 'last 1 firefox version', 'last 1 safari version']
+    : ['> 2%', 'last 2 versions', 'ie >= 10']
+}
 const babelConfig = {
   presets: [
     [
@@ -14,19 +26,22 @@ const babelConfig = {
       {
         modules: false,
         targets: {
-          browsers: isDev
-            ? ['last 1 chrome version', 'last 1 firefox version', 'last 1 safari version']
-            : ['> 2%', 'last 2 versions', 'ie >= 10'],
+          browsers,
         },
         useBuiltIns: 'usage',
         corejs: 3,
       },
     ],
-    '@babel/typescript',
+    // '@babel/typescript',
   ],
   plugins: [
     isDev && 'react-refresh/babel',
+    // ['@babel/plugin-proposal-decorators', { legacy: true }],
+    // ['@babel/plugin-proposal-class-properties', { loose: false }],
     autoCssModules,
+    assets,
+    isDev && doctor && moduleWhiteList,
+    // 'styled-jsx/babel',
   ].filter(Boolean),
 }
 module.exports = babelConfig

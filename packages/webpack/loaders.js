@@ -1,9 +1,9 @@
 const babelOptions = require('./babel.config')
-const { isDev } = require('zs-shared/env')
+const { isDev, admin } = require('@zswl/shared/env')
 const postcssOptions = require('./postcss.config')
-const project = require('zs-shared/project')
+const project = require('@zswl/shared/project')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const { __src, __temporary } = require('zs-shared/paths')
+const { __src, __temporary } = require('@zswl/shared/paths')
 const path = require('path')
 
 const { lessOptions } = project.getConfig()
@@ -22,6 +22,7 @@ const cssModulesLoader = {
       mode: 'local',
       localIdentName: '[name]__[local]--[hash:base64:8]',
       exportLocalsConvention: 'dashes',
+      namedExport: false,
     },
   },
 }
@@ -50,13 +51,39 @@ const babelLoader = {
     ...babelOptions,
   },
 }
+// 代码行数限制500行
+const lineLimitLoader = {
+  loader: path.resolve(__dirname, 'lineLimit.js'),
+  options: {
+    limit: 500,
+  },
+}
+const tsLoader = {
+  loader: 'ts-loader',
+  options: {
+    transpileOnly: isDev,
+  },
+}
 const miniCssLoader = isDev ? 'style-loader' : MiniCssExtractPlugin.loader
 
 module.exports = [
   {
-    test: /\.[jt]sx?$/,
-    include: [__src, __temporary],
-    use: [babelLoader],
+    test: /\.jsx?$/,
+    include: [__src, __temporary, admin && path.join(__dirname, '../admin/src')].filter(Boolean),
+    oneOf: [
+      // {
+      //   resourceQuery: /ignore-line-limit/,
+      //   use: [babelLoader],
+      // },
+      {
+        use: [babelLoader, lineLimitLoader],
+      },
+    ],
+  },
+  {
+    test: /\.tsx?$/,
+    exclude: /node_modules/,
+    use: [tsLoader, lineLimitLoader],
   },
   /** css module **/
   {
@@ -108,12 +135,6 @@ module.exports = [
   {
     test: /\.(png|jpe?g|gif)(\?.*)?$/,
     type: 'asset',
-    // generator: {
-    //   filename: 'assets/[name].[hash:7][ext]',
-    //   // dataUrlCondition: {
-    //   //   maxSize: 8 * 1024
-    //   // }
-    // },
   },
   {
     test: /\.(mp4|webm|ogg|mp3|wav|flac|aac)(\?.*)?$/,

@@ -1,6 +1,6 @@
 {
   "name": "react-admin",
-  "version": "0.0.1",
+  "version": "1.4.0",
   "license": "MIT",
   "workspaces": [
     "packages/*"
@@ -8,26 +8,26 @@
   "private": true,
   "scripts": {
     "postinstall": "npm run build",
-    "build:utils": "cd packages/utils && npm run build",
+    "build:helper": "cd packages/helper && npm run build",
     "build:admin": "cd packages/admin && npm run build",
-    "build": "npm run build:utils && npm run build:admin && npm run clearCache",
+    "build": "npm run build:helper && npm run build:admin && npm run clearCache",
     "clearCache": "node scripts/clear.js",
-    "release": "lerna publish"
+    "pub": "node scripts/publish.js"
   },
-  "//": "father-build 暂不兼容less4，所以这里必须再安装less3版本",
   "devDependencies": {
-    "@babel/core": "7.17.9",
-    "@babel/eslint-parser": "7.17.0",
-    "@babel/preset-typescript": "7.16.7",
-    "babel-loader": "8.2.5",
-    "father-build": "1.20.4",
-    "lerna": "^4.0.0",
-    "less": "^3.13.1",
+    "@babel/core": "7.26.0",
+    "@babel/eslint-parser": "7.25.9",
+    "@pmmmwh/react-refresh-webpack-plugin": "0.5.11",
+    "babel-loader": "9.2.1",
+    "father": "4.5.3",
     "prettier": "^2.2.1",
-    "typescript": "^4.2.4"
+    "tailwindcss": "3.4.17",
+    "ts-loader": "^9.5.2"
   },
   "dependencies": {
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2"
-  }
+    "antd": "5.22.5",
+    "react": "19.0.0",
+    "react-dom": "19.0.0"
+  },
+  "packageManager": "yarn@1.22.22+sha1.ac34549e6aa8e7ead463a7407e1c7390f61a6610"
 }

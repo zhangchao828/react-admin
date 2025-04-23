@@ -1,4 +1,6 @@
 import { matchPath } from 'react-router-dom'
+import { useContext, Suspense, createContext, isValidElement } from 'react'
+import { useAppContext } from '../app'
 
 function getPathSplitLen(path) {
   // 获取路径按照符号 / 分割的长度
@@ -42,7 +44,7 @@ function getMostSimilarRoute(matchedRoutes, pathname) {
   }
   return getLoopIncluded(matchedRoutes, pathname)
 }
-function matchRoute(pathname, routes) {
+export function findRoute(pathname, routes) {
   let route = null
   const matchedRoutes = []
   const routeKeys = Object.keys(routes)
@@ -70,32 +72,67 @@ function matchRoute(pathname, routes) {
   return route && { match, ...route }
 }
 
-export function wrapPage(Page, layouts, props) {
-  if (!Page) {
-    return null
-  }
+export function wrapPage(Page, layouts, props, key) {
+  // 这里给Page加key是因为让相同的path不同的pathname时，页面也销毁重渲染
+  const page = isValidElement(Page) ? Page : Page && <Page key={key} {...props} />
   // 递归嵌套layout将Page包裹住
   function wrapContent(index = 0) {
     const Layout = layouts[index]
     if (Layout) {
-      return <Layout {...props}>{wrapContent(index + 1)}</Layout>
+      return <Suspense fallback={null}>{wrapContent(index + 1)}</Suspense>
     } else {
-      return <Page {...props} />
+      return page ?? null
     }
   }
   return wrapContent()
 }
+
+/*
+ 缓存已经访问过的路由页面，无需再次去匹配路径，提升性能，
+ 最大缓存100个，避免内存太多
+ */
+const cache = {}
+let cacheCount = 0
 export function matchPage(pathname, routesMap) {
-  pathname = '/' + pathname.split('/').filter(Boolean).join('/')
-  const route = routesMap[pathname] || matchRoute(pathname, routesMap)
-  let defaultMatch = { path: pathname, url: pathname, params: {} }
-  const { component: page, match, layouts = [], dir } = route || {}
+  if (cache[pathname]) {
+    return cache[pathname]
+  }
+  const route = routesMap[pathname] || findRoute(pathname, routesMap)
+  const defaultMatch = { path: pathname, url: pathname, params: {} }
+  const { component: page, match, layouts = [] } = route || {}
   const { component: page404 } = routesMap['/404'] || {}
-  return {
-    Page: route ? page : page404,
+  const res = {
+    Page: page || page404,
     match: { ...defaultMatch, ...match },
     layouts,
     is404: !route,
-    dir: route ? dir : ['404'],
   }
+  if (cacheCount < 100) {
+    cacheCount++
+    cache[pathname] = res
+  }
+  return res
+}
+
+/**
+ * keepAlive时，用来判断页面是否激活
+ */
+export const PageContext = createContext({ id: null, active: null })
+export function useActive() {
+  const { main } = useAppContext()
+  // 当是子应用的时候，PageContext使用主应用的，因为PageContext是在主应用提供的
+  const { active } = useContext(main?.context.PageContext || PageContext)
+  return active
+}
+
+/**
+ * 创建页面的请求
+ * 请求会被webpack-server中间件拦截
+ * 详细查看插件/plugins下面的createPage
+ */
+export async function createPage(data) {
+  const { ip = 'localhost', port, ...rest } = data
+  return await window.__HTTP__.post(`http://${ip}:${port}/zswl-admin/create-page`, rest, {
+    original: true,
+  })
 }

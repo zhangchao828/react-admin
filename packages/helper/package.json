@@ -1,0 +1,22 @@
+{
+  "name": "@zswl/helper",
+  "version": "1.4.0",
+  "description": "utils",
+  "main": "lib/index.js",
+  "module": "es/index.js",
+  "typings": "lib/index.d.ts",
+  "license": "MIT",
+  "scripts": {
+    "build": "father build",
+    "prepare": "npm run build"
+  },
+  "sideEffects": [
+    "es/*",
+    "lib/*"
+  ],
+  "files": [
+    "es",
+    "lib"
+  ],
+  "dependencies": {}
+}

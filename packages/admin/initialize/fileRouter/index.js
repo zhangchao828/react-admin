@@ -1,11 +1,13 @@
 const fs = require('fs-extra')
 const glob = require('glob')
 const { extname } = require('path')
-const { __pages, __routes } = require('zs-shared/paths')
-const { isDev } = require('zs-shared/env')
-const watchFiles = require('zs-shared/watchFiles')
-const debounce = require('lodash/debounce')
+const { __pages, __routes, __routeModules } = require('@zswl/shared/paths')
+const { isDev } = require('@zswl/shared/env')
+const watchFiles = require('@zswl/shared/watchFiles')
+const { debounce, camelCase } = require('lodash')
+const { getConfig } = require('@zswl/shared/project')
 
+const { lazyImport, federation, base } = getConfig()
 const layoutId = '/layout'
 const ignoreFileList = [
   /*
@@ -14,9 +16,6 @@ const ignoreFileList = [
   util和utils视作工具
   store视作mobx的store
   api和apis放接口
-  test被视作测试文件
-  common和commons通用文件
-  column和columns表格的表头文件
   */
   'store',
   'api',
@@ -25,12 +24,6 @@ const ignoreFileList = [
   'util',
   'component',
   'components',
-  'test',
-  'tests',
-  'common',
-  'commons',
-  'column',
-  'columns',
 ]
 const with$Reg = /\[[0-9a-zA-Z_.]+\$]/g
 const without$Reg = /\[[0-9a-zA-Z_.]+]/g
@@ -39,20 +32,21 @@ let lastContent = ``
 
 function createRoutes() {
   watchRoutes()
-  const files = glob.sync('**/*.*(js|jsx|tsx)', {
+  let files = glob.sync('**/*.*(js|jsx|tsx)', {
     cwd: __pages,
   })
-  const { routes, layouts } = getRoutes(files)
-  const content = routes + layouts
+  const { routes, routesMap, layouts, layoutsImport, routesImport } = getRoutes(files)
+  const content = routes + layouts + layoutsImport + routesImport
   const changed = lastContent !== content
   if (changed) {
     lastContent = content
     fs.outputFileSync(
       __routes,
       `
-import { lazy } from 'react'
-import event from '~admin/event'
-
+${lazyImport ? `import { lazy } from 'react'` : ''}
+import { Redirect } from '@zswl/admin'
+${layoutsImport}
+${routesImport}
 export const routesMap = {
 ${routes}
 }
@@ -62,6 +56,20 @@ ${layouts}
 }
   `.trim()
     )
+    if (federation.name) {
+      const obj = Object.keys(routesMap)
+        .filter((key) => !['/404', '/'].includes(key))
+        .reduce((previousValue, currentValue) => {
+          const key = currentValue.split('/').filter(Boolean)[0]
+          return {
+            ...previousValue,
+            [key]: federation.name,
+          }
+        }, {})
+      fs.outputFileSync(__routeModules, `export default ${JSON.stringify(obj)}`)
+    } else {
+      fs.outputFileSync(__routeModules, `export default {}`)
+    }
   }
 }
 
@@ -70,7 +78,9 @@ function getRoutes(files) {
   const routesMap = {}
   const layoutsMap = {}
   const routes = []
+  const routesImport = []
   const allLayouts = []
+  const layoutsImport = []
   // 过滤路径,将files转为路径映射map
   files.forEach((item) => {
     let filePath = replaceIndex(item)
@@ -80,13 +90,19 @@ function getRoutes(files) {
       // 过滤路径
       const realFilePath = `/${item}`
       if (isLayout(routePath)) {
-        const layout = `@/pages${realFilePath}`
+        const layout = `@/src/pages${realFilePath}`
         const layoutChunkName = filePath.substring(1)
         const layoutPath = routePath.substring(0, routePath.indexOf(layoutId))
         layoutsMap[layoutPath] = true
-        allLayouts.push(
-          `'${layoutPath}': lazy(() => import(/* webpackChunkName: "${layoutChunkName}", webpackPrefetch: true */ '${layout}'))`
-        )
+        if (lazyImport) {
+          allLayouts.push(
+            `'${layoutPath}': lazy(() => import(/* webpackChunkName: "pages/${layoutChunkName}", webpackPrefetch: true */ '${layout}'))`
+          )
+        } else {
+          const name = transform2importName(layoutPath, 'Layout')
+          allLayouts.push(`'${layoutPath}': ${name}`)
+          layoutsImport.push(`import ${name} from '${layout}'`)
+        }
       } else {
         pathsMap[filePath] = {
           realFilePath,
@@ -98,35 +114,56 @@ function getRoutes(files) {
   // 将路径转为路由映射
   Object.keys(pathsMap).forEach((filePath) => {
     const { routePath, realFilePath } = pathsMap[filePath]
-    routesMap[routePath] = {
-      component: `@/pages${realFilePath}`,
+    const _routePath = routePath.replace(/\./g, '/')
+    routesMap[_routePath] = {
+      component: `@/src/pages${realFilePath}`,
       layouts: getLayouts(layoutsMap, routePath),
       filePath: filePath === '/' ? 'index' : filePath,
     }
   })
   // 拼接路由和layout
+  if (!routesMap['/'] && routesMap[base]) {
+    routesMap['/'] = {
+      redirect: base,
+    }
+  }
   Object.keys(routesMap).forEach((routePath) => {
-    const { component, layouts, filePath } = routesMap[routePath]
+    const { component, layouts, redirect } = routesMap[routePath]
+    const key = /\/\*/.test(routePath) ? routePath.replace(/\/\*/g, '*') : routePath
+    if (redirect) {
+      return routes.push(
+        `
+      '${key}':{
+        component:<Redirect to="${redirect}"/>
+      }
+      `.trim()
+      )
+    }
     // 按照目录结构取webpackChunkName,使打包之后的目录结构更清晰
     const chunkName = component.substring(
-      '@/pages'.length + 1,
+      '@/src/pages'.length + 1,
       component.indexOf(extname(component))
     )
-    const route = `
-  '${routePath}': {
-     component: lazy(() => import(/* webpackChunkName: "${chunkName}", webpackPrefetch: true */ '${component}').then(res => {
-        event.resolve('${routePath}', res.default)
-        return res
-      })
-     ),
-     layouts: ${JSON.stringify(layouts)},
-     dir: ${JSON.stringify(filePath.split('/').filter(Boolean))}
-  }`
-    routes.push(route)
+    if (lazyImport) {
+      routes.push(
+        `
+  '${key}': {
+     component: lazy(() => import(/* webpackChunkName: "pages/${chunkName}", webpackPrefetch: true */ '${component}')),
+     layouts: ${JSON.stringify(layouts)}
+  }`.trim()
+      )
+    } else {
+      const name = transform2importName(key, 'Page')
+      routes.push(`'${key}': { component: ${name},layouts: ${JSON.stringify(layouts)} }`)
+      routesImport.push(`import ${name} from '${component}'`)
+    }
   })
   return {
-    routes: routes.join(','),
-    layouts: allLayouts.join(','),
+    routes: routes.join(',\n'),
+    routesMap,
+    routesImport: routesImport.join('\n'),
+    layouts: allLayouts.join(',\n'),
+    layoutsImport: layoutsImport.join('\n'),
   }
 }
 
@@ -150,14 +187,21 @@ function isLayout(filePath) {
 function replaceIndex(str) {
   return str && str.replace(/(\/index)?\.[jt]sx?/g, '')
 }
-
+function transform2importName(key, prefix) {
+  const name = camelCase(key) || 'Index'
+  return prefix + name[0].toUpperCase() + name.substring(1)
+}
 function becomeRoutePath(filePath) {
   if (filePath === '/') {
     return filePath
   }
+  if (filePath === '/404') {
+    return filePath
+  }
+  // filePath = filePath.replace(/\./g, '/')
   if (with$Reg.test(filePath)) {
     filePath = filePath.replace(with$Reg, (a) => {
-      return a.replace('[...]', '*').replace('[', ':').replace('$]', '?')
+      return a.replace('[', ':').replace('$]', '?')
     })
   }
   if (without$Reg.test(filePath)) {
@@ -209,7 +253,7 @@ function ignorePath(routePath = '') {
     return true
   }
   // 转为路由之后还存在. $ [ ] _符号的文件会被忽略
-  return /[.$\[\]_]/.test(routePath)
+  return /[$\[\]_]/.test(routePath)
 }
 
 let hasWatched = false

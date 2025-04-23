@@ -1,0 +1,17 @@
+{
+  "name": "@zswl/plugins",
+  "version": "1.4.0",
+  "author": "zhangchao",
+  "main": "index.js",
+  "types": "type.d.ts",
+  "keywords": [
+    "px2vw",
+    "create-page",
+    "plugins"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "cheerio": "1.0.0-rc.10"
+  },
+  "gitHead": "89a8ec7d1b1a1114b31f166ffe475857154a1a20"
+}

@@ -1,14 +1,13 @@
 {
-  "name": "zs-admin",
-  "version": "0.0.6",
+  "name": "@zswl/admin",
+  "version": "1.4.0",
   "description": "react",
   "main": "lib/index.js",
   "module": "es/index.js",
   "typings": "lib/index.d.ts",
   "keywords": [
     "react",
-    "cli",
-    "react-router"
+    "react-admin"
   ],
   "author": "zhangchao",
   "license": "ISC",
@@ -16,32 +15,45 @@
     "admin": "bin/index.js"
   },
   "scripts": {
-    "build": "father-build build",
+    "build": "father build",
     "prepare": "npm run build"
   },
+  "sideEffects": [
+    "es/*",
+    "lib/*"
+  ],
   "files": [
     "bin",
-    "define",
     "initialize",
     "scripts",
-    "src",
     "lib",
     "es"
   ],
   "dependencies": {
-    "@types/react": "^17.0.38",
-    "@types/react-dom": "^17.0.11",
-    "@types/react-router-dom": "^5.3.3",
-    "eslint-config-zs": "0.0.4",
+    "@types/react": "19.0.2",
+    "@types/react-dom": "19.0.2",
+    "@types/react-router-dom": "5.3.3",
+    "@zswl/eslint-config": "1.4.0",
+    "@zswl/helper": "1.4.0",
+    "@zswl/shared": "1.4.0",
+    "@zswl/webpack": "1.4.0",
+    "@zswl/yapi2ts": "1.4.0",
+    "axios": "1.7.9",
+    "enquirer": "2.3.6",
     "glob": "7.2.0",
+    "ip": "2.0.1",
     "less": "4.1.2",
-    "mobx": "6.6.0",
-    "mobx-react-lite": "3.4.0",
-    "postcss": "8.4.5",
-    "qiankun": "^2.7.0",
-    "react-router-dom": "5.3.0",
-    "zs-shared": "0.0.4",
-    "zs-utils": "0.0.5",
-    "zs-webpack": "0.0.4"
-  }
+    "lodash-es": "4.17.21",
+    "mobx": "6.13.5",
+    "mobx-react-lite": "4.1.0",
+    "postcss": "8.4.31",
+    "prop-types": "15.8.1",
+    "qs": "6.11.0",
+    "react-router-dom": "5.3.4"
+  },
+  "peerDependencies": {
+    "react": ">=18.0.0",
+    "react-dom": ">=18.0.0"
+  },
+  "gitHead": "34ad29075f73a8501e7ae86f382020716c818288"
 }

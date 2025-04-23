@@ -1,0 +1,10 @@
+{
+  "name": "micro-remote2",
+  "license": "MIT",
+  "scripts": {
+    "start": "admin start --admin",
+    "build": "admin build"
+  },
+  "devDependencies": {},
+  "dependencies": {}
+}

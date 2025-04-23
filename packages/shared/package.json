@@ -1,6 +1,6 @@
 {
-  "name": "zs-shared",
-  "version": "0.0.4",
+  "name": "@zswl/shared",
+  "version": "1.4.0",
   "description": "shared",
   "keywords": [
     "react",
@@ -14,8 +14,10 @@
     "chokidar": "3.5.2",
     "detect-port": "1.3.0",
     "fs-extra": "10.1.0",
+    "lodash": "^4.17.21",
     "mockjs": "1.1.0",
-    "semver": "7.3.5",
-    "shelljs": "0.8.4"
-  }
+    "semver": "7.5.2",
+    "shelljs": "0.8.5"
+  },
+  "gitHead": "89a8ec7d1b1a1114b31f166ffe475857154a1a20"
 }

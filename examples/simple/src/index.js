@@ -1,6 +1,17 @@
-import { BrowserRouter } from 'zs-admin'
-import './style.less'
+import { defineApp, adminConfig } from '@zswl/admin'
 
-export default function App({ children }) {
-  return <BrowserRouter>{children}</BrowserRouter>
+console.log(adminConfig)
+function App({ children }) {
+  return children
 }
+
+console.log(__ENV__, __ENV__ === 'test', __DATA__)
+console.log(
+  {
+    dev: 'aaaa',
+    test: 'bbb',
+  }[__ENV__]
+)
+export default defineApp(App, {
+  mode: 'browser',
+})

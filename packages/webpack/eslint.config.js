@@ -11,6 +11,5 @@ module.exports = {
       configFile: resolve(__dirname, 'babel.config.js'),
     },
   },
-  parser: '@babel/eslint-parser',
-  extends: ['eslint-config-zs'],
+  extends: ['@zswl/eslint-config'],
 }

@@ -1,7 +1,7 @@
 const fs = require('fs-extra')
 const { join } = require('path')
-const { __src } = require('zs-shared/paths')
-const getIndexPath = require('zs-shared/getIndexPath')
+const { __src } = require('@zswl/shared/paths')
+const getIndexPath = require('@zswl/shared/getIndexPath')
 
 function createSrcIndex() {
   const rootPath = getIndexPath(__src)
@@ -9,10 +9,8 @@ function createSrcIndex() {
     fs.outputFileSync(
       join(__src, 'index.js'),
       `
-import { BrowserRouter } from 'zs-admin'
-
 export default function App({ children }) {
-  return <BrowserRouter>{children}</BrowserRouter>
+  return children
 }
     `.trim()
     )

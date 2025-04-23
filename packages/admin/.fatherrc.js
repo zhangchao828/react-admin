@@ -1,5 +1,14 @@
-export default {
-  esm: 'babel',
-  cjs: 'babel',
-  disableTypeCheck: true,
-}
+import { defineConfig } from 'father'
+
+export default defineConfig({
+  esm: {
+    output: 'es',
+  },
+  cjs: {
+    output: 'lib',
+    platform: 'browser',
+  },
+  // umd: {
+  //   output: 'dist',
+  // },
+})

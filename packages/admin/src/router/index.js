@@ -1,18 +1,12 @@
-import { getAppContext, useAppContext, isMicroApp } from '../appContext'
-import { Link, useLocation, Redirect, BrowserRouter as Router, HashRouter } from 'react-router-dom'
+import { Link as RouterLink, Redirect as RouterRedirect } from 'react-router-dom'
 import config from '~admin/config'
+import { useMemo } from 'react'
 
-function getParams(name) {
-  const { params } = getAppContext()
-  return name ? params[name] : params
-}
-function useParams(name) {
-  const { params } = useAppContext()
-  return name ? params[name] : params
-}
-function getQuery(name) {
-  let queryObj = {}
-  const query = new URLSearchParams(window.location.search)
+const HISTORY = '__history__'
+function getQuery(name, customSearch) {
+  const queryObj = {}
+  const { hash, search } = window.location
+  const query = new URLSearchParams(customSearch || search || hash.substring(hash.indexOf('?')))
   for (const [key] of query) {
     const value = query.getAll(key)
     if (!queryObj[key]) {
@@ -21,39 +15,41 @@ function getQuery(name) {
   }
   return name ? queryObj[name] : queryObj
 }
-
-function BrowserRouter(props) {
-  const basename = isMicroApp() ? config.microApp : '/'
-  return <Router basename={basename} {...props} />
+function getRealPathname(pathname) {
+  const { base } = config
+  if (pathname === '/') {
+    return base || pathname
+  }
+  if (base && !pathname.startsWith(base)) {
+    return base + pathname
+  }
+  return pathname
+}
+export function useRealPathname(pathname) {
+  const { base } = config
+  return useMemo(() => {
+    const pathSplit = pathname.split('/').filter(Boolean)
+    if (base && `/${pathSplit[0]}` === base) {
+      return '/' + pathSplit.slice(1).join('/')
+    }
+    return '/' + pathSplit.join('/')
+  }, [base, pathname])
 }
 const history = {
-  push(...arg) {
-    getAppContext().history.push(...arg)
+  push(pathname) {
+    window[HISTORY].push(getRealPathname(pathname))
   },
-  replace(...arg) {
-    getAppContext().history.replace(...arg)
+  replace(pathname) {
+    window[HISTORY].replace(getRealPathname(pathname))
   },
-  go(...arg) {
-    getAppContext().history.go(...arg)
+  goBack() {
+    window[HISTORY].goBack()
   },
-  goBack(...arg) {
-    getAppContext().history.goBack(...arg)
-  },
-  goForward(...arg) {
-    getAppContext().history.goForward(...arg)
-  },
-  // listen(...arg) {
-  //   getAppContext().history.listen(...arg)
-  // },
 }
-export {
-  Link,
-  history,
-  Redirect,
-  BrowserRouter,
-  HashRouter,
-  getParams,
-  useParams,
-  getQuery,
-  useLocation,
+function Link({ to, ...rest }) {
+  return <RouterLink to={getRealPathname(to)} {...rest} />
 }
+function Redirect({ to, ...rest }) {
+  return <RouterRedirect to={getRealPathname(to)} {...rest}></RouterRedirect>
+}
+export { Link, history, Redirect, getQuery, HISTORY }

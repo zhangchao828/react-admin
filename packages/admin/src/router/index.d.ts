@@ -1,10 +1,10 @@
-import { History } from 'history'
-
+export interface History {
+  push(pathname: string)
+  replace(pathname: string)
+  goBack()
+}
 export declare const history: History
-export declare function getParams<T extends object = any>(name: keyof T): string
-export declare function getParams<T extends object = any>(): T
-export declare function useParams<T extends object = any>(name: keyof T): string
-export declare function useParams<T extends object = any>(): T
-export declare function getQuery<T extends object = any>(name: keyof T): string
-export declare function getQuery<T extends object = any>(): T
-export { useLocation, Link, Redirect, HashRouter, BrowserRouter } from 'react-router-dom'
+export declare function getQuery(name?: string, customSearch?: string): string | object
+export declare const HISTORY: string
+export declare function useRealPathname(pathname: string): string
+export { Link, Redirect } from 'react-router-dom'

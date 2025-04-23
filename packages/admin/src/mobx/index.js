@@ -1,8 +1,6 @@
-import { makeAutoObservable as _makeAutoObservable } from 'mobx'
+import { makeAutoObservable } from 'mobx'
 
-export { flow, configure, toJS } from 'mobx'
+export { flow, toJS, runInAction } from 'mobx'
 export { observer } from 'mobx-react-lite'
 
-export function makeAutoObservable(target, overrides, options) {
-  return _makeAutoObservable(target, overrides, { autoBind: true, ...options })
-}
+export { makeAutoObservable }

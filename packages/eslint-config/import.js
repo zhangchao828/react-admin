@@ -10,6 +10,7 @@ module.exports = {
     'import/extensions': 0,
     'import/first': 'error',
     'import/no-amd': 'error',
+    'import/no-dynamic-require': 0,
     'import/no-webpack-loader-syntax': 'error',
     'import/no-cycle': 0,
     'import/dynamic-import-chunkname': 0,
