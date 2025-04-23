@@ -51,7 +51,7 @@ const baseConfig = merge(
       },
     },
     plugins: [
-      new WebpackBar({ name: '浙商未来' }),
+      new WebpackBar({ name: 'admin' }),
       new FederationPlugin(),
       new webpack.DefinePlugin(define),
       new HtmlWebpackPlugin({

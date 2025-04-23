@@ -17,8 +17,8 @@ http.setConfig({
   },
 })
 function Index() {
-  const src1 = '/public/task-bg.png'
-  const src2 = 'task-bg'
+  const src1 = '/public/test-bg.png'
+  const src2 = 'test-bg'
   const ref = useRef()
   useEffect(() => {
     console.log(ref.current)
@@ -42,10 +42,10 @@ function Index() {
       </Button>
       <Test ref={ref} />
       <div className={styles.bg}></div>
-      <img src={src1} alt="task-bg" />
-      <img src={`/public/${src2}.png`} alt="task-bg" />
-      <img src="/public/test.svg" alt="task-bg" />
-      <img src="@/public/test.svg" alt="task-bg" />
+      <img src={src1} alt="test-bg" />
+      <img src={`/public/${src2}.png`} alt="test-bg" />
+      <img src="/public/test.svg" alt="test-bg" />
+      <img src="@/public/test.svg" alt="test-bg" />
       <Link to="/list">list</Link>
     </div>
   )
