@@ -5,5 +5,6 @@ module.exports = ({}) => {
     // lazyImport: false,
     // px2vw: true,
     base: '/abc',
+    doctor: false,
   }
 }

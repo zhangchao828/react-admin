@@ -9,9 +9,11 @@ module.exports = function createIndexPage() {
   if (!indexPagePath && !indexFile) {
     fs.outputFileSync(
       join(__pages, 'index.js'),
-      `export default function Index() {
+      `function Index() {
   return <div>Index page</div>
 }
+
+export default Index
 `.trim()
     )
   }
