@@ -1,9 +1,9 @@
 const fs = require('fs-extra')
 const { join } = require('path')
 const shell = require('shelljs')
-const message = require('@zswl/shared/message')
-const { ADMIN_NPM } = require('@zswl/shared/constant')
-const { getModuleVersionInNpm } = require('@zswl/shared/version')
+const message = require('@glcc/shared/message')
+const { ADMIN_NPM } = require('@glcc/shared/constant')
+const { getModuleVersionInNpm } = require('@glcc/shared/version')
 
 module.exports = function setPackageJson(projectName) {
   message.info(`获取最新版本...`)

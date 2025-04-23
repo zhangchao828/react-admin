@@ -1,4 +1,4 @@
-import { Link, useActive, observer } from '@zswl/admin'
+import { Link, useActive, observer } from '@glcc/admin'
 
 function Index({ params }) {
   console.log('render /home/id', params)

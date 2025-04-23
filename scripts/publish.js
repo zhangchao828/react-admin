@@ -15,10 +15,7 @@ async function publish() {
       message: '发布环境:',
       name: 'registry',
       required: true,
-      choices: [
-        { name: 'http://nexus.zswltec.com:8888/repository/npm-hosted', message: '浙商未来' },
-        { name: 'http://10.158.10.203:8081/repository/npm-hosted', message: '金控' },
-      ],
+      choices: [{ name: 'https://registry.npmjs.org/', message: 'npm' }],
     },
     {
       type: 'input',

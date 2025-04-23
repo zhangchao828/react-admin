@@ -1,4 +1,4 @@
-/** @type {import('@zswl/admin').ProjectConfig} */
+/** @type {import('@glcc/admin').ProjectConfig} */
 module.exports = {
   port: 3001,
   // doctor: false,

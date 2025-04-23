@@ -1,4 +1,4 @@
-const { __nodeModules, __api } = require('@zswl/shared/paths')
+const { __nodeModules, __api } = require('@glcc/shared/paths')
 
 module.exports = function (source) {
   const options = this.getOptions()

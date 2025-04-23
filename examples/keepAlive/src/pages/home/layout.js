@@ -1,4 +1,4 @@
-import { observer, useActive } from '@zswl/admin'
+import { observer, useActive } from '@glcc/admin'
 import { useEffect } from 'react'
 
 function Index({ children }) {

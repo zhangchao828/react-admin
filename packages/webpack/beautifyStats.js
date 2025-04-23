@@ -1,7 +1,7 @@
 const chalk = require('chalk')
 const Table = require('cli-table')
 const { extname } = require('path')
-const { success } = require('@zswl/shared/message')
+const { success } = require('@glcc/shared/message')
 
 function beautifyStats(stats) {
   const statsJson = stats.toJson()

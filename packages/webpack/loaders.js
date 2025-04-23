@@ -1,9 +1,9 @@
 const babelOptions = require('./babel.config')
-const { isDev, admin } = require('@zswl/shared/env')
+const { isDev, admin } = require('@glcc/shared/env')
 const postcssOptions = require('./postcss.config')
-const project = require('@zswl/shared/project')
+const project = require('@glcc/shared/project')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const { __src, __temporary } = require('@zswl/shared/paths')
+const { __src, __temporary } = require('@glcc/shared/paths')
 const path = require('path')
 
 const { lessOptions } = project.getConfig()

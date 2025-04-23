@@ -1,7 +1,7 @@
 const fs = require('fs-extra')
 const { join } = require('path')
-const { __src } = require('@zswl/shared/paths')
-const getIndexPath = require('@zswl/shared/getIndexPath')
+const { __src } = require('@glcc/shared/paths')
+const getIndexPath = require('@glcc/shared/getIndexPath')
 
 function createSrcIndex() {
   const rootPath = getIndexPath(__src)

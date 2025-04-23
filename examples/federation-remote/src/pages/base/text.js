@@ -1,4 +1,4 @@
-import { observer } from '@zswl/admin'
+import { observer } from '@glcc/admin'
 
 function Index({ props: { children } }) {
   return <span>{children}</span>

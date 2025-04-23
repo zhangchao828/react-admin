@@ -1,4 +1,4 @@
-import { observer, Remote } from '@zswl/admin'
+import { observer, Remote } from '@glcc/admin'
 
 function Index({ props: { children, title, actions } }) {
   return (

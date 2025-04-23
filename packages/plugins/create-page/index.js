@@ -1,6 +1,6 @@
 const { join } = require('path')
 const fs = require('fs-extra')
-const { __pages } = require('@zswl/shared/paths')
+const { __pages } = require('@glcc/shared/paths')
 
 function success(res, data) {
   res.status(200).send({
@@ -60,7 +60,7 @@ function createPage(res, body) {
       fs.outputFileSync(
         apiPath,
         `
-    import { http } from '@zswl/admin'
+    import { http } from '@glcc/admin'
 
 export default {
   list: (params) => http.get('/api/list', { params }),
@@ -82,7 +82,7 @@ module.exports = {
   middleware(req, res, next) {
     const { originalUrl, body } = req
     const [name, reqType] = originalUrl.split('/').filter(Boolean)
-    if (name === 'zswl-admin' && reqType === 'create-page') {
+    if (name === 'glcc-admin' && reqType === 'create-page') {
       return createPage(res, body)
     } else {
       next()

@@ -8,6 +8,6 @@ const alias = {
   lodash: 'lodash-es',
 }
 if (admin) {
-  alias['@zswl/admin'] = path.join(__dirname, '../admin/src/index.js')
+  alias['@glcc/admin'] = path.join(__dirname, '../admin/src/index.js')
 }
 module.exports = alias

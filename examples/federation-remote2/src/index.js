@@ -1,4 +1,4 @@
-import { http } from '@zswl/admin'
+import { http } from '@glcc/admin'
 
 http.setConfig({
   baseURL: '/remote2',

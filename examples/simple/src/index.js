@@ -1,4 +1,4 @@
-import { defineApp, adminConfig } from '@zswl/admin'
+import { defineApp, adminConfig } from '@glcc/admin'
 
 console.log(adminConfig)
 function App({ children }) {

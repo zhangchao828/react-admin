@@ -1,6 +1,6 @@
 {
-  "name": "@zswl/eslint-config",
-  "version": "1.4.0",
+  "name": "@glcc/eslint-config",
+  "version": "1.0.0",
   "description": "eslint",
   "main": "index.js",
   "repository": {

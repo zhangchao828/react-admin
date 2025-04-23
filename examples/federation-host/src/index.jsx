@@ -1,4 +1,4 @@
-import { http, defineApp } from '@zswl/admin'
+import { http, defineApp } from '@glcc/admin'
 
 http.setConfig({
   baseURL: '/host',

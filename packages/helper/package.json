@@ -1,6 +1,6 @@
 {
-  "name": "@zswl/helper",
-  "version": "1.4.0",
+  "name": "@glcc/helper",
+  "version": "1.0.0",
   "description": "utils",
   "main": "lib/index.js",
   "module": "es/index.js",

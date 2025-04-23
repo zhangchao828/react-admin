@@ -1,4 +1,4 @@
-import { observer, history } from '@zswl/admin'
+import { observer, history } from '@glcc/admin'
 import { Button } from 'antd'
 
 function Index(props) {

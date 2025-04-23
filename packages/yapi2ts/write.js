@@ -66,7 +66,7 @@ const write = async (outputFileList) => {
       `
       const apiOutputContent = dedent`
         import * as Types from "./interface/${outFileName}";
-        import { http } from '@zswl/admin'
+        import { http } from '@glcc/admin'
         
          const mock = false
         // const mock= { mode:2 }

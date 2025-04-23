@@ -1,6 +1,6 @@
 {
-  "name": "@zswl/webpack",
-  "version": "1.4.0",
+  "name": "@glcc/webpack",
+  "version": "1.0.0",
   "dependencies": {
     "@babel/core": "7.26.0",
     "@babel/eslint-parser": "7.25.9",
@@ -9,7 +9,7 @@
     "@babel/preset-typescript": "7.26.0",
     "@pmmmwh/react-refresh-webpack-plugin": "0.5.11",
     "@svgr/webpack": "6.5.1",
-    "@zswl/plugins": "1.4.0",
+    "@glcc/plugins": "1.0.0",
     "babel-loader": "9.2.1",
     "cli-table": "0.3.11",
     "core-js": "3.36.0",

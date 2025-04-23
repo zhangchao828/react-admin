@@ -11,5 +11,5 @@ module.exports = {
       configFile: resolve(__dirname, 'babel.config.js'),
     },
   },
-  extends: ['@zswl/eslint-config'],
+  extends: ['@glcc/eslint-config'],
 }

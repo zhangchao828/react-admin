@@ -1,4 +1,4 @@
-import { Link } from '@zswl/admin'
+import { Link } from '@glcc/admin'
 import { useEffect } from 'react'
 
 function Index() {

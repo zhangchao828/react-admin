@@ -1,4 +1,4 @@
-import { Link } from '@zswl/admin'
+import { Link } from '@glcc/admin'
 import store from './store'
 import { useEffect } from 'react'
 

@@ -1,7 +1,7 @@
 const fs = require('fs-extra')
 const { join } = require('path')
-const getIndexPath = require('@zswl/shared/getIndexPath')
-const { __layout } = require('@zswl/shared/paths')
+const getIndexPath = require('@glcc/shared/getIndexPath')
+const { __layout } = require('@glcc/shared/paths')
 
 function createLayout() {
   const layoutPath = getIndexPath(__layout)

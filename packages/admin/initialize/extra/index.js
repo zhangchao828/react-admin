@@ -1,6 +1,6 @@
-const { __whiteList, __externals } = require('@zswl/shared/paths')
+const { __whiteList, __externals } = require('@glcc/shared/paths')
 const fs = require('fs-extra')
-const { isDev } = require('@zswl/shared/env')
+const { isDev } = require('@glcc/shared/env')
 const axios = require('axios')
 
 // 创建模块白名单

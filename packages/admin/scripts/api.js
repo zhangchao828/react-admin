@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 const ora = require('ora')
-const Generator = require('@zswl/yapi2ts/Generator')
-const write = require('@zswl/yapi2ts/write')
-const { getConfig } = require('@zswl/shared/project')
+const Generator = require('@glcc/yapi2ts/Generator')
+const write = require('@glcc/yapi2ts/write')
+const { getConfig } = require('@glcc/shared/project')
 const { yapi2ts } = getConfig()
-const message = require('@zswl/shared/message')
+const message = require('@glcc/shared/message')
 
 module.exports = async function run() {
   const cwd = process.cwd()

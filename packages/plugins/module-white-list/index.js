@@ -1,8 +1,8 @@
 const chalk = require('chalk')
-const alias = require('@zswl/shared/alias')
+const alias = require('@glcc/shared/alias')
 const t = require('@babel/types')
 const fs = require('fs-extra')
-const { __packageJson, __whiteList } = require('@zswl/shared/paths')
+const { __packageJson, __whiteList } = require('@glcc/shared/paths')
 
 const { devDependencies = {}, dependencies = {} } = require(__packageJson)
 let modulesList = []

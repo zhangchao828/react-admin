@@ -1,4 +1,4 @@
-import { defineApp } from '@zswl/admin'
+import { defineApp } from '@glcc/admin'
 
 function App({ children }) {
   return children

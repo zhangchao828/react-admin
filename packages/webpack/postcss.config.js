@@ -1,6 +1,6 @@
 const postcssEnv = require('postcss-preset-env')
-const px2vwPlugin = require('@zswl/plugins/postcss-px2vw')
-const { getConfig } = require('@zswl/shared/project')
+const px2vwPlugin = require('@glcc/plugins/postcss-px2vw')
+const { getConfig } = require('@glcc/shared/project')
 
 const { px2vw, tailwindConfig } = getConfig()
 

@@ -1,4 +1,4 @@
-import { history } from '@zswl/admin'
+import { history } from '@glcc/admin'
 
 export default function Detail(props) {
   return (

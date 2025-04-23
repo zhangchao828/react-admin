@@ -61,7 +61,7 @@ async function init() {
     process.env.BABEL_ENV = mode
     await initEnv()
     // 初始化项目配置文件
-    require('@zswl/shared/project').initConfig(defaultConfig)
+    require('@glcc/shared/project').initConfig(defaultConfig)
     // 根据项目配置初始化整个项目
     await require('../initialize')()
     require('../scripts/' + script)(process.argv)

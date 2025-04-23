@@ -2,12 +2,12 @@ const createRoot = require('./root')
 const createEntry = require('./entry')
 const createFileRouter = require('./fileRouter')
 const initExtra = require('./extra')
-const { isDev } = require('@zswl/shared/env')
-const pkgManager = require('@zswl/shared/pkgManager')
-const { __temporary, __src } = require('@zswl/shared/paths')
+const { isDev } = require('@glcc/shared/env')
+const pkgManager = require('@glcc/shared/pkgManager')
+const { __temporary, __src } = require('@glcc/shared/paths')
 const fs = require('fs-extra')
 const glob = require('glob')
-const { error } = require('@zswl/shared/message')
+const { error } = require('@glcc/shared/message')
 
 // 检查src目录下是否存在不合规的一级目录或文件
 function checkSrcDir() {
@@ -44,6 +44,6 @@ module.exports = async function initialize() {
   await initExtra()
   createFileRouter()
   if (isDev) {
-    require('@zswl/shared/mock').init()
+    require('@glcc/shared/mock').init()
   }
 }

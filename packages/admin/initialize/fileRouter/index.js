@@ -1,11 +1,11 @@
 const fs = require('fs-extra')
 const glob = require('glob')
 const { extname } = require('path')
-const { __pages, __routes, __routeModules } = require('@zswl/shared/paths')
-const { isDev } = require('@zswl/shared/env')
-const watchFiles = require('@zswl/shared/watchFiles')
+const { __pages, __routes, __routeModules } = require('@glcc/shared/paths')
+const { isDev } = require('@glcc/shared/env')
+const watchFiles = require('@glcc/shared/watchFiles')
 const { debounce, camelCase } = require('lodash')
-const { getConfig } = require('@zswl/shared/project')
+const { getConfig } = require('@glcc/shared/project')
 
 const { lazyImport, federation, base } = getConfig()
 const layoutId = '/layout'
@@ -44,7 +44,7 @@ function createRoutes() {
       __routes,
       `
 ${lazyImport ? `import { lazy } from 'react'` : ''}
-import { Redirect } from '@zswl/admin'
+import { Redirect } from '@glcc/admin'
 ${layoutsImport}
 ${routesImport}
 export const routesMap = {

@@ -1,4 +1,4 @@
-import { Link, getRandomInt } from '@zswl/admin'
+import { Link, getRandomInt } from '@glcc/admin'
 import { useEffect } from 'react'
 
 function Index({ params }) {

@@ -2,9 +2,9 @@ const fs = require('fs-extra')
 const webpack = require('webpack')
 const beautifyStats = require('./beautifyStats')
 const webpackProdConfig = require('./webpack.prod.config')
-const { __static, __dist, __distDataJson } = require('@zswl/shared/paths')
-const message = require('@zswl/shared/message')
-const { define } = require('@zswl/shared/env')
+const { __static, __dist, __distDataJson } = require('@glcc/shared/paths')
+const message = require('@glcc/shared/message')
+const { define } = require('@glcc/shared/env')
 const path = require('path')
 
 module.exports = function () {

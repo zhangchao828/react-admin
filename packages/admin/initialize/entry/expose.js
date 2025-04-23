@@ -1,5 +1,5 @@
 import { routesMap, layoutsMap } from '~admin/routes'
-import { AppContext, wrapPage, matchPage, getQuery, useRealPathname } from '@zswl/admin'
+import { AppContext, wrapPage, matchPage, getQuery, useRealPathname } from '@glcc/admin'
 import { useCallback, useMemo, useState, Suspense, lazy } from 'react'
 
 const Root = lazy(() => import('@/src/index'))

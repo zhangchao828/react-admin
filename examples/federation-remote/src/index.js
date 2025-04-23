@@ -1,4 +1,4 @@
-import { defineApp, http } from '@zswl/admin'
+import { defineApp, http } from '@glcc/admin'
 
 // http.setConfig({
 //   baseURL: '/remote',

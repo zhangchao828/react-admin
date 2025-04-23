@@ -1,6 +1,6 @@
 {
-  "name": "@zswl/shared",
-  "version": "1.4.0",
+  "name": "@glcc/shared",
+  "version": "1.0.0",
   "description": "shared",
   "keywords": [
     "react",

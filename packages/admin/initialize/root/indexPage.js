@@ -1,5 +1,5 @@
-const { __pages } = require('@zswl/shared/paths')
-const getIndexPath = require('@zswl/shared/getIndexPath')
+const { __pages } = require('@glcc/shared/paths')
+const getIndexPath = require('@glcc/shared/getIndexPath')
 const fs = require('fs-extra')
 const { join } = require('path')
 

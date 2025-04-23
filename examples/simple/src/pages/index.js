@@ -1,4 +1,4 @@
-import { http, Host, Link } from '@zswl/admin'
+import { http, Host, Link } from '@glcc/admin'
 import styles from './style.less'
 import { Button } from 'antd'
 import { useEffect, useRef } from 'react'

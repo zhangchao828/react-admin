@@ -1,4 +1,4 @@
-import { useAppContext } from '@zswl/admin'
+import { useAppContext } from '@glcc/admin'
 import { useEffect } from 'react'
 
 export default function Layout({ children }) {

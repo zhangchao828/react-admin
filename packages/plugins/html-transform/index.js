@@ -1,9 +1,9 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const cheerio = require('cheerio')
-const { isDev } = require('@zswl/shared/env')
-const { getConfig } = require('@zswl/shared/project')
+const { isDev } = require('@glcc/shared/env')
+const { getConfig } = require('@glcc/shared/project')
 const optimizeExternals = require('./optimizeExternals')
-const { RUN_TIME, REACT_REFRESH, APP } = require('@zswl/shared/constant')
+const { RUN_TIME, REACT_REFRESH, APP } = require('@glcc/shared/constant')
 
 const { federation } = getConfig()
 class HtmlTransform {

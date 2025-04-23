@@ -1,4 +1,4 @@
-import { Renderer, observer, makeAutoObservable } from '@zswl/admin'
+import { Renderer, observer, makeAutoObservable } from '@glcc/admin'
 import { Button } from 'antd'
 import { useEffect } from 'react'
 

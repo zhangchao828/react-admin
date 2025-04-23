@@ -1,4 +1,4 @@
-/** @type {import('@zswl/admin').ProjectConfig} */
+/** @type {import('@glcc/admin').ProjectConfig} */
 module.exports = {
   doctor: false,
   lazyImport: false,

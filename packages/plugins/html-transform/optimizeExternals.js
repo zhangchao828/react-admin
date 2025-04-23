@@ -1,9 +1,9 @@
 const fs = require('fs-extra')
 const { join } = require('path')
-const { __root, __externals } = require('@zswl/shared/paths')
-const { isDev } = require('@zswl/shared/env')
-const { getConfig } = require('@zswl/shared/project')
-const { getModuleVersionInNodeModules } = require('@zswl/shared/version')
+const { __root, __externals } = require('@glcc/shared/paths')
+const { isDev } = require('@glcc/shared/env')
+const { getConfig } = require('@glcc/shared/project')
+const { getModuleVersionInNodeModules } = require('@glcc/shared/version')
 
 let devExternals = []
 if (fs.pathExistsSync(__externals)) {

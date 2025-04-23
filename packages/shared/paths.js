@@ -21,7 +21,7 @@ module.exports = {
   __layout: resolvePath('src/layout'),
   __api: resolvePath('src/api'),
   __temporary: resolvePath(temporary),
-  __admin: resolvePath('node_modules/@zswl/admin'),
+  __admin: resolvePath('node_modules/@glcc/admin'),
   __entryDir: resolvePath(`${temporary}/entry`),
   __entry: resolvePath(temporary, 'entry/index.js'),
   __federationExpose: resolvePath(temporary, 'entry/federation-expose.js'),

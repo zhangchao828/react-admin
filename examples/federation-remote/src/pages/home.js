@@ -1,4 +1,4 @@
-import { history, useActive } from '@zswl/admin'
+import { history, useActive } from '@glcc/admin'
 
 export default function Home({ children }) {
   useActive((active) => {

@@ -1,7 +1,7 @@
 const { join } = require('path')
-const { __entryDir, __entry, __federationExpose } = require('@zswl/shared/paths')
+const { __entryDir, __entry, __federationExpose } = require('@glcc/shared/paths')
 const fs = require('fs-extra')
-const { getConfig } = require('@zswl/shared/project')
+const { getConfig } = require('@glcc/shared/project')
 
 const { federation } = getConfig()
 

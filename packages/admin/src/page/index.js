@@ -132,7 +132,7 @@ export function useActive() {
  */
 export async function createPage(data) {
   const { ip = 'localhost', port, ...rest } = data
-  return await window.__HTTP__.post(`http://${ip}:${port}/zswl-admin/create-page`, rest, {
+  return await window.__HTTP__.post(`http://${ip}:${port}/glcc-admin/create-page`, rest, {
     original: true,
   })
 }

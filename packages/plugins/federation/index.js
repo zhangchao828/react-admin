@@ -1,5 +1,5 @@
 const fs = require('fs-extra')
-const { getConfig } = require('@zswl/shared/project')
+const { getConfig } = require('@glcc/shared/project')
 const {
   __federationApps,
   __federationExpose,
@@ -9,13 +9,13 @@ const {
   __routeModules,
   __remoteRouteModules,
   __remoteComponents,
-} = require('@zswl/shared/paths')
+} = require('@glcc/shared/paths')
 const webpack = require('webpack')
 const { ModuleFederationPlugin } = webpack.container
 const { dependencies } = require(__packageJson)
 const path = require('path')
-const { isDev, define } = require('@zswl/shared/env')
-const { RUN_TIME } = require('@zswl/shared/constant')
+const { isDev, define } = require('@glcc/shared/env')
+const { RUN_TIME } = require('@glcc/shared/constant')
 
 /**
  * 这里的逻辑很绕，不确定的情况下不要轻易修改

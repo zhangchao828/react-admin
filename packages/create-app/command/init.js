@@ -1,7 +1,7 @@
 const shell = require('shelljs')
 const ora = require('ora')
-const { TEMPLATE } = require('@zswl/shared/constant')
-const message = require('@zswl/shared/message')
+const { TEMPLATE } = require('@glcc/shared/constant')
+const message = require('@glcc/shared/message')
 const fs = require('fs-extra')
 const path = require('path')
 

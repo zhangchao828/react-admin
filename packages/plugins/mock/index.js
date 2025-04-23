@@ -1,4 +1,4 @@
-const { getResponse } = require('@zswl/shared/mock')
+const { getResponse } = require('@glcc/shared/mock')
 
 module.exports = {
   name: 'mock',

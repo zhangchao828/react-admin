@@ -1,6 +1,6 @@
 {
-  "name": "@zswl/plugins",
-  "version": "1.4.0",
+  "name": "@glcc/plugins",
+  "version": "1.0.0",
   "author": "zhangchao",
   "main": "index.js",
   "types": "type.d.ts",

@@ -1,4 +1,4 @@
-import { history, http } from '@zswl/admin'
+import { history, http } from '@glcc/admin'
 
 export default function Index() {
   return (

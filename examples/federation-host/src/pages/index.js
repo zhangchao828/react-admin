@@ -1,4 +1,4 @@
-import { history, useAppContext, Remote, makeAutoObservable, http } from '@zswl/admin'
+import { history, useAppContext, Remote, makeAutoObservable, http } from '@glcc/admin'
 import { useEffect, useRef, useState } from 'react'
 
 class Store {

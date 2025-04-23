@@ -1,4 +1,4 @@
-import { makeAutoObservable } from '@zswl/admin'
+import { makeAutoObservable } from '@glcc/admin'
 
 class Store {
   constructor() {

@@ -1,5 +1,5 @@
 const fs = require('fs-extra')
-const { isDev } = require('@zswl/shared/env')
+const { isDev } = require('@glcc/shared/env')
 const ip = require('ip')
 const {
   __federationApps,
@@ -8,8 +8,8 @@ const {
   __remoteComponents,
   __remoteRouteModules,
   __mockUrls,
-} = require('@zswl/shared/paths')
-const { getConfig } = require('@zswl/shared/project')
+} = require('@glcc/shared/paths')
+const { getConfig } = require('@glcc/shared/project')
 const { federation, publicPath, base, name } = getConfig()
 
 function config() {

@@ -1,4 +1,4 @@
-import { history, useAppContext, useActive, observer, makeAutoObservable, http } from '@zswl/admin'
+import { history, useAppContext, useActive, observer, makeAutoObservable, http } from '@glcc/admin'
 
 class Store {
   constructor() {

@@ -12,7 +12,7 @@ import {
   wrapPage,
   HISTORY,
   useRealPathname,
-} from '@zswl/admin'
+} from '@glcc/admin'
 import { Suspense, StrictMode, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import './app.css'
 
