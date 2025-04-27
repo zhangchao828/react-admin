@@ -55,7 +55,7 @@ async function initEnv() {
 }
 
 async function init() {
-  if (['start', 'build', 'api'].includes(script)) {
+  if (['start', 'build'].includes(script)) {
     const mode = script === 'build' ? 'production' : 'development'
     process.env.NODE_ENV = mode
     process.env.BABEL_ENV = mode
