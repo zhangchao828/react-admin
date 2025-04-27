@@ -41,7 +41,7 @@ module.exports = async function initialize() {
   fs.emptyDirSync(__temporary)
   createRoot()
   createEntry()
-  await initExtra()
+  // await initExtra()
   createFileRouter()
   if (isDev) {
     require('@glcc/shared/mock').init()

@@ -6,8 +6,7 @@ module.exports = {
     'no-alert': 0,
     'no-param-reassign': 0,
     'no-plusplus': 0,
-    // 移除没有使用的变量的规则，业务中太多警告了
-    'no-unused-vars': 0,
+    'no-unused-vars': 1,
     'no-nested-ternary': 0,
     'no-underscore-dangle': 0,
     'no-tabs': 0,

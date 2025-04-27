@@ -8,9 +8,12 @@ function createLayout() {
   if (!fs.pathExistsSync(layoutPath)) {
     fs.outputFileSync(
       join(__layout, 'index.js'),
-      `export default function Layout({ children }) {
+      `
+function Layout({ children }) {
   return <div>{children}</div>
 }
+
+export default Layout
     `.trim()
     )
   }

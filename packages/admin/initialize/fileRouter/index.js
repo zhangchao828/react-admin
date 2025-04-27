@@ -14,7 +14,7 @@ const ignoreFileList = [
   需要被忽略不当做路由处理的文件或目录名
   component和components视作组件
   util和utils视作工具
-  store视作mobx的store
+  store视作业务逻辑状态
   api和apis放接口
   */
   'store',
@@ -32,7 +32,7 @@ let lastContent = ``
 
 function createRoutes() {
   watchRoutes()
-  let files = glob.sync('**/*.*(js|jsx|tsx)', {
+  const files = glob.sync('**/*.*(js|jsx|tsx)', {
     cwd: __pages,
   })
   const { routes, routesMap, layouts, layoutsImport, routesImport } = getRoutes(files)
@@ -192,10 +192,7 @@ function transform2importName(key, prefix) {
   return prefix + name[0].toUpperCase() + name.substring(1)
 }
 function becomeRoutePath(filePath) {
-  if (filePath === '/') {
-    return filePath
-  }
-  if (filePath === '/404') {
+  if (filePath === '/' || filePath === '/404') {
     return filePath
   }
   // filePath = filePath.replace(/\./g, '/')
@@ -220,7 +217,10 @@ function ignorePath(routePath = '') {
   if (!routePath) {
     return true
   }
-  const routePathSplit = routePath.split('/').filter(Boolean)
+  if (routePath === '/') {
+    return false
+  }
+  const routePathSplit = routePath.split('/').slice(1)
   // 存在ignoreFileList里面列出的关键字的路径会被忽略
   if (ignoreFileList.some((item) => routePathSplit.includes(item))) {
     return true
@@ -238,8 +238,8 @@ function ignorePath(routePath = '') {
     return true
   }
   /*
-  1: 首字母大写的文件或目录会被忽略，
-  2: 动态路由[]包裹住的内容不能带有中划线 - 符号，这是因为react-router中的matchPath无法匹配
+  1: 大写的文件或目录会被忽略，
+  2: 动态路由[]包裹住的内容不能带有中划线 - 符号，这是因为参数取值不方便比如：params['xx-xx']
    */
   if (
     routePathSplit.find((item) => {
@@ -247,7 +247,7 @@ function ignorePath(routePath = '') {
         // 动态路由就三种情况 * 或者 :id 或者 :id?
         return item !== '*' && (item.includes('-') || item[1].toLowerCase() !== item[1])
       }
-      return item[0].toLowerCase() !== item[0]
+      return item.toLowerCase() !== item
     })
   ) {
     return true

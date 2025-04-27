@@ -33,7 +33,7 @@ async function initEnv() {
       choices: [
         { message: '测试环境 (test)', name: 'test' },
         { message: '预发环境 (pre)', name: 'pre' },
-        { message: '正式环境 (pro)', name: 'pro' },
+        { message: '正式环境 (prod)', name: 'prod' },
         { message: '自定义环境变量', name: '-' },
       ],
     })

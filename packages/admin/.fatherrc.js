@@ -8,7 +8,4 @@ export default defineConfig({
     output: 'lib',
     platform: 'browser',
   },
-  // umd: {
-  //   output: 'dist',
-  // },
 })

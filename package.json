@@ -10,8 +10,8 @@
     "postinstall": "npm run build",
     "build:helper": "cd packages/helper && npm run build",
     "build:admin": "cd packages/admin && npm run build",
-    "build": "npm run build:helper && npm run build:admin && npm run clearCache",
-    "clearCache": "node scripts/clear.js",
+    "build": "npm run build:helper && npm run build:admin && npm run clear-cache",
+    "clear-cache": "node scripts/clear.js",
     "pub": "node scripts/publish.js"
   },
   "devDependencies": {

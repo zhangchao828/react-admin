@@ -79,7 +79,11 @@ export function wrapPage(Page, layouts, props, key) {
   function wrapContent(index = 0) {
     const Layout = layouts[index]
     if (Layout) {
-      return <Suspense fallback={null}>{wrapContent(index + 1)}</Suspense>
+      return (
+        <Suspense fallback={null}>
+          <Layout {...props}>{wrapContent(index + 1)}</Layout>
+        </Suspense>
+      )
     } else {
       return page ?? null
     }

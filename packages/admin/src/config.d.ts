@@ -103,7 +103,7 @@ type ProjectConfig = {
   eslint?: boolean
 }
 type ConfigFuncParams = {
-  env: 'dev' | 'test' | 'pre' | 'pro' | 'jk' | string
+  env: 'dev' | 'test' | 'pre' | 'prod' | string
   command: 'start' | 'build'
 }
 type ConfigFunc = (params: ConfigFuncParams) => ProjectConfig

@@ -11,7 +11,7 @@ class HtmlTransform {
   css = []
   apply(compiler) {
     if (federation.name) {
-      // todo 当是qiankun应用或者模块联邦的时候不设置externals，如果设置externals不知道会不会有问题，待验证
+      // todo 当是模块联邦的时候如果设置externals不知道会不会有问题，待验证
     }
     const { path: outputPath, publicPath } = compiler.options.output
     const { webpackExternals, scripts, css } = optimizeExternals({

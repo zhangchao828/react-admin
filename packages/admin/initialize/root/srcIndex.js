@@ -9,9 +9,11 @@ function createSrcIndex() {
     fs.outputFileSync(
       join(__src, 'index.js'),
       `
-export default function App({ children }) {
+function App({ children }) {
   return children
 }
+
+export default App
     `.trim()
     )
   }
