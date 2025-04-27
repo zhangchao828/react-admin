@@ -9,7 +9,7 @@ let devExternals = []
 if (fs.pathExistsSync(__externals)) {
   devExternals = require(__externals)
 }
-const { externals, css } = getConfig()
+const { externals } = getConfig()
 // 只有安装了才会被外部化
 const builtIn = {
   // react: {
@@ -34,10 +34,10 @@ const builtIn = {
   //     isDev ? 'development' : 'production.min'
   //   }.js`,
   // },
-  axios: {
-    global: 'axios',
-    script: `/node_modules/axios/dist/${isDev ? 'axios' : 'axios.min'}.js`,
-  },
+  // axios: {
+  //   global: 'axios',
+  //   script: `/node_modules/axios/dist/${isDev ? 'axios' : 'axios.min'}.js`,
+  // },
   // moment: {
   //   global: 'moment',
   //   script: `/node_modules/moment/min/moment.min.js`,
@@ -91,35 +91,9 @@ function optimizeScript({ name, script }, config) {
   return src
 }
 
-function optimizeCss(css, config) {
-  if (typeof css === 'string') {
-    let href = css
-    const { outputPath, publicPath } = config || {}
-    const prefix = '/node_modules'
-    if (css.startsWith(prefix)) {
-      const cssPath = join(__root, css)
-      const copyPath = outputPath && join(outputPath, css)
-      if (fs.pathExistsSync(cssPath)) {
-        href = publicPath + css.substring(1)
-        const moduleName = css.split('/').filter(Boolean)[1]
-        const version = getModuleVersionInNodeModules(moduleName)
-        if (version) {
-          href += `?version=${version}`
-        }
-        if (!isDev && copyPath) {
-          fs.copy(cssPath, copyPath)
-        }
-      } else {
-        href = ''
-      }
-    }
-    return href
-  }
-}
-
 let optimizedExternals = null
 
-function optimiseExternals(config) {
+function optimizeExternals(config) {
   if (optimizedExternals) {
     return optimizedExternals
   }
@@ -143,13 +117,11 @@ function optimiseExternals(config) {
       }
     }
   })
-  const cssList = (css || []).map((item) => optimizeCss(item, config)).filter(Boolean)
   const res = {
     scripts,
     webpackExternals,
-    css: cssList,
   }
   optimizedExternals = res
   return res
 }
-module.exports = optimiseExternals
+module.exports = optimizeExternals

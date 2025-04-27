@@ -9,7 +9,7 @@ const eslintFormatter = require('eslint-friendly-formatter')
 // const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin')
 const eslintConfig = require('./eslint.config')
 
-const { lazyCompilation, eslint } = getConfig()
+const { lazyCompilation } = getConfig()
 const webpackDevConfig = merge(baseWebpackConfig, {
   mode: 'development',
   entry: {
@@ -39,14 +39,13 @@ const webpackDevConfig = merge(baseWebpackConfig, {
     },
   },
   plugins: [
-    eslint &&
-      new ESLintPlugin({
-        overrideConfig: eslintConfig,
-        formatter: eslintFormatter,
-        fix: false,
-        useEslintrc: false,
-        extensions: ['js', 'jsx', 'tsx', 'ts'],
-      }),
+    new ESLintPlugin({
+      overrideConfig: eslintConfig,
+      formatter: eslintFormatter,
+      fix: false,
+      useEslintrc: false,
+      extensions: ['js', 'jsx', 'tsx', 'ts'],
+    }),
     // new CaseSensitivePathsPlugin(),
     new ReactRefreshPlugin({
       overlay: { entry: false },

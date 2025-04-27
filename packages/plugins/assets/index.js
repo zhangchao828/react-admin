@@ -1,5 +1,4 @@
 const { getConfig } = require('@glcc/shared/project')
-const constants = require('node:constants')
 const { publicPath } = getConfig()
 
 module.exports = function ({ types: t }) {

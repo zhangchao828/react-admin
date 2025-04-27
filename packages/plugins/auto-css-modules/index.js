@@ -1,5 +1,5 @@
 const { extname } = require('path')
-const suffix = ['.css', '.less']
+const suffix = ['.css', '.less', '.scss']
 
 module.exports = () => {
   return {

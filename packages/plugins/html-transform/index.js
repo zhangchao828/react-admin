@@ -8,18 +8,16 @@ const { RUN_TIME, REACT_REFRESH, APP } = require('@glcc/shared/constant')
 const { federation } = getConfig()
 class HtmlTransform {
   scripts = []
-  css = []
   apply(compiler) {
     if (federation.name) {
       // todo 当是模块联邦的时候如果设置externals不知道会不会有问题，待验证
     }
     const { path: outputPath, publicPath } = compiler.options.output
-    const { webpackExternals, scripts, css } = optimizeExternals({
+    const { webpackExternals, scripts } = optimizeExternals({
       outputPath,
       publicPath,
     })
     this.scripts = scripts
-    this.css = css
     compiler.options.externals = webpackExternals
     compiler.hooks.compilation.tap('HtmlTransform', (compilation) => {
       HtmlWebpackPlugin.getHooks(compilation).afterTemplateExecution.tapAsync(
@@ -34,11 +32,9 @@ class HtmlTransform {
           以下注入必须按照这样的先后顺序,否则热更新会失效
            */
             this.injectRuntime($, htmlPluginData)
-            this.injectCss($)
             this.injectExternalScripts($)
             this.injectAppTag($, htmlPluginData)
           } else {
-            this.injectCss($)
             this.injectExternalScripts($)
           }
           htmlPluginData.html = $.html()
@@ -84,11 +80,6 @@ class HtmlTransform {
           async ? `<script src="${src}" async="async"></script>` : `<script src="${src}"></script>`
         )
       }
-    })
-  }
-  injectCss($) {
-    this.css?.forEach((href) => {
-      $('head').append(`<link rel="stylesheet" href="${href}">`)
     })
   }
 }

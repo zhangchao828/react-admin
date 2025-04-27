@@ -6,7 +6,6 @@ const getUnusedPort = require('@glcc/shared/getUnusedPort')
 const message = require('@glcc/shared/message')
 const { getConfig } = require('@glcc/shared/project')
 const mock = require('@glcc/plugins/mock')
-const createPage = require('@glcc/plugins/create-page')
 const WebpackDevServer = require('webpack-dev-server')
 const express = require('express')
 
@@ -19,7 +18,7 @@ async function start() {
     port,
     host: '0.0.0.0',
     hot: true,
-    // allowedHosts: 'all',
+    allowedHosts: 'all',
     headers: {
       'Access-Control-Allow-Origin': '*',
       'Access-Control-Allow-Methods': 'PUT, GET, POST, DELETE, OPTIONS',
@@ -50,12 +49,7 @@ async function start() {
       },
     ],
     setupMiddlewares(middlewares) {
-      return middlewares.concat([
-        express.json(),
-        express.urlencoded({ extended: true }),
-        mock,
-        createPage,
-      ])
+      return middlewares.concat([express.json(), express.urlencoded({ extended: true }), mock])
     },
   }
   const compiler = webpack(webpackDevConfig)

@@ -14,18 +14,6 @@ type External =
     }
 
 interface Externals {
-  react?: External
-  'react-dom'?: External
-  'react-router-dom'?: External
-  axios?: External
-  mobx?: External
-  'mobx-react-lite'?: External
-  'moment/locale/zh-cn'?: External
-  antd?: External
-  moment?: External
-  mathjs?: External
-  echarts?: External
-  'echarts-gl'?: External
   [name: string]: External
 }
 type LessOptions = {
@@ -71,7 +59,6 @@ type ProjectConfig = {
    */
   proxy?: ProxyConfigArray
   lessOptions?: LessOptions
-  css?: string[]
   externals?: false | Externals
   /**
    * 开发环境是否按需编译,
@@ -100,7 +87,6 @@ type ProjectConfig = {
    * 是否懒加载文件路由
    */
   lazyImport?: boolean
-  eslint?: boolean
 }
 type ConfigFuncParams = {
   env: 'dev' | 'test' | 'pre' | 'prod' | string

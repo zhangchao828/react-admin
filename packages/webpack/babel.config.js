@@ -41,7 +41,6 @@ const babelConfig = {
     autoCssModules,
     assets,
     isDev && doctor && moduleWhiteList,
-    // 'styled-jsx/babel',
   ].filter(Boolean),
 }
 module.exports = babelConfig

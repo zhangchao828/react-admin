@@ -37,6 +37,9 @@ const lessLoader = {
     },
   },
 }
+const sassLoader = {
+  loader: 'sass-loader',
+}
 const postcssLoader = {
   loader: 'postcss-loader',
   options: {
@@ -71,10 +74,6 @@ module.exports = [
     test: /\.jsx?$/,
     include: [__src, __temporary, admin && path.join(__dirname, '../admin/src')].filter(Boolean),
     oneOf: [
-      // {
-      //   resourceQuery: /ignore-line-limit/,
-      //   use: [babelLoader],
-      // },
       {
         use: [babelLoader, lineLimitLoader],
       },
@@ -113,6 +112,19 @@ module.exports = [
       },
     ],
   },
+  {
+    test: /\.scss$/,
+    exclude: /node_modules/,
+    oneOf: [
+      {
+        resourceQuery: /css-modules/,
+        use: [miniCssLoader, cssModulesLoader, postcssLoader, sassLoader],
+      },
+      {
+        use: [miniCssLoader, cssLoader, postcssLoader, sassLoader],
+      },
+    ],
+  },
   /** node_modules中的 css**/
   {
     test: /\.css$/,
@@ -124,6 +136,12 @@ module.exports = [
     include: /node_modules/,
     use: [miniCssLoader, cssLoader, postcssLoader, lessLoader],
   },
+  {
+    test: /\.scss$/,
+    include: /node_modules/,
+    use: [miniCssLoader, cssLoader, postcssLoader, sassLoader],
+  },
+
   {
     test: /\.svg$/i,
     issuer: /\.[jt]sx?$/,

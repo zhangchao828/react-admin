@@ -7,12 +7,10 @@ module.exports = {
   lessOptions: {},
   https: false,
   externals: {},
-  css: [],
   lazyCompilation: true,
   federation: false,
   base: undefined,
   px2vw: false,
   webpack: {},
   lazyImport: true,
-  eslint: true,
 }
