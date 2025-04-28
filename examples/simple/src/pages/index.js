@@ -1,4 +1,4 @@
-import { http, Host, Link } from '@glcc/admin'
+import { http, Local, Link } from '@glcc/admin'
 import styles from './style.less'
 import { Button } from 'antd'
 import { useEffect, useRef } from 'react'
@@ -31,7 +31,7 @@ function Index() {
   // }
   return (
     <div onClick={add}>
-      <Host pathname="/abc/list" />
+      <Local pathname="/abc/list" />
       <Button
         className={styles.test}
         onClick={() => {
