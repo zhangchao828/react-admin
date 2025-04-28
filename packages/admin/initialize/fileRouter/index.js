@@ -25,8 +25,9 @@ const ignoreFileList = [
   'component',
   'components',
 ]
-const with$Reg = /\[[0-9a-zA-Z_.]+\$]/g
-const without$Reg = /\[[0-9a-zA-Z_.]+]/g
+const with$Reg = /\[[a-z]+\$]/g
+const without$Reg = /\[[a-z]+]/g
+const groupReg = /\([a-z]+\)/g
 
 let lastContent = ``
 
@@ -114,10 +115,11 @@ function getRoutes(files) {
   // 将路径转为路由映射
   Object.keys(pathsMap).forEach((filePath) => {
     const { routePath, realFilePath } = pathsMap[filePath]
+    // 处理扁平化的目录结构转为嵌套的，比如：home.list目录变成home/list
     const _routePath = routePath.replace(/\./g, '/')
     routesMap[_routePath] = {
       component: `@/src/pages${realFilePath}`,
-      layouts: getLayouts(layoutsMap, routePath),
+      layouts: getLayouts(layoutsMap, _routePath),
       filePath: filePath === '/' ? 'index' : filePath,
     }
   })
@@ -195,7 +197,12 @@ function becomeRoutePath(filePath) {
   if (filePath === '/' || filePath === '/404') {
     return filePath
   }
-  // filePath = filePath.replace(/\./g, '/')
+  // if (groupReg.test(filePath)) {
+  //   filePath = filePath.replace(groupReg, '').replace(/\/\//g, '/')
+  // }
+  // if (filePath.includes('[*]')) {
+  //   filePath = filePath.replace(/\[\*\]/g, '*')
+  // }
   if (with$Reg.test(filePath)) {
     filePath = filePath.replace(with$Reg, (a) => {
       return a.replace('[', ':').replace('$]', '?')
@@ -252,8 +259,8 @@ function ignorePath(routePath = '') {
   ) {
     return true
   }
-  // 转为路由之后还存在. $ [ ] _符号的文件会被忽略
-  return /[$\[\]_]/.test(routePath)
+  // 转为路由之后还存在. $ [ ] ( ) _符号的文件会被忽略
+  return /[$\[\]_()]/.test(routePath)
 }
 
 let hasWatched = false
