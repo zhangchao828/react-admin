@@ -1,5 +1,5 @@
 module.exports = {
-  plugins: ['react', 'react-hooks', '@typescript-eslint'],
+  plugins: ['react', 'react-hooks', '@typescript-eslint', '@glcc'],
   parser: '@typescript-eslint/parser',
   extends: [
     'airbnb-base',
@@ -24,5 +24,6 @@ module.exports = {
   },
   rules: {
     '@typescript-eslint/no-unused-vars': 0,
+    '@glcc/no-function-in-function-component': 2,
   },
 }

@@ -1,7 +1,7 @@
 import { defineApp, adminConfig } from '@glcc/admin'
 
 console.log(adminConfig)
-function App({ children }) {
+const App = ({ children }) => {
   return children
 }
 

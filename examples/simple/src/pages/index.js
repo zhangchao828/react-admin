@@ -23,8 +23,14 @@ function Index() {
   useEffect(() => {
     console.log(ref.current)
   }, [])
+  const add = () => {
+    console.log('host1')
+  }
+  // function add(){
+  //   console.log('add')
+  // }
   return (
-    <div>
+    <div onClick={add}>
       <Host pathname="/abc/list" />
       <Button
         className={styles.test}

@@ -1,0 +1,19 @@
+{
+  "name": "@glcc/eslint-plugin",
+  "version": "1.0.0",
+  "description": "eslint",
+  "main": "index.js",
+  "repository": {
+    "type": "git"
+  },
+  "keywords": [
+    "eslint",
+    "eslintconfig",
+    "config"
+  ],
+  "scripts": {},
+  "author": "zhangchao",
+  "license": "MIT",
+  "dependencies": {
+  }
+}
