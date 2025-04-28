@@ -34,7 +34,7 @@ export function matchRoute(pathname) {
 }
 
 export const adminConfig = config
-export async function getLatestPublishData(path) {
+export async function getPublishData(path) {
   if (process.env.NODE_ENV === 'development') {
     return {}
   }

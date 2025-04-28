@@ -28,18 +28,3 @@ export declare function matchPage(pathname: string, routesMap: ComponentMap): Ma
 export declare function findRoute(pathname: string, routesMap: ComponentMap): Match
 export declare const PageContext: Context<PageContextValue>
 export declare function useActive(): boolean
-
-interface PageData {
-  /** IP地址 */
-  ip?: string | 'localhost'
-  /** 端口号 */
-  port: number
-  /** 路由地址 */
-  path: string
-  store?: string
-  page: string
-  style?: string
-  // 是否覆盖已存在的页面
-  override?: boolean
-}
-export declare function createPage(data: PageData): Promise<object>

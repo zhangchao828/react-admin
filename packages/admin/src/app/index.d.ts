@@ -70,4 +70,4 @@ export declare const adminConfig: {
 interface PublishData {
   time?: number
 }
-export declare function getLatestPublishData(publicPath?: string): Promise<PublishData>
+export declare function getPublishData(publicPath?: string): Promise<PublishData>

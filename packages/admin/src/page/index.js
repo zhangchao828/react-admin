@@ -128,15 +128,3 @@ export function useActive() {
   const { active } = useContext(main?.context.PageContext || PageContext)
   return active
 }
-
-/**
- * 创建页面的请求
- * 请求会被webpack-server中间件拦截
- * 详细查看插件/plugins下面的createPage
- */
-export async function createPage(data) {
-  const { ip = 'localhost', port, ...rest } = data
-  return await window.__HTTP__.post(`http://${ip}:${port}/glcc-admin/create-page`, rest, {
-    original: true,
-  })
-}
