@@ -2,12 +2,12 @@ import { FC, ReactNode } from 'react'
 
 interface RemoteProps {
   /**
-   * 子应用的名称,不传会尝试从远程路由模块中寻找是哪一个远程应用
+   * 远程应用的名称,不传会根据pathname尝试从远程路由模块中寻找是哪一个远程应用
    */
   name?: string
   /**
-   * 子应用需要展示的页面的pathname
-   * 不指定的话就展示子应用首页
+   * 远程应用需要展示的页面的pathname
+   * 不指定的话就展示远程应用首页
    */
   pathname?: string
   [propName: string]: any
