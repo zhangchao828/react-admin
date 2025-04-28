@@ -67,7 +67,6 @@ function MainEntry() {
    */
   /**
    * 根据pathname移除对应的缓存页面，外界主动调用，减少不必要的内存开销
-   * 比如租赁项目顶部Tab关闭的时候应该主动调用这个方法移除对应页面的缓存
    */
   const removeKeepAlive = useCallback(
     (p) => {
