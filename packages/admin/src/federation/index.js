@@ -98,13 +98,9 @@ function RemoteModule({ $$moduleName, ...rest }) {
   }
   return null
 }
-// 远程共享库
-export function Shared({ is, ...rest }) {
-  return <Remote {...rest} name="shared" pathname={`/${is}`} />
-}
+
 Remote.Component = RemoteComponent
-Remote.Shared = Shared
-export const Host = memo(({ pathname, fallback = null, ...props }) => {
+export const Local = memo(({ pathname, fallback = null, ...props }) => {
   const pathSplit = pathname.split('?')
   pathname = useRealPathname(pathSplit[0])
   const search = pathSplit[1] || window.location.search

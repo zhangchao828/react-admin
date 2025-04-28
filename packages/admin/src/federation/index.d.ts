@@ -12,14 +12,10 @@ interface RemoteProps {
   pathname?: string
   [propName: string]: any
 }
-interface HostProps {
+interface LocalProps {
   pathname?: string
   fallback?: ReactNode
   [propName: string]: any
-}
-interface SharedProps {
-  is: string
-  [other: string]: any
 }
 interface RemoteComponentProps {
   /**
@@ -33,10 +29,8 @@ interface RemoteComponentProps {
   [other: string]: any
 }
 declare const RemoteComponent: FC<RemoteComponentProps>
-declare const Shared: FC<SharedProps>
 export declare const Remote: FC<RemoteProps> & {
   Component: typeof RemoteComponent
-  Shared: typeof Shared
 }
 
-export declare const Host: FC<HostProps>
+export declare const Local: FC<LocalProps>
