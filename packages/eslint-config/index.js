@@ -24,6 +24,7 @@ module.exports = {
   },
   rules: {
     '@typescript-eslint/no-unused-vars': 0,
+    '@typescript-eslint/no-empty-object-type': 0,
     '@glcc/no-function-in-function-component': 2,
   },
 }

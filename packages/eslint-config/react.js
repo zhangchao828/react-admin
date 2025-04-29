@@ -29,9 +29,9 @@ module.exports = {
     'react/no-string-refs': 'warn',
     'react/no-unescaped-entities': 'warn',
     'react/jsx-filename-extension': 0,
-    // hooks
-    // 'react-hooks/rules-of-hooks': 'error',
-    // 依赖不报警告
-    // 'react-hooks/exhaustive-deps': 0,
+    // hooks 规则
+    'react-hooks/rules-of-hooks': 1,
+    // 依赖报警
+    'react-hooks/exhaustive-deps': 1,
   },
 }
