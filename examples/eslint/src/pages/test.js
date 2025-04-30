@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { Table } from 'antd'
 
 const Cell = ({ planned, disabled, ...rest }) => {
@@ -39,7 +38,7 @@ const Index = () => {
                 disabled,
               }
             },
-            render: (record) => {
+            render: () => {
               return 'aaa'
             },
           },

@@ -6,7 +6,7 @@ const Index: React.FC<PageProps> = () => {
   const [count, setCount] = useState(0)
   useEffect(() => {
     console.log(count)
-  }, [])
+  }, [count])
   const obj = {
     a: 1,
     b: 2,
@@ -31,6 +31,10 @@ const Index: React.FC<PageProps> = () => {
   return (
     <div key="aaaa" onClick={() => setCount(count + 1)}>
       {count}
+      <div>
+        <Table />
+        <div>33333</div>
+      </div>
       <Table
         columns={[
           {

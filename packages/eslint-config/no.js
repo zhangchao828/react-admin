@@ -30,15 +30,15 @@ module.exports = {
     'no-extend-native': 'warn',
     'no-extra-bind': 'warn',
     'no-extra-label': 'warn',
-    'no-fallthrough': 'warn', // 禁止switch case穿透
-    'no-func-assign': 'warn',
-    'no-implied-eval': 'warn',
+    'no-fallthrough': 2, // 禁止switch case穿透
+    'no-func-assign': 2,
+    'no-implied-eval': 2,
     'no-invalid-regexp': 'warn',
-    'no-iterator': 'warn',
+    'no-iterator': 2,
     'no-return-assign': 2,
     'no-label-var': 'warn',
     'no-labels': ['warn', { allowLoop: true, allowSwitch: false }],
-    'no-lone-blocks': 'warn',
+    'no-lone-blocks': 2,
     'no-loop-func': 'warn',
     'no-return-await': 2, // 禁止在 async function 中使用不必要的 return await
     'no-mixed-operators': [
@@ -112,8 +112,8 @@ module.exports = {
           'Please use import() instead. More info: https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md#code-splitting',
       },
     ],
-    // 一个const，let 定义一个变量
-    'one-var': ['warn', 'never'],
+    //  表示每个变量都必须单独声明
+    'one-var': ['error', 'never'],
     // 不使用 var
     'no-var': 2,
     'no-confusing-arrow': 0,
