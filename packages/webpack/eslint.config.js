@@ -1,4 +1,4 @@
-const { resolve } = require('path')
+const path = require('path')
 
 module.exports = {
   root: true,
@@ -8,7 +8,7 @@ module.exports = {
       legacyDecorators: true,
     },
     babelOptions: {
-      configFile: resolve(__dirname, 'babel.config.js'),
+      configFile: path.resolve(__dirname, 'babel.config.js'),
     },
   },
   extends: ['@glcc/eslint-config'],

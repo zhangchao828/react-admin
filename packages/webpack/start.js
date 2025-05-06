@@ -5,9 +5,9 @@ const webpackDevConfig = require('./webpack.dev.config')
 const getUnusedPort = require('@glcc/shared/getUnusedPort')
 const message = require('@glcc/shared/message')
 const { getConfig } = require('@glcc/shared/project')
-const mock = require('@glcc/plugins/mock')
+// const mock = require('@glcc/plugins/mock')
 const WebpackDevServer = require('webpack-dev-server')
-const express = require('express')
+// const express = require('express')
 
 let { proxy, port, https, base } = getConfig()
 async function start() {
@@ -48,9 +48,13 @@ async function start() {
         watch: false,
       },
     ],
-    setupMiddlewares(middlewares) {
-      return middlewares.concat([express.json(), express.urlencoded({ extended: true }), mock])
-    },
+    // setupMiddlewares(middlewares) {
+    //   return middlewares.concat([
+    //     express.json(),
+    //     express.urlencoded({ extended: true }),
+    //     mock
+    //   ])
+    // },
   }
   const compiler = webpack(webpackDevConfig)
   const devServer = new WebpackDevServer(devOptions, compiler)

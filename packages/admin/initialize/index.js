@@ -1,8 +1,8 @@
 const createRoot = require('./root')
 const createEntry = require('./entry')
 const createFileRouter = require('./fileRouter')
-const initExtra = require('./extra')
-const { isDev } = require('@glcc/shared/env')
+// const initExtra = require('./extra')
+// const { isDev } = require('@glcc/shared/env')
 const pkgManager = require('@glcc/shared/pkgManager')
 const { __temporary, __src } = require('@glcc/shared/paths')
 const fs = require('fs-extra')
@@ -43,7 +43,7 @@ module.exports = async function initialize() {
   createEntry()
   // await initExtra()
   createFileRouter()
-  if (isDev) {
-    require('@glcc/shared/mock').init()
-  }
+  // if (isDev) {
+  //   require('@glcc/shared/mock').init()
+  // }
 }
